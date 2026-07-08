@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://dsh286ifik0t"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_087av"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_rh4b4"]
+[ext_resource type="PackedScene" uid="uid://dp5snq7fa0jqr" path="res://misc/Projectiles/Bomb.tscn" id="2_s7djg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7djg"]
+atlas = ExtResource("1_087av")
+region = Rect2(112, 96, 16, 16)
+
+[resource]
+script = ExtResource("1_rh4b4")
+lvl = 3
+max_durability = 1
+Damage = 40
+Atk_speed = 0.4
+equiped_weapon_sprite = SubResource("AtlasTexture_s7djg")
+projectile = ExtResource("2_s7djg")
+accuracy_radius = 30.0
+miss_chance_per_unit = 0.0
+critical_chance = 0.0
+critical_multiplier = 1.0
+icon = SubResource("AtlasTexture_s7djg")
+item_name = "Bomb"
+price = 63
+quality = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

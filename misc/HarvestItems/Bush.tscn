@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cct8to734kk6v"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_6u0su"]
+[ext_resource type="Script" uid="uid://f0yd1k8maqoo" path="res://misc/HarvestItems/Scripts/bush.gd" id="2_tgede"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_7v7f5"]
+[ext_resource type="Shader" uid="uid://cdlafcs161hqt" path="res://Assets/Shader/tree_wind.gdshader" id="4_ekenn"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_pewux"]
+[ext_resource type="Texture2D" uid="uid://cmrcv7igvpx7a" path="res://misc/HarvestItems/Textures/Bush.png" id="4_tgede"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="7_ekenn"]
+[ext_resource type="PackedScene" uid="uid://dtmd2j03iu8sl" path="res://misc/Particles/BushSFX.tscn" id="8_tgede"]
+[ext_resource type="AudioStream" uid="uid://bd77ep2lty23k" path="res://misc/HarvestItems/SFX/Bush/BushHit.wav" id="9_ekenn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekenn"]
+resource_local_to_scene = true
+shader = ExtResource("4_ekenn")
+shader_parameter/wind_strength = 1.642000077995
+shader_parameter/wind_speed = 2.9790001415025
+shader_parameter/wind_frequency = 0.6490000308275
+shader_parameter/wind_offset = 47.0630022354925
+shader_parameter/fade_alpha = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ekenn"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("9_ekenn")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pewux"]
+radius = 14.4668
+
+[node name="Bush" unique_id=1447417759 instance=ExtResource("1_6u0su")]
+script = ExtResource("2_tgede")
+durability = 2.0
+harvest_tool_lvl = 0
+max_distance = 10.0
+
+[node name="optimizer" parent="." index="2" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+position = Vector2(-0.500001, -10.5)
+scale = Vector2(1.65, 1.05)
+hide_objects = [NodePath("../Sprite2D")]
+
+[node name="droper" parent="." index="3" unique_id=1465568748]
+drop_item = Array[ExtResource("7_ekenn")]([null])
+max_drop = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="4" unique_id=1204876300]
+material = SubResource("ShaderMaterial_ekenn")
+position = Vector2(0, -8)
+texture = ExtResource("4_tgede")
+offset = Vector2(0, -8)
+hframes = 3
+frame = 2
+script = ExtResource("3_7v7f5")
+frame_weights = Array[float]([1.0, 0.2, 0.2])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D" index="0" unique_id=1746089613]
+modulate = Color(0.113725, 0.113725, 0.113725, 0.262745)
+z_index = -1
+position = Vector2(0, 5)
+scale = Vector2(2.125, 0.875)
+texture = ExtResource("4_pewux")
+
+[node name="Particles" parent="." index="6" unique_id=1229593084 instance=ExtResource("8_tgede")]
+lifetime = 0.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="7" unique_id=519609750]
+stream = SubResource("AudioStreamRandomizer_ekenn")
+
+[node name="CollisionShape2D" parent="." index="8" unique_id=1716306559]
+shape = SubResource("CircleShape2D_pewux")
+
+[node name="VFX_damage" parent="." index="9" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../AudioStreamPlayer2D")
+particles = NodePath("../Particles")

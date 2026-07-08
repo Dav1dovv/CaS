@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dy3lr5g4apbby"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_h8fx1"]
+[ext_resource type="Texture2D" uid="uid://c20y2y3iagaw3" path="res://Assets/Textures/Honeycomb.png" id="2_ibp3t"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="3_igalg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cdos3"]
+radius = 4.2601004
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kdp3"]
+size = Vector2(29, 23.4598)
+
+[node name="HarvestItem" unique_id=1934415035 instance=ExtResource("1_h8fx1")]
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
+position = Vector2(0, -5)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_cdos3")
+
+[node name="optimizer" parent="." index="2" unique_id=2100972979]
+rect = Rect2(-18, -28, 34, 29)
+
+[node name="CollisionShape2D" parent="." index="5" unique_id=1716306559]
+position = Vector2(-0.49999976, -12.2701)
+shape = SubResource("RectangleShape2D_1kdp3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="7" unique_id=1334883141]
+position = Vector2(0, -10)
+texture = ExtResource("2_ibp3t")
+offset = Vector2(0, -4)
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D" index="0" unique_id=1776775596]
+modulate = Color(0.15686275, 0.12156863, 0.22352941, 0.28235295)
+show_behind_parent = true
+position = Vector2(-1.0728836e-06, 7.000001)
+scale = Vector2(2.2499998, 1)
+texture = ExtResource("3_igalg")

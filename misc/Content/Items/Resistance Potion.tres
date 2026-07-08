@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://bx17yr7e54sag"]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_xdckt"]
+[ext_resource type="Texture2D" uid="uid://dkj52eeo80ghu" path="res://Assets/Textures/UI/Effects/Effect2.png" id="2_1w8s5"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="3_fy500"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="4_srevl"]
+
+[sub_resource type="Resource" id="Resource_gpc6h"]
+script = ExtResource("1_xdckt")
+effect_icon = ExtResource("2_1w8s5")
+effect_type = 2
+value = 0.2
+duration = 60.0
+particle_color = Color(0.7254902, 0.24313726, 0.08627451, 1)
+particle = ExtResource("3_fy500")
+display_name = "Damage Boost"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vc2tr"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usf3c"]
+atlas = SubResource("CompressedTexture2D_vc2tr")
+region = Rect2(128, 64, 16, 16)
+
+[resource]
+script = ExtResource("4_srevl")
+effects = Array[ExtResource("1_xdckt")]([SubResource("Resource_gpc6h")])
+hunger_restore = 10.0
+icon = SubResource("AtlasTexture_usf3c")
+item_name = "Bomb Berry Potion"
+price = 36
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

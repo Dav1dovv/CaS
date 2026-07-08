@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c5hnv8c4x50ys"
+path="res://.godot/imported/Purple Wilds.mp3-fa326410c29e6fa7e0fc53ca6895b6ba.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Purple Wilds.mp3"
+dest_files=["res://.godot/imported/Purple Wilds.mp3-fa326410c29e6fa7e0fc53ca6895b6ba.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=110.25
+beat_count=299
+bar_beats=4

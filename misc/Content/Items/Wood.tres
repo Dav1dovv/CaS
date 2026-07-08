@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://10qblpi41tcd"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_3tmun"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_khid7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0vno"]
+atlas = ExtResource("1_khid7")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_3tmun")
+icon = SubResource("AtlasTexture_l0vno")
+item_name = "Wood"
+price = 5
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

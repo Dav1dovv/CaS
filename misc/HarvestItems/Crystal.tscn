@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://bodm1xuyyxtpt"]
+
+[ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_c86ts"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_2dd05"]
+[ext_resource type="Resource" uid="uid://dm7ru2a5fnwfi" path="res://misc/Content/Items/Crystal.tres" id="3_4joo7"]
+[ext_resource type="Texture2D" uid="uid://go54rtv4tuav" path="res://misc/HarvestItems/Textures/Crystals.png" id="6_c86ts"]
+[ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="7_gq8jo"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="8_osla5"]
+[ext_resource type="AudioStream" uid="uid://dhnejho0mmxmq" path="res://misc/HarvestItems/SFX/Mining/Destroy1.mp3" id="9_8sbck"]
+[ext_resource type="AudioStream" uid="uid://prb16b2eig2m" path="res://misc/HarvestItems/SFX/Mining/Destroy2.mp3" id="10_yba3j"]
+[ext_resource type="AudioStream" uid="uid://c5rjjykffa2ub" path="res://misc/HarvestItems/SFX/Mining/Destroy3.mp3" id="11_7xtrs"]
+[ext_resource type="AudioStream" uid="uid://bkkykuf2cch6f" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Crystal.mp3" id="12_k0irx"]
+[ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="14_lk14j"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxqxa"]
+radius = 2.9999933
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iy0bo"]
+playback_mode = 1
+streams_count = 3
+stream_0/stream = ExtResource("9_8sbck")
+stream_1/stream = ExtResource("10_yba3j")
+stream_2/stream = ExtResource("11_7xtrs")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_v35ih"]
+playback_mode = 1
+random_pitch = 1.4067994
+streams_count = 1
+stream_0/stream = ExtResource("12_k0irx")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbc7c"]
+size = Vector2(34, 25)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5tadn"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iy0bo"]
+atlas = SubResource("CompressedTexture2D_5tadn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="Gradient" id="Gradient_v35ih"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mktur"]
+gradient = SubResource("Gradient_v35ih")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2o2td"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 28.36
+angle_min = -86.399994
+angle_max = 37.00001
+inherit_velocity_ratio = 0.407
+direction = Vector3(0, -1, 0)
+spread = 25.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 700, 0)
+damping_min = 100.0
+damping_max = 800.0
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_mktur")
+
+[node name="Crysrtal" unique_id=189448538 instance=ExtResource("1_c86ts")]
+durability = 12.0
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+position = Vector2(-1, -2)
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_gxqxa")
+
+[node name="optimizer" parent="." index="2" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+position = Vector2(-4.76837e-07, -11)
+scale = Vector2(1.7, 1.3)
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
+
+[node name="droper" parent="." index="3" unique_id=1465568748]
+drop_item = Array[ExtResource("2_2dd05")]([ExtResource("3_4joo7")])
+max_drop = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="5" unique_id=1808674882]
+position = Vector2(0, -9)
+texture = ExtResource("6_c86ts")
+offset = Vector2(0, -6)
+hframes = 3
+frame = 1
+script = ExtResource("7_gq8jo")
+frame_weights = Array[float]([0.5, 0.5, 0.5])
+metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
+
+[node name="Shadow" type="Sprite2D" parent="." index="6" unique_id=1119134542]
+self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)
+z_index = -10
+position = Vector2(0, -2.0000002)
+scale = Vector2(2.125, 0.875)
+texture = ExtResource("8_osla5")
+
+[node name="Destroy" type="AudioStreamPlayer2D" parent="." index="7" unique_id=2139289417]
+stream = SubResource("AudioStreamRandomizer_iy0bo")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="." index="8" unique_id=2039981130]
+stream = SubResource("AudioStreamRandomizer_v35ih")
+pitch_scale = 1.5
+
+[node name="CollisionShape2D" parent="." index="9" unique_id=1716306559]
+position = Vector2(2.38419e-07, -11.5)
+shape = SubResource("RectangleShape2D_bbc7c")
+
+[node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("14_lk14j")]
+texture = SubResource("AtlasTexture_iy0bo")
+process_material = SubResource("ParticleProcessMaterial_2o2td")
+
+[node name="VFX_damage" parent="." index="11" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../SFX")
+particles = NodePath("../GPUParticles2D")

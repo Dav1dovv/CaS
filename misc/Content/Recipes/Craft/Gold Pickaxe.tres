@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://c51duqsj3v4pa"]
+
+[ext_resource type="Resource" uid="uid://ce8lum742bja1" path="res://misc/Content/Items/IronOre.tres" id="1_t1nob"]
+[ext_resource type="Resource" uid="uid://dq73nt5b44oyx" path="res://misc/Content/Items/GoldOre.tres" id="1_xb5ab"]
+[ext_resource type="Resource" uid="uid://ckk0m6kddgyjk" path="res://misc/Content/Items/Gold_Pickaxe.tres" id="2_plcfi"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_plcfi"]
+[ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="4_3kxpu"]
+
+[resource]
+script = ExtResource("3_plcfi")
+recipe_name = "Gold Pickaxe"
+category = 1
+result_item = ExtResource("2_plcfi")
+main_resource = ExtResource("1_xb5ab")
+main_amount = 10
+secondary_resource = ExtResource("1_t1nob")
+secondary_amount = 5
+third_resource = ExtResource("4_3kxpu")
+third_amount = 3
+gold_cost = 450
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

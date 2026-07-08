@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cypahv64e8xq4"
+path="res://.godot/imported/Sunlit Forest Cycle.mp3-99452e0c40d6b3b3c70a6a84faea6685.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Sunlit Forest Cycle.mp3"
+dest_files=["res://.godot/imported/Sunlit Forest Cycle.mp3-99452e0c40d6b3b3c70a6a84faea6685.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

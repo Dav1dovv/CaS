@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dxg74nxb8uriw"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_d2j3p"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_oyo0s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp2jv"]
+atlas = ExtResource("1_d2j3p")
+region = Rect2(112, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_oyo0s")
+icon = SubResource("AtlasTexture_yp2jv")
+item_name = "Cactus"
+price = 10
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://crbp0pg0hr5d"]
+
+[ext_resource type="Resource" uid="uid://c3tykw7ifff31" path="res://misc/Content/Items/Diamond.tres" id="1_cjdbe"]
+[ext_resource type="Resource" uid="uid://dq73nt5b44oyx" path="res://misc/Content/Items/GoldOre.tres" id="1_wmuvq"]
+[ext_resource type="Resource" uid="uid://bvquh55m2iule" path="res://misc/Content/Items/Diamond_Pickaxe.tres" id="2_gvx40"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_gvx40"]
+[ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="5_nfr83"]
+
+[resource]
+script = ExtResource("3_gvx40")
+recipe_name = "Diamond Pickaxe"
+category = 1
+result_item = ExtResource("2_gvx40")
+main_resource = ExtResource("1_cjdbe")
+main_amount = 10
+secondary_resource = ExtResource("1_wmuvq")
+secondary_amount = 5
+third_resource = ExtResource("5_nfr83")
+third_amount = 3
+gold_cost = 700
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

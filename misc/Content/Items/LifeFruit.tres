@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://dwhy2xb7bqqsf"]
+
+[ext_resource type="AudioStream" uid="uid://c2shi73coycxl" path="res://Assets/Audio/SFX/Player/Eating.wav" id="1_0ya5u"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_3kco4"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_urbld"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="3_412gs"]
+[ext_resource type="Resource" uid="uid://ca7iuwj5lfqa5" path="res://misc/Content/Effects/Regeneration.tres" id="3_kr1wq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kr1wq"]
+atlas = ExtResource("3_412gs")
+region = Rect2(80, 48, 16, 16)
+
+[resource]
+script = ExtResource("2_urbld")
+eat_sound = ExtResource("1_0ya5u")
+effects = Array[ExtResource("1_3kco4")]([ExtResource("3_kr1wq")])
+hunger_restore = 12.0
+icon = SubResource("AtlasTexture_kr1wq")
+play_anim = "Eating"
+item_name = "LifeFruit"
+price = 13
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://ck0deupdvqbv6"]
+
+[ext_resource type="Resource" uid="uid://bocl8kdjoappd" path="res://misc/Content/Items/Sting with Honey.tres" id="1_4p4tq"]
+[ext_resource type="Resource" uid="uid://dt6c2htc1a2l5" path="res://misc/Content/Items/Honey.tres" id="2_q4plp"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_k8ro6"]
+
+[resource]
+script = ExtResource("3_k8ro6")
+recipe_name = "Honey"
+category = 2
+result_item = ExtResource("2_q4plp")
+result_amount = 2
+main_resource = ExtResource("1_4p4tq")
+main_amount = 3
+secondary_amount = 6
+gold_cost = 32
+required_smith_level = 2
+workbench_only = true
+smith_only = true
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

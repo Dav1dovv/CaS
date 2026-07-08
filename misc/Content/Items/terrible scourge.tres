@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://b5r048nvnwked"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_ydyh7"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y5dtn"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydyh7"]
+atlas = SubResource("CompressedTexture2D_y5dtn")
+region = Rect2(160, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_ydyh7")
+max_durability = 135
+Damage = 13
+Atk_speed = 0.85
+equiped_weapon_sprite = SubResource("AtlasTexture_ydyh7")
+icon = SubResource("AtlasTexture_ydyh7")
+item_name = "terrible scourge"
+stackable = false
+price = 320
+quality = 2
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

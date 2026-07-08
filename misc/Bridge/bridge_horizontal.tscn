@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://b4tlcf3yxx25v"]
+
+[ext_resource type="Script" uid="uid://cpfny7s2gkavl" path="res://misc/Bridge/BridgeLogic.gd" id="1_eibuv"]
+[ext_resource type="Texture2D" uid="uid://b4r05ew3hkplf" path="res://Assets/Textures/Bridge.png" id="2_50nfg"]
+[ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="3_pvmgr"]
+[ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://scr/Systems/Interaction/Interaction.gd" id="4_qhy2w"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_5thi4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdos3"]
+size = Vector2(84, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kdp3"]
+size = Vector2(86, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdos3"]
+atlas = ExtResource("5_5thi4")
+region = Rect2(1, 2, 14, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iw1ep"]
+size = Vector2(98, 27)
+
+[node name="Bridge_Horizontal" type="Node2D" unique_id=1947328939]
+y_sort_enabled = true
+script = ExtResource("1_eibuv")
+
+[node name="Broken" type="Node2D" parent="." unique_id=1987145662]
+position = Vector2(16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Broken" unique_id=306496451]
+texture = ExtResource("2_50nfg")
+region_enabled = true
+region_rect = Rect2(79, 53, 45, 28)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Broken" unique_id=1534663517]
+position = Vector2(49, 0)
+texture = ExtResource("2_50nfg")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(79, 53, 45, 28)
+
+[node name="RapierStaticBody2D" type="StaticBody2D" parent="Broken" unique_id=1408399112]
+script = ExtResource("3_pvmgr")
+metadata/_custom_type_script = "uid://busd3yfk5p1mx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Broken/RapierStaticBody2D" unique_id=1479020969]
+position = Vector2(25, 0)
+shape = SubResource("RectangleShape2D_cdos3")
+
+[node name="Builded" type="Node2D" parent="." unique_id=701150851]
+visible = false
+y_sort_enabled = true
+
+[node name="Sprite2D3" type="Sprite2D" parent="Builded" unique_id=1106885811]
+z_index = -6
+position = Vector2(42, -15)
+texture = ExtResource("2_50nfg")
+offset = Vector2(0, -5)
+region_enabled = true
+region_rect = Rect2(7, 35, 85, 13)
+
+[node name="Sprite2D" type="Sprite2D" parent="Builded" unique_id=112355895]
+z_index = -6
+position = Vector2(42, 0)
+texture = ExtResource("2_50nfg")
+region_enabled = true
+region_rect = Rect2(4, 4, 86, 28)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Builded" unique_id=601502516]
+position = Vector2(42, 6)
+texture = ExtResource("2_50nfg")
+offset = Vector2(0, -1)
+region_enabled = true
+region_rect = Rect2(7, 35, 85, 13)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Builded" unique_id=740914849]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Builded/StaticBody2D" unique_id=250416347]
+position = Vector2(42, 11)
+shape = SubResource("RectangleShape2D_1kdp3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Builded/StaticBody2D" unique_id=1731341336]
+position = Vector2(42, -17)
+shape = SubResource("RectangleShape2D_1kdp3")
+
+[node name="interaction_area" type="Area2D" parent="." unique_id=294933978]
+collision_layer = 128
+collision_mask = 256
+script = ExtResource("4_qhy2w")
+show_message = "Build
+"
+icon_help = SubResource("AtlasTexture_cdos3")
+metadata/_custom_type_script = "uid://btxho8sqg8tnx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interaction_area" unique_id=893558299]
+position = Vector2(39, 0.5)
+shape = SubResource("RectangleShape2D_iw1ep")
+
+[connection signal="area_entered" from="interaction_area" to="." method="_on_interaction_area_area_entered"]
+[connection signal="area_exited" from="interaction_area" to="." method="_on_interaction_area_area_exited"]

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dthgslbfnjeal"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_5ntmw"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_r4rm4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cgwc"]
+atlas = ExtResource("1_r4rm4")
+region = Rect2(48, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_5ntmw")
+icon = SubResource("AtlasTexture_2cgwc")
+item_name = "Slime"
+price = 7
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

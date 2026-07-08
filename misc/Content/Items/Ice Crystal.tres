@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cnaqjjiqdtoc"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_mc5dl"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_wudbk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etltl"]
+atlas = ExtResource("1_wudbk")
+region = Rect2(128, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_mc5dl")
+icon = SubResource("AtlasTexture_etltl")
+item_name = "Ice Crystal"
+price = 6
+quality = 2
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

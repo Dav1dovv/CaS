@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c3tykw7ifff31"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_kkpaj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_db203"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twv0l"]
+atlas = SubResource("CompressedTexture2D_db203")
+region = Rect2(64, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_kkpaj")
+icon = SubResource("AtlasTexture_twv0l")
+item_name = "Diamond"
+price = 80
+quality = 2
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

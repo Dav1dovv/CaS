@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://cdnyra3gg6llb"]
+
+[ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="1_m0wed"]
+[ext_resource type="Resource" uid="uid://bp7w2ejdhuqx4" path="res://misc/Content/Items/Ice.tres" id="1_ugb6e"]
+[ext_resource type="Resource" uid="uid://t0jqqhauvtox" path="res://misc/Content/Items/Bow from snows.tres" id="2_m0wed"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_8u85j"]
+[ext_resource type="Resource" uid="uid://cnaqjjiqdtoc" path="res://misc/Content/Items/Ice Crystal.tres" id="4_fu6np"]
+
+[resource]
+script = ExtResource("3_8u85j")
+recipe_name = "Ice Bow"
+result_item = ExtResource("2_m0wed")
+main_resource = ExtResource("4_fu6np")
+main_amount = 7
+secondary_resource = ExtResource("1_ugb6e")
+secondary_amount = 3
+third_resource = ExtResource("1_m0wed")
+third_amount = 6
+gold_cost = 150
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

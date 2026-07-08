@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cl835faujf5pq"]
+
+[ext_resource type="Script" uid="uid://boo5dg11neu5r" path="res://misc/UI/PlayerInfoMenu/player_info_menu.gd" id="1_ggygi"]
+[ext_resource type="Script" uid="uid://bttgnk3bb2a8i" path="res://addons/font_auto_size_labels/auto_size_label.gd" id="1_qe8gp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jhamk"]
+
+[node name="Info" type="Panel" unique_id=221554915]
+custom_minimum_size = Vector2(122.17, 141)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ggygi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1845652372]
+custom_minimum_size = Vector2(113, 137)
+layout_mode = 0
+offset_left = 5.0
+offset_right = 118.0
+offset_bottom = 137.0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1723776729]
+layout_mode = 2
+text = "INFO"
+label_settings = SubResource("LabelSettings_jhamk")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1623950259]
+layout_mode = 2
+
+[node name="Day" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=791585661]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Day"
+
+[node name="Location" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=520116430]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Location"
+
+[node name="Note" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=1006233997]
+visible = false
+custom_minimum_size = Vector2(0, 25.855)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Note"
+autowrap_mode = 3
+clip_text = true
+script = ExtResource("1_qe8gp")
+_max_size = 18
+_min_size = 4
+_current_font_size = 18
+_editor_defaults_set = true
+metadata/_custom_type_script = "uid://bttgnk3bb2a8i"

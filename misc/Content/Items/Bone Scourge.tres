@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://b5uoo06dgfo"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_x8dck"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y5dtn"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8dck"]
+atlas = SubResource("CompressedTexture2D_y5dtn")
+region = Rect2(144, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmvdw"]
+atlas = SubResource("CompressedTexture2D_y5dtn")
+region = Rect2(144, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_x8dck")
+max_durability = 60
+Damage = 10
+equiped_weapon_sprite = SubResource("AtlasTexture_x8dck")
+on_hit_effect = "slow"
+icon = SubResource("AtlasTexture_hmvdw")
+item_name = "Bone scourge"
+stackable = false
+price = 172
+quality = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

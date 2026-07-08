@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://bohpeccjdy056"]
+
+[ext_resource type="Resource" uid="uid://b4cp51e8wdccx" path="res://misc/Content/Items/Sting.tres" id="1_2vl1c"]
+[ext_resource type="Resource" uid="uid://bkj5ut2ucrwn1" path="res://misc/Content/Items/Needle.tres" id="2_5f61k"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_afykm"]
+[ext_resource type="Resource" uid="uid://dt6c2htc1a2l5" path="res://misc/Content/Items/Honey.tres" id="4_afykm"]
+[ext_resource type="Resource" uid="uid://bgxln2nrofexr" path="res://misc/Content/Items/CooperOre.tres" id="5_7h0a4"]
+
+[resource]
+script = ExtResource("3_afykm")
+recipe_name = "Yellow Hornet"
+result_item = ExtResource("2_5f61k")
+main_resource = ExtResource("1_2vl1c")
+main_amount = 13
+secondary_resource = ExtResource("4_afykm")
+secondary_amount = 2
+third_resource = ExtResource("5_7h0a4")
+third_amount = 7
+gold_cost = 80
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

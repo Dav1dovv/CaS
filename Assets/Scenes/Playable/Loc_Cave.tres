@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SceneData" format=3 uid="uid://b1qwqqlv1y0wb"]
+
+[ext_resource type="Script" uid="uid://dahsqqqv7jj4q" path="res://scr/Resources/SceneController.gd" id="1_r3ok0"]
+
+[resource]
+script = ExtResource("1_r3ok0")
+key = "Cave"
+scene_path = "uid://cymytdtniu26a"
+display_name = "Cave"
+biome = "Cave"
+is_underground = true
+music_key = "Cave"
+loading_hints = Array[String](["Cave's is dangerous", "Secrets in the deep", "This is strange", "ara de paxar"])
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"

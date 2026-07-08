@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://2p2o8pvxptw2"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_pn7nm"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_bqwq6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35lw3"]
+atlas = ExtResource("1_pn7nm")
+region = Rect2(112, 32, 16, 16)
+
+[resource]
+script = ExtResource("2_bqwq6")
+icon = SubResource("AtlasTexture_35lw3")
+item_name = "Forgoten Diary"
+max_count = 40
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

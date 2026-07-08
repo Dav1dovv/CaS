@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cdlu6p53m4xhu"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_luijw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ne3u"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luijw"]
+atlas = SubResource("CompressedTexture2D_5ne3u")
+region = Rect2(80, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb5wo"]
+atlas = SubResource("CompressedTexture2D_5ne3u")
+region = Rect2(80, 112, 16, 16)
+
+[resource]
+script = ExtResource("1_luijw")
+Damage = 4
+Atk_speed = 2.0
+equiped_weapon_sprite = SubResource("AtlasTexture_luijw")
+on_hit_effect = "poison"
+passive_player_effect = "speed_boost"
+icon = SubResource("AtlasTexture_pb5wo")
+item_name = "Spider Hornet"
+stackable = false
+price = 70
+quality = 3
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

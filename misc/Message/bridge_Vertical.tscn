@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://c3oebxgm6ibq"]
+
+[ext_resource type="PackedScene" uid="uid://b4tlcf3yxx25v" path="res://misc/Bridge/bridge_horizontal.tscn" id="1_itaao"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07ie8"]
+size = Vector2(84, 22)
+
+[node name="Bridge_Horizontal" unique_id=1947328939 instance=ExtResource("1_itaao")]
+
+[node name="Sprite2D" parent="Broken" parent_id_path=PackedInt32Array(1987145662) index="0" unique_id=306496451]
+position = Vector2(-16, -17)
+region_rect = Rect2(45, 90, 39, 35)
+
+[node name="Sprite2D2" parent="Broken" parent_id_path=PackedInt32Array(1987145662) index="1" unique_id=1534663517]
+position = Vector2(-17, -64)
+flip_v = true
+region_rect = Rect2(45, 90, 39, 35)
+
+[node name="RapierStaticBody2D" parent="Broken" parent_id_path=PackedInt32Array(1987145662) index="2" unique_id=1408399112]
+position = Vector2(-16, -14)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" parent="Broken/RapierStaticBody2D" index="0" unique_id=1479020969]
+position = Vector2(25, -0.99999946)
+shape = SubResource("RectangleShape2D_07ie8")
+
+[node name="Sprite2D3" parent="Builded" parent_id_path=PackedInt32Array(701150851) index="0" unique_id=1106885811]
+position = Vector2(0, -32)
+region_rect = Rect2(1, 51, 30, 74)
+
+[node name="Sprite2D" parent="Builded" parent_id_path=PackedInt32Array(701150851) index="1" unique_id=112355895]
+visible = false
+
+[node name="Sprite2D2" parent="Builded" parent_id_path=PackedInt32Array(701150851) index="2" unique_id=601502516]
+visible = false
+
+[node name="StaticBody2D" parent="Builded" parent_id_path=PackedInt32Array(701150851) index="3" unique_id=740914849]
+position = Vector2(0, 1)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" parent="Builded/StaticBody2D" index="0" unique_id=250416347]
+position = Vector2(42, 13.000002)
+
+[node name="CollisionShape2D2" parent="Builded/StaticBody2D" index="1" unique_id=1731341336]
+position = Vector2(43, -13.999998)
+
+[node name="interaction_area" parent="." index="2" unique_id=294933978]
+rotation = -1.5707964

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bocl8kdjoappd"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_07x42"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_tg2tp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb4om"]
+atlas = ExtResource("1_07x42")
+region = Rect2(112, 128, 16, 16)
+
+[resource]
+script = ExtResource("2_tg2tp")
+icon = SubResource("AtlasTexture_mb4om")
+item_name = "Sting wth Honey"
+max_count = 30
+price = 22
+quality = 1
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

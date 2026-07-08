@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cw4dpl8n3v440"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_xyr2i"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_okwsi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wcyv"]
+atlas = ExtResource("1_xyr2i")
+region = Rect2(0, 16, 16, 16)
+
+[resource]
+script = ExtResource("2_okwsi")
+icon = SubResource("AtlasTexture_2wcyv")
+item_name = "Bone"
+price = 9
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

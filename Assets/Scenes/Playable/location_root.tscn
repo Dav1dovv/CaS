@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://fgmnq4ft82wh"]
+
+[ext_resource type="Script" uid="uid://bdpkv7mxycsja" path="res://scr/Manager/GameManager.gd" id="1_8lo6w"]
+[ext_resource type="Material" uid="uid://ck0bsq2xn8j1g" path="res://misc/TileSets/new_shader_material.tres" id="5_2wn0h"]
+[ext_resource type="PackedScene" uid="uid://qc6y8v64442s" path="res://misc/Entity/Player/player.tscn" id="6_bd8m6"]
+[ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="7_1ds54"]
+[ext_resource type="Script" uid="uid://cx0477dq0nkws" path="res://scr/Misc/Blaze_camera.gd" id="7_2ifnd"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_1ds54"]
+[ext_resource type="Script" uid="uid://bl7jbpdad5e77" path="res://scr/Systems/Creature_Spawner/creature_spawner.gd" id="8_2ifnd"]
+[ext_resource type="Script" uid="uid://cspf06hgc8h0w" path="res://scr/Systems/Creature_Spawner/SpawnConfig.gd" id="9_1ds54"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_n55o3"]
+[ext_resource type="PackedScene" uid="uid://bu36h4hqr8fy5" path="res://misc/Entity/Enemies/slime.tscn" id="10_n55o3"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_q0jo5"]
+[ext_resource type="Script" uid="uid://cooaoinsq4ef1" path="res://scr/Systems/DayNightCycle/WeatherSystem.gd" id="12_0ah42"]
+[ext_resource type="PackedScene" uid="uid://fxof1sd0g3o4" path="res://scr/Systems/DayNightCycle/Weather/rain.tscn" id="13_2wn0h"]
+[ext_resource type="PackedScene" uid="uid://2o0o5m2mc63k" path="res://scr/Systems/DayNightCycle/Weather/heavy_rain.tscn" id="14_jigvp"]
+[ext_resource type="PackedScene" uid="uid://doqxo2pawi5rt" path="res://scr/Systems/DayNightCycle/Weather/fog.tscn" id="15_0okwq"]
+[ext_resource type="PackedScene" uid="uid://4yl2s8436vcp" path="res://scr/Systems/DayNightCycle/Weather/storm.tscn" id="16_2wn0h"]
+[ext_resource type="PackedScene" uid="uid://beftdhk2k5lrh" path="res://scr/Systems/DayNightCycle/Weather/clear.tscn" id="16_62pxm"]
+
+[sub_resource type="Resource" id="Resource_q0jo5"]
+script = ExtResource("9_1ds54")
+creature_scene = ExtResource("10_n55o3")
+metadata/_custom_type_script = "uid://cspf06hgc8h0w"
+
+[sub_resource type="Resource" id="Resource_2wn0h"]
+resource_local_to_scene = true
+resource_name = "Player Stat"
+script = ExtResource("7_1ds54")
+base_move_speed = 6.0
+base_armor = 10.0
+base_defense_modifier = 0.2
+metadata/_custom_type_script = "uid://cpp05fs341abo"
+
+[sub_resource type="Resource" id="Resource_xe8ot"]
+script = ExtResource("10_q0jo5")
+
+[node name="LocationRoot" type="Node2D" unique_id=1133907741 groups=["World"]]
+y_sort_enabled = true
+script = ExtResource("1_8lo6w")
+
+[node name="CreatureSpawner" type="Node2D" parent="." unique_id=2003484596]
+script = ExtResource("8_2ifnd")
+creatures = Array[ExtResource("9_1ds54")]([SubResource("Resource_q0jo5")])
+metadata/_custom_type_script = "uid://bl7jbpdad5e77"
+
+[node name="Panel" type="ColorRect" parent="." unique_id=1457772363]
+z_index = -26
+material = ExtResource("5_2wn0h")
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player" parent="." unique_id=1150737309 instance=ExtResource("6_bd8m6")]
+dodge_speed = 45.0
+dodge_duration = 0.22
+Entity_stats = SubResource("Resource_2wn0h")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1490511306]
+physics_interpolation_mode = 1
+top_level = true
+position = Vector2(0, -9.62)
+process_callback = 0
+position_smoothing_speed = 2.0
+editor_draw_limits = true
+script = ExtResource("7_2ifnd")
+auto_screenshot = false
+metadata/_custom_type_script = "uid://cx0477dq0nkws"
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=364165481]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("8_1ds54")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=2085077661 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(0, -9.62)
+script = ExtResource("9_n55o3")
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_xe8ot")
+follow_offset = Vector2(0, -9.62)
+draw_limits = true
+limit_target = NodePath("../TileMapLayer")
+limit_margin = Vector4i(-106, -68, -107, -44)
+
+[node name="weatherUI" type="CanvasLayer" parent="." unique_id=1699269038]
+layer = 0
+
+[node name="WeatherSystem" type="Node" parent="weatherUI" unique_id=684586093]
+script = ExtResource("12_0ah42")
+rain_effect = ExtResource("13_2wn0h")
+heavy_rain_effect = ExtResource("14_jigvp")
+fog_effect = ExtResource("15_0okwq")
+sandstorm_effect = ExtResource("16_2wn0h")
+clear_sky_effect = ExtResource("16_62pxm")
+morning_rays_effect = ExtResource("16_62pxm")
+rain_chance = 50
+min_minutes = 7.0
+max_minutes = 10.0
+metadata/_custom_type_script = "uid://cooaoinsq4ef1"
+
+[connection signal="died" from="Player" to="." method="_on_player_died"]

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://ihwt2l5c5ui5"]
+
+[ext_resource type="Resource" uid="uid://bgxln2nrofexr" path="res://misc/Content/Items/CooperOre.tres" id="1_ddqhq"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="1_mx7ae"]
+[ext_resource type="Resource" uid="uid://dhnijb5akge37" path="res://misc/Content/Items/Copper_Sword.tres" id="2_6q8j5"]
+
+[resource]
+script = ExtResource("1_mx7ae")
+recipe_name = "Cooper Sword"
+result_item = ExtResource("2_6q8j5")
+main_resource = ExtResource("1_ddqhq")
+main_amount = 15
+gold_cost = 120
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

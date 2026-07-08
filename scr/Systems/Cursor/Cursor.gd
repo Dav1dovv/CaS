@@ -1,0 +1,258 @@
+extends Area2D
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  Cursor.gd — 7 состояний курсора
+#
+#  Приоритет состояний (от высшего к низшему):
+#    1. CurseObject рядом    → deflect (отбей!)
+#    2. Враг                 → fight
+#    3. Harvestable в зоне   → gather / gather_corrupted_weak / gather_corrupted_strong / gather_wrong_tier
+#    4. Harvestable далеко   → gather_out_of_range
+#    5. Interaction          → interact
+#    6. По умолчанию         → simple
+#
+#  COLLISION MASKS (добавить в _init или в Godot Inspector):
+#    Mask 2  — Harvestable layer
+#    Mask 6  — Enemy HurtBox layer (проверить в своём проекте)
+#    Mask 8  — Interaction layer (уже есть)
+#    Mask 10 — CurseObject layer (если назначен)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+const MOUSE_Arrow    = preload("res://Assets/Textures/UI/Cursors/Cursor1.png")
+const MOUSE_Interact = preload("res://Assets/Textures/UI/Cursors/Cursor5.png")
+const MOUSE_Shot     = preload("res://Assets/Textures/UI/Cursors/Cursor2.png")
+const MOUSE_Attack   = preload("res://Assets/Textures/UI/Cursors/Cursor3.png")
+const MOUSE_Gather   = preload("res://Assets/Textures/UI/Cursors/Cursor4.png")
+
+# TODO: добавить текстуры для новых состояний курсора:
+# const MOUSE_Gather_Corrupted_Weak   = preload("res://Assets/Textures/UI/Cursors/Cursor_GatherCorruptWeak.png")
+# const MOUSE_Gather_Corrupted_Strong = preload("res://Assets/Textures/UI/Cursors/Cursor_GatherCorruptStrong.png")
+# const MOUSE_Gather_Wrong_Tier       = preload("res://Assets/Textures/UI/Cursors/Cursor_GatherWrongTier.png")
+# const MOUSE_Gather_Out_of_Range     = preload("res://Assets/Textures/UI/Cursors/Cursor_GatherOutOfRange.png")
+# const MOUSE_Deflect                 = preload("res://Assets/Textures/UI/Cursors/Cursor_Deflect.png")
+# Пока используем существующие с разным modulate
+
+@export var help_label : Label
+
+## Максимальное расстояние от игрока до объекта для добычи (в пикселях)
+## 2 тайла × 16px = 32px. Если тайл другого размера — поменяй.
+@export var harvest_range: float = 48.0
+
+@onready var hint: Sprite2D = $Hint
+
+var _player: Node = null
+var _hotbar: Node = null
+var _current_state: String = "simple"
+
+# Отслеживаем что сейчас под курсором
+var _overlapping_harvestable: Harvestable = null
+var _overlapping_enemy: bool = false
+var _overlapping_interaction: Area2D = null
+var _overlapping_curse: bool = false
+
+
+func _init() -> void:
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+	set_collision_layer_value(9, true)
+	set_collision_mask_value(8, true)   # interaction (было)
+	set_collision_mask_value(2, true)   # Harvestable layer — НОВОЕ
+	set_collision_mask_value(6, true)   # Enemy HurtBox layer — НОВОЕ (проверь слой)
+
+
+func _ready() -> void:
+	_player = get_tree().get_first_node_in_group("Player")
+	_hotbar = get_tree().get_first_node_in_group("Hotbar")
+
+	area_entered.connect(_on_area_entered)
+	area_exited.connect(_on_area_exited)
+
+
+func _process(_delta: float) -> void:
+	global_position = get_global_mouse_position()
+	_update_cursor_state()
+
+
+# ─── Обновление состояния ──────────────────────────────────────────────────────
+
+func _update_cursor_state() -> void:
+	var new_state: String = _determine_state()
+	if new_state != _current_state:
+		_current_state = new_state
+		_apply_cursor_state(new_state)
+
+
+func _determine_state() -> String:
+	# 1. CurseObject рядом → deflect
+	if _overlapping_curse:
+		return "deflect"
+
+	# 2. Враг → fight
+	if _overlapping_enemy:
+		return "fight"
+
+	# 3. Harvestable — определяем подтип
+	if _overlapping_harvestable != null:
+		return _get_harvestable_state(_overlapping_harvestable)
+
+	# 4. Interaction
+	if _overlapping_interaction != null:
+		return "interact"
+
+	# 5. Default
+	return "simple"
+
+
+func _get_harvestable_state(h: Harvestable) -> String:
+	# Расстояние от игрока до объекта
+	if _player != null:
+		var dist = _player.global_position.distance_to(h.global_position)
+		if dist > harvest_range:
+			return "gather_out_of_range"
+
+	# Текущий tier инструмента
+	var tool_lvl := _get_current_tool_lvl()
+
+	# Неверный tier — кирка сломается быстрее, спавн CurseObject
+	if tool_lvl < h.harvest_tool_lvl:
+		return "gather_wrong_tier"
+
+	# Заражённый объект
+	if h.is_corrupted:
+		# Сильно заражённый (durability > базовой + 15 → считаем сильно)
+		if h.durability > 30.0:
+			return "gather_corrupted_strong"
+		return "gather_corrupted_weak"
+
+	return "gather"
+
+
+func _get_current_tool_lvl() -> int:
+	if _hotbar == null:
+		return 0
+	if _hotbar.selected_index >= _hotbar.slots.size():
+		return 0
+	var slot = _hotbar.slots[_hotbar.selected_index]
+	if slot.item is equip_data:
+		return (slot.item as equip_data).lvl
+	return 0
+
+
+# ─── Применение курсора ────────────────────────────────────────────────────────
+
+func _apply_cursor_state(state: String) -> void:
+	match state:
+		"simple":
+			_set_cursor(MOUSE_Arrow, Color.WHITE)
+			_clear_label()
+
+		"fight":
+			_set_cursor(MOUSE_Attack, Color.WHITE)
+			_clear_label()
+
+		"interact":
+			_set_cursor(MOUSE_Interact, Color.WHITE)
+			if _overlapping_interaction and _overlapping_interaction.get("show_message"):
+				help_label.text = _overlapping_interaction.show_message
+
+		"gather":
+			# Кирка — можно добывать
+			_set_cursor(MOUSE_Gather, Color.WHITE)
+			_clear_label()
+
+		"gather_corrupted_weak":
+			# Кирка с тёмным свечением — можно, но получишь заражение
+			_set_cursor(MOUSE_Gather, Color(0.8, 0.4, 0.9))
+			help_label.text = "Заражённый объект"
+
+		"gather_corrupted_strong":
+			# Кирка красная + пульсация — опасно без защиты
+			_set_cursor(MOUSE_Gather, Color(1.0, 0.2, 0.2))
+			help_label.text = "Сильное заражение — нужна защита!"
+
+		"gather_wrong_tier":
+			# Кирка с трещиной — можно, но кирка ломается быстрее + CurseObject
+			_set_cursor(MOUSE_Gather, Color(0.5, 0.5, 0.5))
+			help_label.text = "Нужна кирка лучше (кирка сломается быстрее)"
+
+		"gather_out_of_range":
+			# Кирка полупрозрачная — слишком далеко
+			_set_cursor(MOUSE_Gather, Color(1.0, 1.0, 1.0, 0.4))
+			_clear_label()
+
+		"deflect":
+			# Меч — отбей проклятие!
+			_set_cursor(MOUSE_Attack, Color(0.4, 0.0, 0.8))
+			help_label.text = "Отбей!"
+
+
+func _set_cursor(texture: Texture2D, color: Color) -> void:
+	Input.set_custom_mouse_cursor(texture, Input.CURSOR_ARROW, Vector2(0, 0))
+	# Tint hint sprite чтобы показать цвет состояния
+	hint.modulate = color
+
+
+func _clear_label() -> void:
+	if help_label:
+		help_label.text = ""
+
+
+# ─── Детекция area_entered / area_exited ──────────────────────────────────────
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Harvestable"):
+		_overlapping_harvestable = area as Harvestable
+
+	elif area.is_in_group("Ennemy"):
+		_overlapping_enemy = true
+
+	elif area.is_in_group("CurseObject"):
+		_overlapping_curse = true
+
+	elif area.is_in_group("interaction"):
+		_overlapping_interaction = area
+		if area.get("show_message"):
+			help_label.text = area.show_message
+
+
+func _on_area_exited(area: Area2D) -> void:
+	if area.is_in_group("Harvestable"):
+		if _overlapping_harvestable == area:
+			_overlapping_harvestable = null
+
+	elif area.is_in_group("Ennemy"):
+		_overlapping_enemy = false
+
+	elif area.is_in_group("CurseObject"):
+		_overlapping_curse = false
+
+	elif area.is_in_group("interaction"):
+		_overlapping_interaction = null
+		_clear_label()
+
+	hint.visible = false
+
+
+# ─── Совместимость со старым API ──────────────────────────────────────────────
+
+func Help_hint(Help_Texture) -> void:
+	hint.visible = true
+	hint.texture = Help_Texture
+
+
+func change_curosr(type: String) -> void:
+	match type:
+		"interact":
+			_apply_cursor_state("interact")
+		"gather":
+			_apply_cursor_state("gather")
+		"fight":
+			_apply_cursor_state("fight")
+		"simple":
+			_apply_cursor_state("simple")
+
+
+func detection_mode(mode: bool) -> void:
+	$CollisionShape2D.disabled = mode
+	if mode:
+		_apply_cursor_state("simple")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://rycqe6ufvth1"
+path="res://.godot/imported/Mossy Clearing.mp3-7fcdf809f4fb00c00dd22b0b47fdc741.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Mossy Clearing.mp3"
+dest_files=["res://.godot/imported/Mossy Clearing.mp3-7fcdf809f4fb00c00dd22b0b47fdc741.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=79.79
+beat_count=184
+bar_beats=4

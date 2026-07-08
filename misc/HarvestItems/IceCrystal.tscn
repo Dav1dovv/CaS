@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cey630rjuqei1"]
+
+[ext_resource type="PackedScene" uid="uid://bodm1xuyyxtpt" path="res://misc/HarvestItems/Crystal.tscn" id="1_kvqc7"]
+[ext_resource type="Texture2D" uid="uid://ttc3y6g68a03" path="res://misc/HarvestItems/Textures/ColdCrystal.png" id="2_egw7y"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_xo7vi"]
+[ext_resource type="Resource" uid="uid://cnaqjjiqdtoc" path="res://misc/Content/Items/Ice Crystal.tres" id="3_vg62e"]
+
+[node name="Crysrtal" unique_id=189448538 instance=ExtResource("1_kvqc7")]
+harvest_tool_lvl = 2
+
+[node name="droper" parent="." index="3" unique_id=1465568748]
+drop_item = Array[ExtResource("2_xo7vi")]([ExtResource("3_vg62e")])
+
+[node name="Sprite2D" parent="." index="5" unique_id=1808674882]
+texture = ExtResource("2_egw7y")

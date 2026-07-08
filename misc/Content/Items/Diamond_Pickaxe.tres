@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://bvquh55m2iule"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_vixln"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_ebiit"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuabl"]
+atlas = ExtResource("1_vixln")
+region = Rect2(64, 96, 16, 16)
+
+[resource]
+script = ExtResource("2_ebiit")
+lvl = 4
+max_durability = 600
+Damage = 12
+hit_distance = 20.0
+Atk_speed = 1.9
+equiped_weapon_sprite = SubResource("AtlasTexture_tuabl")
+is_weapon = false
+miss_chance_per_unit = 0.02
+critical_radius = 10.0
+critical_chance = 0.45
+critical_multiplier = 2.5
+one_shot_attack = false
+icon = SubResource("AtlasTexture_tuabl")
+item_name = "Diamond Pickaxe"
+stackable = false
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cv6bdaiku8mks"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_cuv5k"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_kkqeq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5ybw"]
+atlas = ExtResource("1_kkqeq")
+region = Rect2(32, 112, 16, 16)
+
+[resource]
+script = ExtResource("1_cuv5k")
+lvl = 5
+max_durability = 125
+Damage = 20
+hit_distance = 24.0
+Atk_speed = 0.75
+equiped_weapon_sprite = SubResource("AtlasTexture_r5ybw")
+accuracy_radius = 18.0
+miss_chance_per_unit = 0.04
+critical_radius = 9.0
+critical_multiplier = 3.5
+one_shot_attack = false
+icon = SubResource("AtlasTexture_r5ybw")
+item_name = "AxenRang"
+stackable = false
+price = 244
+quality = 2
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://5jjd74ssle73"]
+
+[ext_resource type="Resource" uid="uid://bx48che8mxghx" path="res://misc/Content/Items/Apple.tres" id="1_p1vt0"]
+[ext_resource type="Resource" uid="uid://d2ku4mnc6e7fe" path="res://misc/Content/Items/Potion of Healing.tres" id="2_3u3ph"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_hw6r2"]
+[ext_resource type="Resource" uid="uid://dthgslbfnjeal" path="res://misc/Content/Items/Slime.tres" id="4_l4rp1"]
+[ext_resource type="Resource" uid="uid://cw4dpl8n3v440" path="res://misc/Content/Items/Bone.tres" id="5_j3cso"]
+
+[resource]
+script = ExtResource("3_hw6r2")
+recipe_name = "Potion of Healing"
+category = 2
+result_item = ExtResource("2_3u3ph")
+result_amount = 2
+main_resource = ExtResource("1_p1vt0")
+main_amount = 5
+secondary_resource = ExtResource("4_l4rp1")
+secondary_amount = 3
+third_resource = ExtResource("5_j3cso")
+gold_cost = 32
+required_smith_level = 2
+workbench_only = true
+smith_only = true
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

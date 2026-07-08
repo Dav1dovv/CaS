@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://crpr2swtlox0u"]
+
+[ext_resource type="Resource" uid="uid://dfdi6wjiwwyce" path="res://misc/Content/Items/BombBerry.tres" id="1_yc7xf"]
+[ext_resource type="Resource" uid="uid://xo6qim5mnbam" path="res://misc/Content/Items/Bomb Berry Potion.tres" id="2_3bvi1"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_yfhbj"]
+[ext_resource type="Resource" uid="uid://dthgslbfnjeal" path="res://misc/Content/Items/Slime.tres" id="4_wytph"]
+
+[resource]
+script = ExtResource("3_yfhbj")
+recipe_name = "Potion of Healing"
+category = 2
+result_item = ExtResource("2_3bvi1")
+result_amount = 2
+main_resource = ExtResource("1_yc7xf")
+main_amount = 5
+secondary_resource = ExtResource("4_wytph")
+gold_cost = 32
+required_smith_level = 2
+workbench_only = true
+smith_only = true
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

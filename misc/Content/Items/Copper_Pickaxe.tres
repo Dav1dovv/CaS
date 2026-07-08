@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cxec75mx3tncm"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_4md6t"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_l1mvm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuabl"]
+atlas = ExtResource("1_4md6t")
+region = Rect2(16, 96, 16, 16)
+
+[resource]
+script = ExtResource("2_l1mvm")
+max_durability = 200
+Damage = 5
+Atk_speed = 1.1
+equiped_weapon_sprite = SubResource("AtlasTexture_tuabl")
+is_weapon = false
+accuracy_radius = 10.0
+miss_chance_per_unit = 0.08
+critical_radius = 7.0
+critical_chance = 0.15
+critical_multiplier = 1.5
+one_shot_attack = false
+icon = SubResource("AtlasTexture_tuabl")
+item_name = "Copper Pickaxe"
+stackable = false
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

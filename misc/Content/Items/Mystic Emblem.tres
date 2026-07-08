@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b7rignyq2n7dt"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_l8ttg"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_t6jyh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rga4h"]
+atlas = ExtResource("1_t6jyh")
+region = Rect2(80, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_l8ttg")
+icon = SubResource("AtlasTexture_rga4h")
+item_name = "Mystic Emblem"
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

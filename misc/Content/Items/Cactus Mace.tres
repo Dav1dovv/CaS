@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://ddwhfl04i6i1m"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_34db6"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a0gta"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34db6"]
+atlas = SubResource("CompressedTexture2D_a0gta")
+region = Rect2(160, 96, 16, 16)
+
+[resource]
+script = ExtResource("1_34db6")
+max_durability = 60
+Damage = 9
+passive_player_effect = "defense_boost"
+icon = SubResource("AtlasTexture_34db6")
+item_name = "Cacrus Mace"
+stackable = false
+price = 147
+quality = 3
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

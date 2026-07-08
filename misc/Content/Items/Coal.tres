@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dpblw18ilpxix"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_7ws5l"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ww4wa"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ws5l"]
+atlas = SubResource("CompressedTexture2D_ww4wa")
+region = Rect2(80, 128, 16, 16)
+
+[resource]
+script = ExtResource("1_7ws5l")
+icon = SubResource("AtlasTexture_7ws5l")
+item_name = "Coal"
+price = 15
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://c6ysff0u2v0n"]
+
+[ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/Audio/SFX/Player/Drink.wav" id="1_6htcf"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_6qlix"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_gvr3s"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_wglry"]
+[ext_resource type="Texture2D" uid="uid://bhs2ikxc2auo4" path="res://Assets/Textures/UI/Effects/Effect3.png" id="3_jj5to"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="5_glhse"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqfq1"]
+atlas = ExtResource("2_gvr3s")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="Resource" id="Resource_pwaf5"]
+script = ExtResource("1_6qlix")
+effect_icon = ExtResource("3_jj5to")
+value = 30.0
+particle = ExtResource("5_glhse")
+icon = SubResource("AtlasTexture_sqfq1")
+display_name = "Health Restore"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axyn0"]
+atlas = ExtResource("2_gvr3s")
+region = Rect2(16, 16, 16, 16)
+
+[resource]
+script = ExtResource("2_wglry")
+eat_sound = ExtResource("1_6htcf")
+effects = Array[ExtResource("1_6qlix")]([SubResource("Resource_pwaf5")])
+hunger_restore = 25.0
+icon = SubResource("AtlasTexture_axyn0")
+play_anim = "Eating"
+item_name = "Crystal Fruit"
+max_count = 20
+price = 27
+quality = 4
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

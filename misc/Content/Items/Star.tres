@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cucds88ndpsme"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_kkw17"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_m4svy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t858"]
+atlas = ExtResource("1_kkw17")
+region = Rect2(144, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_m4svy")
+icon = SubResource("AtlasTexture_8t858")
+item_name = "Star"
+price = 64
+quality = 5
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

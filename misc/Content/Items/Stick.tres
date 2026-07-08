@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://crxv7hg1loq5v"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_ww4wa"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ww4wa"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlev7"]
+atlas = SubResource("CompressedTexture2D_ww4wa")
+region = Rect2(112, 112, 16, 16)
+
+[resource]
+script = ExtResource("1_ww4wa")
+max_durability = 10
+Damage = 4
+Atk_speed = 1.2
+equiped_weapon_sprite = SubResource("AtlasTexture_rlev7")
+icon = SubResource("AtlasTexture_rlev7")
+item_name = "Stick"
+stackable = false
+price = 10
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

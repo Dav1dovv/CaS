@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dm7ru2a5fnwfi"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_ub4f6"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_kjuro"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry0fr"]
+atlas = ExtResource("1_ub4f6")
+region = Rect2(32, 0, 16, 16)
+
+[resource]
+script = ExtResource("2_kjuro")
+icon = SubResource("AtlasTexture_ry0fr")
+item_name = "Crystal"
+price = 55
+quality = 2
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

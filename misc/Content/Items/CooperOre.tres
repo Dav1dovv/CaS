@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bgxln2nrofexr"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_orv4h"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_uof66"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8whu"]
+atlas = ExtResource("1_uof66")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_orv4h")
+icon = SubResource("AtlasTexture_p8whu")
+item_name = "Cooper Ore"
+price = 14
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

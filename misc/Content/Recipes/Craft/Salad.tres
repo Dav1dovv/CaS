@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://sn27i3q8ttx7"]
+
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="1_8b1mm"]
+[ext_resource type="Resource" uid="uid://cc82arvgiindl" path="res://misc/Content/Items/Mushroom.tres" id="1_iv0ga"]
+[ext_resource type="Resource" uid="uid://85hvw0o4n1t" path="res://misc/Content/Items/Salad.tres" id="2_4fjqg"]
+[ext_resource type="Resource" uid="uid://dt3jv77sc1amr" path="res://misc/Content/Items/Berry.tres" id="4_5fbqu"]
+[ext_resource type="Resource" uid="uid://cek8v8e4qeq28" path="res://misc/Content/Items/BlueBerry.tres" id="5_kq5o7"]
+
+[resource]
+script = ExtResource("1_8b1mm")
+recipe_name = "Salad"
+category = 2
+result_item = ExtResource("2_4fjqg")
+result_amount = 4
+main_resource = ExtResource("1_iv0ga")
+main_amount = 4
+secondary_resource = ExtResource("4_5fbqu")
+secondary_amount = 4
+third_resource = ExtResource("5_kq5o7")
+third_amount = 4
+gold_cost = 30
+required_smith_level = 2
+workbench_only = true
+smith_only = true
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

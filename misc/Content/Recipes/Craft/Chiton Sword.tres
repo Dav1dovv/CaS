@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://ds6w2dc715h56"]
+
+[ext_resource type="Resource" uid="uid://knfwrxak5tso" path="res://misc/Content/Items/Iron_Pickaxe.tres" id="1_v7euu"]
+[ext_resource type="Resource" uid="uid://cv6bdaiku8mks" path="res://misc/Content/Items/AxenRang.tres" id="2_nli8v"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_2s08l"]
+[ext_resource type="Resource" uid="uid://dthgslbfnjeal" path="res://misc/Content/Items/Slime.tres" id="4_2s08l"]
+
+[resource]
+script = ExtResource("3_2s08l")
+recipe_name = "AxenRang"
+result_item = ExtResource("2_nli8v")
+main_resource = ExtResource("1_v7euu")
+main_amount = 2
+secondary_resource = ExtResource("4_2s08l")
+secondary_amount = 4
+gold_cost = 115
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

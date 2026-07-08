@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://crlq2ivo64v4j"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_vb5qr"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_xt56m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68258"]
+atlas = ExtResource("1_vb5qr")
+region = Rect2(32, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_xt56m")
+icon = SubResource("AtlasTexture_68258")
+item_name = "Ruby"
+price = 50
+quality = 2
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

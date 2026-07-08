@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://cek8v8e4qeq28"]
+
+[ext_resource type="AudioStream" uid="uid://c2shi73coycxl" path="res://Assets/Audio/SFX/Player/Eating.wav" id="1_e32a8"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_h66th"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_pqe6c"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="3_fqgr6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xo0m3"]
+atlas = ExtResource("2_pqe6c")
+region = Rect2(96, 16, 16, 16)
+
+[resource]
+script = ExtResource("3_fqgr6")
+eat_sound = ExtResource("1_e32a8")
+hunger_restore = 5.0
+icon = SubResource("AtlasTexture_xo0m3")
+play_anim = "Eating"
+item_name = "BlurBerry"
+price = 5
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

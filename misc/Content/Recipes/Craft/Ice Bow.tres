@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://kqbdgxf48jyi"]
+
+[ext_resource type="Resource" uid="uid://bp7w2ejdhuqx4" path="res://misc/Content/Items/Ice.tres" id="1_4l40i"]
+[ext_resource type="Resource" uid="uid://dr0srpgv6ghi" path="res://misc/Content/Items/Ice Staff.tres" id="2_5o681"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_pagrw"]
+[ext_resource type="Resource" uid="uid://cnaqjjiqdtoc" path="res://misc/Content/Items/Ice Crystal.tres" id="4_etxd6"]
+
+[resource]
+script = ExtResource("3_pagrw")
+recipe_name = "Ice Staff"
+result_item = ExtResource("2_5o681")
+main_resource = ExtResource("1_4l40i")
+main_amount = 8
+secondary_resource = ExtResource("4_etxd6")
+gold_cost = 280
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

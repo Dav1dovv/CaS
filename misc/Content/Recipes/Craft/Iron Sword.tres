@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://rci4too6cya1"]
+
+[ext_resource type="Resource" uid="uid://ce8lum742bja1" path="res://misc/Content/Items/IronOre.tres" id="1_m6lj3"]
+[ext_resource type="Resource" uid="uid://by2c2dpu3g45" path="res://misc/Content/Items/Iron_Sword.tres" id="2_eor4e"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_ttsq0"]
+[ext_resource type="Resource" uid="uid://cw4dpl8n3v440" path="res://misc/Content/Items/Bone.tres" id="4_kvmab"]
+
+[resource]
+script = ExtResource("3_ttsq0")
+recipe_name = "Iron Sword"
+result_item = ExtResource("2_eor4e")
+main_resource = ExtResource("1_m6lj3")
+main_amount = 10
+secondary_resource = ExtResource("4_kvmab")
+secondary_amount = 5
+gold_cost = 280
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

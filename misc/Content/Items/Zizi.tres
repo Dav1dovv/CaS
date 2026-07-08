@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://dsgipv6ikbr58"]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_nm1up"]
+[ext_resource type="AudioStream" uid="uid://b15uoyeoq3550" path="res://Assets/Audio/SFX/Player/Drink.wav" id="1_st620"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_d482u"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_ike05"]
+[ext_resource type="Texture2D" uid="uid://bhs2ikxc2auo4" path="res://Assets/Textures/UI/Effects/Effect3.png" id="3_50tl5"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="4_jsgfg"]
+[ext_resource type="Texture2D" uid="uid://cndi010t3aj7d" path="res://Assets/Textures/UI/Effects/Effect4.png" id="5_f62es"]
+[ext_resource type="Texture2D" uid="uid://dkj52eeo80ghu" path="res://Assets/Textures/UI/Effects/Effect2.png" id="6_7r0rh"]
+
+[sub_resource type="Resource" id="Resource_08nn1"]
+script = ExtResource("1_nm1up")
+effect_icon = ExtResource("3_50tl5")
+effect_type = 3
+value = 10.0
+duration = 20.0
+particle_color = Color(1, 0, 0, 1)
+particle = ExtResource("4_jsgfg")
+display_name = "Regeneration"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="Resource" id="Resource_4nyhy"]
+script = ExtResource("1_nm1up")
+effect_icon = ExtResource("5_f62es")
+effect_type = 4
+value = 5.0
+duration = 20.0
+particle_color = Color(0.12941177, 0.14509805, 1, 1)
+particle = ExtResource("4_jsgfg")
+display_name = "Defense Boost"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="Resource" id="Resource_a2gtu"]
+script = ExtResource("1_nm1up")
+effect_icon = ExtResource("6_7r0rh")
+effect_type = 2
+value = 7.0
+duration = 10.0
+particle_color = Color(0.7254902, 0.24313726, 0.08627451, 1)
+particle = ExtResource("4_jsgfg")
+display_name = "Damage Boost"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hcp5"]
+atlas = ExtResource("2_ike05")
+region = Rect2(32, 64, 16, 16)
+
+[resource]
+script = ExtResource("2_d482u")
+eat_sound = ExtResource("1_st620")
+effects = Array[ExtResource("1_nm1up")]([SubResource("Resource_08nn1"), SubResource("Resource_4nyhy"), SubResource("Resource_a2gtu")])
+icon = SubResource("AtlasTexture_2hcp5")
+item_name = "Zizi"
+price = 35
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

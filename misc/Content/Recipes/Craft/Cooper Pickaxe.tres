@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://6450km6ddjx6"]
+
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="1_q76ch"]
+[ext_resource type="Resource" uid="uid://bgxln2nrofexr" path="res://misc/Content/Items/CooperOre.tres" id="1_ym41s"]
+[ext_resource type="Resource" uid="uid://cxec75mx3tncm" path="res://misc/Content/Items/Copper_Pickaxe.tres" id="2_ibiw2"]
+[ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="4_ot2dw"]
+
+[resource]
+script = ExtResource("1_q76ch")
+recipe_name = "Cooper Pickaxe"
+category = 1
+result_item = ExtResource("2_ibiw2")
+main_resource = ExtResource("1_ym41s")
+main_amount = 10
+secondary_resource = ExtResource("4_ot2dw")
+secondary_amount = 3
+gold_cost = 150
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

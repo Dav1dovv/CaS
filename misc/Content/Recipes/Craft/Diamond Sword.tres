@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://cwidkjhvj1c13"]
+
+[ext_resource type="Resource" uid="uid://dq73nt5b44oyx" path="res://misc/Content/Items/GoldOre.tres" id="1_4cjdp"]
+[ext_resource type="Resource" uid="uid://c3tykw7ifff31" path="res://misc/Content/Items/Diamond.tres" id="1_xakip"]
+[ext_resource type="Resource" uid="uid://cdkhve4m3lmbv" path="res://misc/Content/Items/Diamond_Sword.tres" id="2_r06d1"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_r06d1"]
+
+[resource]
+script = ExtResource("3_r06d1")
+recipe_name = "Diamond Sword"
+result_item = ExtResource("2_r06d1")
+main_resource = ExtResource("1_xakip")
+main_amount = 20
+secondary_resource = ExtResource("1_4cjdp")
+secondary_amount = 5
+gold_cost = 900
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

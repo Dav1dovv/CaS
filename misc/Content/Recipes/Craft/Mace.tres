@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://dg3p5dbe6u3o1"]
+
+[ext_resource type="Resource" uid="uid://c7b42ojp7wfq8" path="res://misc/Content/Items/SandStone.tres" id="1_4rxe0"]
+[ext_resource type="Resource" uid="uid://bbtnqll34gwkb" path="res://misc/Content/Items/Mace.tres" id="2_6wy1p"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_ciwe5"]
+[ext_resource type="Resource" uid="uid://cw4dpl8n3v440" path="res://misc/Content/Items/Bone.tres" id="4_ciwe5"]
+[ext_resource type="Resource" uid="uid://65hul2glofe3" path="res://misc/Content/Items/Stone.tres" id="5_27qvy"]
+
+[resource]
+script = ExtResource("3_ciwe5")
+recipe_name = "mace"
+result_item = ExtResource("2_6wy1p")
+main_resource = ExtResource("1_4rxe0")
+main_amount = 10
+secondary_resource = ExtResource("4_ciwe5")
+secondary_amount = 4
+third_resource = ExtResource("5_27qvy")
+third_amount = 2
+gold_cost = 320
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

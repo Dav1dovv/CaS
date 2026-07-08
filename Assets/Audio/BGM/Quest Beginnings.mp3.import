@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dw2t4rtwmryfk"
+path="res://.godot/imported/Quest Beginnings.mp3-8aab6356cb667ffb52f9dfcbc0a85231.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Quest Beginnings.mp3"
+dest_files=["res://.godot/imported/Quest Beginnings.mp3-8aab6356cb667ffb52f9dfcbc0a85231.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=120.0
+beat_count=276
+bar_beats=4

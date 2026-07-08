@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://ctrkxu31y3ig2"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_y5dtn"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y5dtn"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc7w4"]
+atlas = SubResource("CompressedTexture2D_y5dtn")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syxs4"]
+atlas = SubResource("CompressedTexture2D_y5dtn")
+region = Rect2(80, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_y5dtn")
+max_durability = 220
+Damage = 10
+equiped_weapon_sprite = SubResource("AtlasTexture_oc7w4")
+lunge_enabled = true
+passive_emits_light = true
+icon = SubResource("AtlasTexture_syxs4")
+item_name = "Hollow Sword"
+count = 420
+stackable = false
+quality = 4
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://c4qr7jefgov07"]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_h0luh"]
+[ext_resource type="AudioStream" uid="uid://c2shi73coycxl" path="res://Assets/Audio/SFX/Player/Eating.wav" id="1_kbrae"]
+[ext_resource type="Texture2D" uid="uid://bhs2ikxc2auo4" path="res://Assets/Textures/UI/Effects/Effect3.png" id="2_eyq2v"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_mjdse"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="3_kbrae"]
+[ext_resource type="PackedScene" uid="uid://bpj1sgib1xsqp" path="res://misc/Particles/Effect.tscn" id="4_4bblt"]
+[ext_resource type="Texture2D" uid="uid://dkj52eeo80ghu" path="res://Assets/Textures/UI/Effects/Effect2.png" id="5_gj8ss"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqfq1"]
+atlas = ExtResource("3_kbrae")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="Resource" id="Resource_wywww"]
+script = ExtResource("1_h0luh")
+effect_icon = ExtResource("2_eyq2v")
+value = 20.0
+particle = ExtResource("4_4bblt")
+icon = SubResource("AtlasTexture_sqfq1")
+display_name = "Health Restore"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="Resource" id="Resource_dcjpb"]
+script = ExtResource("1_h0luh")
+effect_icon = ExtResource("5_gj8ss")
+effect_type = 2
+value = 10.0
+duration = 20.0
+particle_color = Color(0.7254902, 0.24313726, 0.08627451, 1)
+particle = ExtResource("4_4bblt")
+display_name = "Damage Boost"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="Resource" id="Resource_ox5yh"]
+script = ExtResource("1_h0luh")
+effect_icon = ExtResource("2_eyq2v")
+effect_type = 3
+value = 5.0
+duration = 15.0
+tick_interval = 1.5
+particle_color = Color(1, 0, 0, 1)
+particle = ExtResource("4_4bblt")
+display_name = "Regeneration"
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4hhgv"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrolc"]
+atlas = SubResource("CompressedTexture2D_4hhgv")
+region = Rect2(32, 48, 16, 16)
+
+[resource]
+script = ExtResource("2_mjdse")
+eat_sound = ExtResource("1_kbrae")
+effects = Array[ExtResource("1_h0luh")]([SubResource("Resource_wywww"), SubResource("Resource_dcjpb"), SubResource("Resource_ox5yh")])
+icon = SubResource("AtlasTexture_vrolc")
+play_anim = "Eating"
+item_name = "Cooked Meat"
+price = 12
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

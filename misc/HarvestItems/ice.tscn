@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cnuqe5sfj1cck"]
+
+[ext_resource type="PackedScene" uid="uid://diwv2u61puib1" path="res://misc/HarvestItems/Gold.tscn" id="1_aitey"]
+[ext_resource type="Texture2D" uid="uid://dseunb8715ht7" path="res://misc/HarvestItems/Textures/IceOre.png" id="2_kqbd5"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_ovk5m"]
+[ext_resource type="Resource" uid="uid://bp7w2ejdhuqx4" path="res://misc/Content/Items/Ice.tres" id="3_wv0ki"]
+
+[node name="Ice" unique_id=1085263120 instance=ExtResource("1_aitey")]
+durability = 14.0
+harvest_tool_lvl = 2
+
+[node name="droper" parent="." index="3" unique_id=1465568748]
+drop_item = Array[ExtResource("2_ovk5m")]([ExtResource("3_wv0ki")])
+
+[node name="Sprite2D" parent="." index="5" unique_id=556241060]
+position = Vector2(0, -4)
+texture = ExtResource("2_kqbd5")
+offset = Vector2(0, -7)
+hframes = 1
+frame = 0
+frame_weights = Array[float]([])

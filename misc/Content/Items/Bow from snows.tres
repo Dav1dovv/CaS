@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://t0jqqhauvtox"]
+
+[ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="2_cderg"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_rxu2r"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ww4wa"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6xcj"]
+atlas = SubResource("CompressedTexture2D_ww4wa")
+region = Rect2(96, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x46ki"]
+atlas = SubResource("CompressedTexture2D_ww4wa")
+region = Rect2(96, 112, 16, 16)
+
+[resource]
+script = ExtResource("3_rxu2r")
+lvl = 3
+max_durability = 127
+Damage = 6
+equiped_weapon_sprite = SubResource("AtlasTexture_y6xcj")
+projectile = ExtResource("2_cderg")
+num_projectiles = 4
+accuracy_radius = 5.0
+miss_chance_per_unit = 0.02
+critical_radius = 3.0
+critical_chance = 0.25
+critical_multiplier = 3.0
+one_shot_attack = false
+on_hit_effect = "freeze"
+passive_emits_light = true
+passive_light_radius = 256.0
+passive_light_energy = 1.3
+icon = SubResource("AtlasTexture_x46ki")
+play_anim = "Shoot"
+item_name = " Bow from snows"
+stackable = false
+price = 240
+quality = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

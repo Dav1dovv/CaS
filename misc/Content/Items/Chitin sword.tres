@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://ch6250bfvumw0"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_emnyx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a0gta"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emnyx"]
+atlas = SubResource("CompressedTexture2D_a0gta")
+region = Rect2(176, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o6ct"]
+atlas = SubResource("CompressedTexture2D_a0gta")
+region = Rect2(176, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_emnyx")
+max_durability = 169
+Damage = 4
+Atk_speed = 1.2
+equiped_weapon_sprite = SubResource("AtlasTexture_emnyx")
+icon = SubResource("AtlasTexture_7o6ct")
+item_name = "Chitin sword"
+stackable = false
+price = 246
+quality = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://8xsq7i4hp7kl"
+path="res://.godot/imported/Green Meadow Cycle.wav-5091c30da69d8ac1e955c031e8fc19ba.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Green Meadow Cycle.wav"
+dest_files=["res://.godot/imported/Green Meadow Cycle.wav-5091c30da69d8ac1e955c031e8fc19ba.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

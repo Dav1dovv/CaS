@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://by2c2dpu3g45"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_4t5x3"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_nugw4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuabl"]
+atlas = ExtResource("1_4t5x3")
+region = Rect2(32, 80, 16, 16)
+
+[resource]
+script = ExtResource("2_nugw4")
+lvl = 2
+max_durability = 135
+Damage = 5
+hit_distance = 11.0
+Atk_speed = 1.6
+equiped_weapon_sprite = SubResource("AtlasTexture_tuabl")
+accuracy_radius = 10.0
+miss_chance_per_unit = 0.06
+critical_radius = 6.5
+critical_multiplier = 2.5
+icon = SubResource("AtlasTexture_tuabl")
+item_name = "Iron Sword"
+stackable = false
+price = 250
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://drk017uaofosr"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_ber6s"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_ua3gp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ber6s"]
+atlas = ExtResource("1_ber6s")
+region = Rect2(128, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_ua3gp")
+Damage = 3
+Atk_speed = 2.6
+equiped_weapon_sprite = SubResource("AtlasTexture_ber6s")
+accuracy_radius = 6.0
+miss_chance_per_unit = 0.08
+critical_chance = 0.1
+critical_multiplier = 1.5
+can_deflect_curse = false
+icon = SubResource("AtlasTexture_ber6s")
+item_name = "Knife"
+stackable = false
+price = 0
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

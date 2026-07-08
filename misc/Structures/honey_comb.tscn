@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://hmy1xjfrwqwq"]
+
+[ext_resource type="Script" uid="uid://bl7jbpdad5e77" path="res://scr/Systems/Creature_Spawner/creature_spawner.gd" id="4_j0the"]
+[ext_resource type="PackedScene" uid="uid://dy3lr5g4apbby" path="res://misc/HarvestItems/honeycomb.tscn" id="4_nik3e"]
+[ext_resource type="Script" uid="uid://cspf06hgc8h0w" path="res://scr/Systems/Creature_Spawner/SpawnConfig.gd" id="5_aqrkf"]
+[ext_resource type="PackedScene" uid="uid://yy130vybtk2l" path="res://misc/Entity/Enemies/Bee.tscn" id="6_eejx8"]
+
+[sub_resource type="Resource" id="Resource_cdos3"]
+script = ExtResource("5_aqrkf")
+creature_scene = ExtResource("6_eejx8")
+max_alive = 5
+metadata/_custom_type_script = "uid://cspf06hgc8h0w"
+
+[node name="HoneyComb" type="Node2D" unique_id=1960260949]
+metadata/_edit_vertical_guides_ = [0.0]
+
+[node name="CreatureSpawner" type="Node2D" parent="." unique_id=126558258 node_paths=PackedStringArray("player")]
+script = ExtResource("4_j0the")
+player = NodePath("../Comb")
+spawn_distance_min = 100.0
+spawn_distance_max = 170.0
+max_creatures = 5
+creatures = Array[ExtResource("5_aqrkf")]([SubResource("Resource_cdos3")])
+metadata/_custom_type_script = "uid://bl7jbpdad5e77"
+
+[node name="Comb" parent="." unique_id=1934415035 instance=ExtResource("4_nik3e")]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vxgw4wdrdim3"]
+
+[ext_resource type="Script" uid="uid://b1pylbow315ue" path="res://Misc/Particles/paricle_fx.gd" id="1_7lrkc"]
+
+[node name="ParicleFX" type="Node"]
+script = ExtResource("1_7lrkc")

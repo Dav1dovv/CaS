@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://85hvw0o4n1t"]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_mu32d"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_jaca5"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_sbk3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykh0l"]
+atlas = ExtResource("2_jaca5")
+region = Rect2(0, 64, 16, 16)
+
+[resource]
+script = ExtResource("2_sbk3q")
+hunger_restore = 8.0
+icon = SubResource("AtlasTexture_ykh0l")
+item_name = "Salad"
+price = 24
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

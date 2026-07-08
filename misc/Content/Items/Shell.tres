@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://chi8vogq3k81r"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_qvkac"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ww4wa"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvkac"]
+atlas = SubResource("CompressedTexture2D_ww4wa")
+region = Rect2(48, 128, 16, 16)
+
+[resource]
+script = ExtResource("1_qvkac")
+icon = SubResource("AtlasTexture_qvkac")
+item_name = "Shell"
+max_count = 50
+price = 9
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

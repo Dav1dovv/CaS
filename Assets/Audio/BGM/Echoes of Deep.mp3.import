@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://clui1577iq124"
+path="res://.godot/imported/Echoes of Deep.mp3-457f8225d458e8a05d3af21fc19fa786.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Echoes of Deep.mp3"
+dest_files=["res://.godot/imported/Echoes of Deep.mp3-457f8225d458e8a05d3af21fc19fa786.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=120.0
+beat_count=313
+bar_beats=4

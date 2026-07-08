@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://ddnp7igm5m7rn"]
+
+[ext_resource type="Script" uid="uid://loq3kip7ism3" path="res://scr/Systems/WorldGenerator/WorldGenerator.gd" id="1_dk566"]
+[ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="2_p3tyn"]
+[ext_resource type="PackedScene" uid="uid://cct8to734kk6v" path="res://misc/HarvestItems/Bush.tscn" id="3_q4x8b"]
+[ext_resource type="PackedScene" uid="uid://dteiq6ibs70h7" path="res://misc/HarvestItems/TreeObjects/Simple_LifeFruitTree.tscn" id="4_268is"]
+[ext_resource type="PackedScene" uid="uid://daj1k2ggd61wi" path="res://misc/HarvestItems/bomb_berry.tscn" id="5_qkko6"]
+[ext_resource type="PackedScene" uid="uid://d0qb8iwxdcwpn" path="res://misc/HarvestItems/TreeObjects/Tree.tscn" id="6_q2fde"]
+[ext_resource type="PackedScene" uid="uid://ci8lyapkm0sfc" path="res://misc/HarvestItems/Stone.tscn" id="7_i3qgw"]
+[ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="8_a7hw1"]
+[ext_resource type="PackedScene" uid="uid://nlav2fqp7tmh" path="res://misc/HarvestItems/cooper.tscn" id="9_5um0f"]
+[ext_resource type="PackedScene" uid="uid://dx7g6doff7gue" path="res://misc/HarvestItems/mushroom.tscn" id="10_x3om7"]
+[ext_resource type="PackedScene" uid="uid://bodm1xuyyxtpt" path="res://misc/HarvestItems/Crystal.tscn" id="11_yomvk"]
+[ext_resource type="PackedScene" uid="uid://t1mi61y84oib" path="res://misc/Chest/chest.tscn" id="12_v2kxy"]
+[ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="14_wyacb"]
+[ext_resource type="PackedScene" uid="uid://h106lj2xe051" path="res://misc/Structures/ennemy_camp.tscn" id="15_a7hw1"]
+[ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Stations/camp.tscn" id="15_jkv1d"]
+[ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Ruins/syncer.tscn" id="17_5um0f"]
+[ext_resource type="PackedScene" uid="uid://hmy1xjfrwqwq" path="res://misc/Structures/honey_comb.tscn" id="17_g4o7s"]
+
+[sub_resource type="Resource" id="Resource_j1707"]
+resource_name = "Bush"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("3_q4x8b")
+random_scales = {
+"Big": Vector2(1.5, 1.5),
+"Middle": Vector2(1.3, 1.3),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_7s3k3"]
+resource_name = "FoodResource"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("5_qkko6")
+spawn_weight = 0.084
+Generation_random_versions = Array[PackedScene]([ExtResource("4_268is")])
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_iuswx"]
+resource_name = "Tree"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("6_q2fde")
+spawn_weight = 0.826
+random_scales = {
+"Big": Vector2(2.2, 2.2),
+"Middle": Vector2(1.7, 1.7),
+"Standart": Vector2(1.5, 1.5)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_fxqv4"]
+resource_name = "Stone"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("7_i3qgw")
+spawn_weight = 0.832
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_te162"]
+resource_name = "Minerals"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("9_5um0f")
+spawn_weight = 0.586
+Generation_random_versions = Array[PackedScene]([ExtResource("8_a7hw1")])
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_q2fde"]
+resource_name = "Mushrooms"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("10_x3om7")
+spawn_weight = 0.4
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_i3qgw"]
+resource_name = "Crystal"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("11_yomvk")
+spawn_weight = 0.209
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_d2wb4"]
+resource_name = "Chest"
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("12_v2kxy")
+spawn_weight = 0.152
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_puewl"]
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("15_jkv1d")
+spawn_weight = 0.818
+Generation_random_versions = Array[PackedScene]([ExtResource("15_a7hw1"), ExtResource("15_jkv1d")])
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_y14l7"]
+resource_name = "Camp"
+script = ExtResource("14_wyacb")
+structure_name = "Camp"
+custom_type_name = "Camp"
+generation_item = SubResource("Resource_puewl")
+min_distance_between_same_type = 350.0
+exclusion_radius = 150.0
+spawn_priority = 76
+spawn_chance = 0.728
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_x3om7"]
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("17_5um0f")
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_7pk4t"]
+resource_name = "Syncer"
+script = ExtResource("14_wyacb")
+structure_name = "Syncer"
+structure_type = 2
+custom_type_name = "Syncer"
+generation_item = SubResource("Resource_x3om7")
+spawn_priority = 32
+spawn_chance = 0.26
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_jtce0"]
+script = ExtResource("2_p3tyn")
+Generation_scene = ExtResource("17_g4o7s")
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_tymmd"]
+resource_name = "HoneyComb"
+script = ExtResource("14_wyacb")
+structure_name = "HoneyComb"
+structure_type = 2
+custom_type_name = "HoneyComb"
+generation_item = SubResource("Resource_jtce0")
+max_instances = 2
+min_distance_from_player = 200.0
+min_distance_between_same_type = 150.0
+min_distance_between_any = 150.0
+exclusion_radius = 100.0
+spawn_chance = 0.715
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[node name="Land" type="Node2D" unique_id=96793758]
+script = ExtResource("1_dk566")
+generation_items = Array[ExtResource("2_p3tyn")]([SubResource("Resource_j1707"), SubResource("Resource_7s3k3"), SubResource("Resource_iuswx"), SubResource("Resource_fxqv4"), SubResource("Resource_te162"), SubResource("Resource_q2fde"), SubResource("Resource_i3qgw"), SubResource("Resource_d2wb4")])
+special_structures = Array[ExtResource("14_wyacb")]([SubResource("Resource_y14l7"), SubResource("Resource_7pk4t"), SubResource("Resource_tymmd")])
+max_structure_attempts = 67
+metadata/_custom_type_script = "uid://loq3kip7ism3"

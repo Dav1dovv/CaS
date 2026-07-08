@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="AccessoryData" format=3 uid="uid://11ybqvu4i8oj"]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_b05l7"]
+[ext_resource type="Script" uid="uid://di2yssv3uj7uc" path="res://scr/Resources/ItemData/AcsesoryData.gd" id="2_8hcdv"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_thui1"]
+
+[sub_resource type="Resource" id="Resource_8y0f8"]
+script = ExtResource("1_b05l7")
+effect_type = 3
+value = 3.0
+tick_interval = 4.0
+metadata/_custom_type_script = "uid://dj4umu6271nxr"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w05bd"]
+atlas = ExtResource("2_thui1")
+region = Rect2(96, 32, 16, 16)
+
+[resource]
+script = ExtResource("2_8hcdv")
+effects = Array[ExtResource("1_b05l7")]([SubResource("Resource_8y0f8")])
+icon = SubResource("AtlasTexture_w05bd")
+item_name = "Kovakim helmet"
+max_count = 3
+stackable = false
+metadata/_custom_type_script = "uid://di2yssv3uj7uc"

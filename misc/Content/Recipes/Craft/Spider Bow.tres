@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://dd622wsyh3iwy"]
+
+[ext_resource type="Resource" uid="uid://damxy1wcffxi6" path="res://misc/Content/Items/web.tres" id="1_jjawl"]
+[ext_resource type="Resource" uid="uid://b02mwvkj1kcul" path="res://misc/Content/Items/Spider Bow.tres" id="2_orkqk"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_4g17k"]
+[ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="4_40vp1"]
+
+[resource]
+script = ExtResource("3_4g17k")
+recipe_name = "Spider Bow"
+result_item = ExtResource("2_orkqk")
+main_resource = ExtResource("1_jjawl")
+main_amount = 10
+secondary_resource = ExtResource("4_40vp1")
+secondary_amount = 6
+gold_cost = 120
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

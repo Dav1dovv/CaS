@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cxo5e3traj07q"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_5e15l"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_fo06i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80kg3"]
+atlas = ExtResource("1_fo06i")
+region = Rect2(112, 80, 16, 16)
+
+[resource]
+script = ExtResource("1_5e15l")
+lvl = 2
+max_durability = 160
+Damage = 8
+hit_distance = 7.0
+Atk_speed = 2.2
+equiped_weapon_sprite = SubResource("AtlasTexture_80kg3")
+accuracy_radius = 5.0
+critical_radius = 3.5
+critical_chance = 0.35
+critical_multiplier = 2.2
+one_shot_attack = false
+lunge_enabled = true
+icon = SubResource("AtlasTexture_80kg3")
+item_name = "Yellow Hornet"
+stackable = false
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

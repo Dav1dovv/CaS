@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d1085s5e8jgj8"
+path="res://.godot/imported/Muffled Winter Morning.mp3-4545954a0cfcec8ae9fc9c84619d0829.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Muffled Winter Morning.mp3"
+dest_files=["res://.godot/imported/Muffled Winter Morning.mp3-4545954a0cfcec8ae9fc9c84619d0829.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=120.0
+beat_count=329
+bar_beats=4

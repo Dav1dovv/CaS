@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cujxjteigo6t3"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_ajcsr"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_l12a1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swfxu"]
+atlas = ExtResource("1_ajcsr")
+region = Rect2(0, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_l12a1")
+icon = SubResource("AtlasTexture_swfxu")
+item_name = "Emerald"
+price = 45
+quality = 2
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

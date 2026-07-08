@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://d1gv8gc1ygm17"]
+
+[ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="1_rihrh"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_5wpkx"]
+[ext_resource type="Texture2D" uid="uid://cof8j8gsqxhsk" path="res://misc/HarvestItems/Textures/Emerald.png" id="2_dvst4"]
+[ext_resource type="Resource" uid="uid://cujxjteigo6t3" path="res://misc/Content/Items/Emerald.tres" id="3_venwn"]
+
+[node name="Emerald" unique_id=1037766192 instance=ExtResource("1_rihrh")]
+durability = 18.0
+harvest_tool_lvl = 3
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+position = Vector2(0, -4)
+
+[node name="droper" parent="." index="3" unique_id=1465568748]
+drop_item = Array[ExtResource("2_5wpkx")]([ExtResource("3_venwn")])
+
+[node name="Sprite2D" parent="." index="6" unique_id=1965435148]
+texture = ExtResource("2_dvst4")
+hframes = 1
+frame = 0

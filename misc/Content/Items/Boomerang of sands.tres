@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://c7117f3h0p5uc"]
+
+[ext_resource type="PackedScene" uid="uid://ci5gno40fiu81" path="res://misc/Projectiles/Bumerang.tscn" id="2_kjxw6"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_vkbgu"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5ne3u"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86tiu"]
+atlas = SubResource("CompressedTexture2D_5ne3u")
+region = Rect2(176, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjxw6"]
+atlas = SubResource("CompressedTexture2D_5ne3u")
+region = Rect2(176, 96, 16, 16)
+
+[resource]
+script = ExtResource("3_vkbgu")
+lvl = 2
+Damage = 6
+equiped_weapon_sprite = SubResource("AtlasTexture_86tiu")
+projectile = ExtResource("2_kjxw6")
+num_projectiles = 2
+accuracy_radius = 12.0
+critical_radius = 7.0
+icon = SubResource("AtlasTexture_kjxw6")
+item_name = "Boomerang of Sands"
+count = 1
+stackable = false
+price = 300
+quality = 3
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

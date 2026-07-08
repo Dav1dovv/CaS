@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://chva1vyj0lr0"]
+
+[ext_resource type="Resource" uid="uid://ce8lum742bja1" path="res://misc/Content/Items/IronOre.tres" id="1_5pcam"]
+[ext_resource type="Resource" uid="uid://knfwrxak5tso" path="res://misc/Content/Items/Iron_Pickaxe.tres" id="2_nqs5c"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_1kunb"]
+[ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="4_766e3"]
+
+[resource]
+script = ExtResource("3_1kunb")
+recipe_name = "Iron Pickaxe"
+category = 1
+result_item = ExtResource("2_nqs5c")
+main_resource = ExtResource("1_5pcam")
+main_amount = 10
+secondary_resource = ExtResource("4_766e3")
+secondary_amount = 3
+gold_cost = 280
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

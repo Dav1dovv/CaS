@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://1njfsanjpu5h"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_d2rbq"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ww4wa"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2rbq"]
+atlas = SubResource("CompressedTexture2D_ww4wa")
+region = Rect2(96, 128, 16, 16)
+
+[resource]
+script = ExtResource("1_d2rbq")
+icon = SubResource("AtlasTexture_d2rbq")
+item_name = "Chitin"
+max_count = 50
+price = 11
+quality = 1
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

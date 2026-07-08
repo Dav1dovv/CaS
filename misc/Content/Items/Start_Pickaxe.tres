@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://cn4tj340q3fm3"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_6gb7l"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_xsrin"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk8sa"]
+atlas = ExtResource("1_6gb7l")
+region = Rect2(0, 96, 16, 16)
+
+[resource]
+script = ExtResource("2_xsrin")
+Damage = 3
+Atk_speed = 0.9
+equiped_weapon_sprite = SubResource("AtlasTexture_kk8sa")
+is_weapon = false
+accuracy_radius = 8.0
+miss_chance_per_unit = 0.1
+critical_radius = 6.0
+critical_chance = 0.1
+critical_multiplier = 1.5
+one_shot_attack = false
+can_deflect_curse = false
+icon = SubResource("AtlasTexture_kk8sa")
+item_name = "Adventurer Pickaxe"
+stackable = false
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

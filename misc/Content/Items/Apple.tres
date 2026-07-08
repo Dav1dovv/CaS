@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://bx48che8mxghx"]
+
+[ext_resource type="AudioStream" uid="uid://c2shi73coycxl" path="res://Assets/Audio/SFX/Player/Eating.wav" id="1_fcxow"]
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_vrolc"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_am17n"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="3_1f78p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrolc"]
+atlas = ExtResource("2_am17n")
+region = Rect2(64, 48, 16, 16)
+
+[resource]
+script = ExtResource("3_1f78p")
+eat_sound = ExtResource("1_fcxow")
+hunger_restore = 7.0
+icon = SubResource("AtlasTexture_vrolc")
+play_anim = "Eating"
+item_name = "Apple"
+price = 8
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

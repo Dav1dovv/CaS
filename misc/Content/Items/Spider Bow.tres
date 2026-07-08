@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://b02mwvkj1kcul"]
+
+[ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="2_e47bk"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_vltdj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a0gta"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3r3s"]
+atlas = SubResource("CompressedTexture2D_a0gta")
+region = Rect2(128, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e47bk"]
+atlas = SubResource("CompressedTexture2D_a0gta")
+region = Rect2(128, 96, 16, 16)
+
+[resource]
+script = ExtResource("3_vltdj")
+lvl = 3
+max_durability = 90
+Damage = 18
+equiped_weapon_sprite = SubResource("AtlasTexture_e3r3s")
+projectile = ExtResource("2_e47bk")
+num_projectiles = 3
+accuracy_radius = 5.0
+miss_chance_per_unit = 0.02
+critical_radius = 3.0
+critical_chance = 0.25
+critical_multiplier = 3.0
+one_shot_attack = false
+icon = SubResource("AtlasTexture_e47bk")
+play_anim = "Shoot"
+item_name = "Spider Bow"
+stackable = false
+price = 262
+quality = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

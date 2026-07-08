@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://o0cfst75wgk8"
+path="res://.godot/imported/Nile Valley Cycle.wav-9ed8c657392aee6128c157ff106a1e11.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Nile Valley Cycle.wav"
+dest_files=["res://.godot/imported/Nile Valley Cycle.wav-9ed8c657392aee6128c157ff106a1e11.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

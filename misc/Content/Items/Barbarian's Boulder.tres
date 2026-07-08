@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://xrc81uvxtf3i"]
+
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_8u1lt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a0gta"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u1lt"]
+atlas = SubResource("CompressedTexture2D_a0gta")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eklt6"]
+atlas = SubResource("CompressedTexture2D_a0gta")
+region = Rect2(144, 96, 16, 16)
+
+[resource]
+script = ExtResource("1_8u1lt")
+max_durability = 90
+Damage = 20
+Atk_speed = 0.85
+equiped_weapon_sprite = SubResource("AtlasTexture_8u1lt")
+critical_radius = 5.765
+critical_chance = 0.325
+critical_multiplier = 2.61
+lunge_enabled = true
+lunge_duration = 0.1
+lunge_invincible = false
+icon = SubResource("AtlasTexture_eklt6")
+item_name = "Barbarian's Boulder"
+stackable = false
+price = 310
+quality = 2
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

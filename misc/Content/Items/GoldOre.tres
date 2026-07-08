@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dq73nt5b44oyx"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_b06rd"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_xysg5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c108n"]
+atlas = ExtResource("1_b06rd")
+region = Rect2(80, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_xysg5")
+icon = SubResource("AtlasTexture_c108n")
+item_name = "Gold Ore"
+price = 40
+quality = 2
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://gde0jdrv0s8h"]
+
+[ext_resource type="PackedScene" uid="uid://ci8lyapkm0sfc" path="res://misc/HarvestItems/Stone.tscn" id="1_yjkbm"]
+[ext_resource type="Texture2D" uid="uid://c7oxali6b0wia" path="res://misc/HarvestItems/Textures/StarOre.png" id="2_88xmt"]
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="3_edx2x"]
+[ext_resource type="Resource" uid="uid://cucds88ndpsme" path="res://misc/Content/Items/Star.tres" id="4_w3lf0"]
+
+[node name="Stone" unique_id=1265135110 instance=ExtResource("1_yjkbm")]
+durability = 16.0
+harvest_tool_lvl = 2
+
+[node name="Sprite2D" parent="." index="1" unique_id=971498566]
+texture = ExtResource("2_88xmt")
+hframes = 1
+frame_weights = Array[float]([])
+
+[node name="droper" parent="." index="4" unique_id=1465568748]
+drop_item = Array[ExtResource("3_edx2x")]([ExtResource("4_w3lf0")])

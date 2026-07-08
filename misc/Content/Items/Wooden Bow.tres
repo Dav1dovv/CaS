@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://5iv0u43vsvvq"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_gy43c"]
+[ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="2_icutk"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_xcytg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goedq"]
+atlas = ExtResource("1_gy43c")
+region = Rect2(80, 96, 16, 16)
+
+[resource]
+script = ExtResource("3_xcytg")
+lvl = 3
+max_durability = 127
+Damage = 6
+equiped_weapon_sprite = SubResource("AtlasTexture_goedq")
+projectile = ExtResource("2_icutk")
+accuracy_radius = 5.0
+miss_chance_per_unit = 0.02
+critical_radius = 3.0
+critical_chance = 0.25
+critical_multiplier = 3.0
+one_shot_attack = false
+icon = SubResource("AtlasTexture_goedq")
+play_anim = "Shoot"
+item_name = "Wooden Bow"
+stackable = false
+price = 74
+quality = 1
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

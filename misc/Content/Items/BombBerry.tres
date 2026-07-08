@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://dfdi6wjiwwyce"]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_5gs72"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_3h3hs"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ww4wa"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gs72"]
+atlas = SubResource("CompressedTexture2D_ww4wa")
+region = Rect2(64, 16, 16, 16)
+
+[resource]
+script = ExtResource("2_3h3hs")
+hunger_restore = 5.0
+icon = SubResource("AtlasTexture_5gs72")
+item_name = "BombBerry"
+price = 18
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

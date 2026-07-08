@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://6tp2yo3aep8r"]
+
+[ext_resource type="Resource" uid="uid://cc82arvgiindl" path="res://misc/Content/Items/Mushroom.tres" id="1_kfjmw"]
+[ext_resource type="Resource" uid="uid://bx17yr7e54sag" path="res://misc/Content/Items/Resistance Potion.tres" id="2_us3r6"]
+[ext_resource type="Script" uid="uid://b47c08bhjaot6" path="res://scr/Systems/Craft/SimpleCraft/CraftRecipe.gd" id="3_fsfg7"]
+[ext_resource type="Resource" uid="uid://dm7ru2a5fnwfi" path="res://misc/Content/Items/Crystal.tres" id="4_fsfg7"]
+
+[resource]
+script = ExtResource("3_fsfg7")
+recipe_name = "Potion of Resistance"
+category = 2
+result_item = ExtResource("2_us3r6")
+result_amount = 2
+main_resource = ExtResource("1_kfjmw")
+main_amount = 8
+secondary_resource = ExtResource("4_fsfg7")
+secondary_amount = 6
+gold_cost = 32
+required_smith_level = 2
+workbench_only = true
+smith_only = true
+metadata/_custom_type_script = "uid://b47c08bhjaot6"

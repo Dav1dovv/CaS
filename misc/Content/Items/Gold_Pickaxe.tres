@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://ckk0m6kddgyjk"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_3t7p3"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="2_3eldj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuabl"]
+atlas = ExtResource("1_3t7p3")
+region = Rect2(48, 96, 16, 16)
+
+[resource]
+script = ExtResource("2_3eldj")
+lvl = 3
+max_durability = 430
+Damage = 9
+Atk_speed = 1.6
+equiped_weapon_sprite = SubResource("AtlasTexture_tuabl")
+is_weapon = false
+accuracy_radius = 15.0
+miss_chance_per_unit = 0.04
+critical_radius = 8.0
+critical_chance = 0.3
+one_shot_attack = false
+icon = SubResource("AtlasTexture_tuabl")
+item_name = "Gold Pickaxe"
+stackable = false
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

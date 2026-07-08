@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FoodData" format=3 uid="uid://d2ku4mnc6e7fe"]
+
+[ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_0cfxk"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_s4inl"]
+[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_s8w6q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26u7l"]
+atlas = ExtResource("2_s4inl")
+region = Rect2(160, 128, 16, 16)
+
+[resource]
+script = ExtResource("2_s8w6q")
+hunger_restore = 45.0
+icon = SubResource("AtlasTexture_26u7l")
+item_name = "Potion of Healing"
+price = 30
+metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

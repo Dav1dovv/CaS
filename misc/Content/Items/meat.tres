@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://d6k1devwgkpe"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_086y1"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_l3dbh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scbqt"]
+atlas = ExtResource("1_l3dbh")
+region = Rect2(16, 48, 16, 16)
+
+[resource]
+script = ExtResource("1_086y1")
+icon = SubResource("AtlasTexture_scbqt")
+item_name = "Meat"
+price = 5
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

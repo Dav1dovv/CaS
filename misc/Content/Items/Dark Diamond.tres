@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://qo838w3683f6"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_11xxr"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_iwtdt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evo2m"]
+atlas = ExtResource("1_iwtdt")
+region = Rect2(160, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_11xxr")
+icon = SubResource("AtlasTexture_evo2m")
+item_name = "Dark Diamond"
+price = 80
+quality = 4
+metadata/_custom_type_script = "uid://wm1t8anytdyq"

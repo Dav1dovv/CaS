@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="equip_data" format=3 uid="uid://b64inqtvf3yh"]
+
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_fvoyy"]
+[ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="1_qkmpo"]
+[ext_resource type="PackedScene" uid="uid://ci5gno40fiu81" path="res://misc/Projectiles/Bumerang.tscn" id="2_rvlyy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvlyy"]
+atlas = ExtResource("1_fvoyy")
+region = Rect2(96, 96, 16, 16)
+
+[resource]
+script = ExtResource("1_qkmpo")
+lvl = 2
+max_durability = 130
+equiped_weapon_sprite = SubResource("AtlasTexture_rvlyy")
+projectile = ExtResource("2_rvlyy")
+accuracy_radius = 12.0
+critical_radius = 7.0
+icon = SubResource("AtlasTexture_rvlyy")
+item_name = "Boomerang"
+count = 1
+stackable = false
+price = 42
+metadata/_custom_type_script = "uid://b2ovoyoflp1gw"

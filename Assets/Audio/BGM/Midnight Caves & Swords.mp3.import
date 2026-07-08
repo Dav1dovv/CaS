@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ciwv10ue11s2s"
+path="res://.godot/imported/Midnight Caves & Swords.mp3-08d58a1a13a9b0b66269c3a4e75c79e1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Midnight Caves & Swords.mp3"
+dest_files=["res://.godot/imported/Midnight Caves & Swords.mp3-08d58a1a13a9b0b66269c3a4e75c79e1.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=120.0
+beat_count=0
+bar_beats=4
