@@ -155,7 +155,6 @@ unique_name_in_owner = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1243380818]
 stream = SubResource("AudioStreamInteractive_gmsqb")
-autoplay = true
 bus = &"BGM"
 
 [node name="SettingManager" type="Node" parent="." unique_id=1416211178]

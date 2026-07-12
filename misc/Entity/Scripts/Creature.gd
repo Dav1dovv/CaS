@@ -135,6 +135,19 @@ const DETECT_INTERVAL := 0.12   # проверка каждые ~120 мс
 var _patrol_nodes: Array[Node2D] = []
 var _patrol_index: int = 0
 
+# ── ОПТИМИЗАЦИЯ: throttle вне экрана ─────────────────────────────
+# Существо вне видимости не бегает по рейкастам/детекту/move_and_slide —
+# это основная стоимость AI при большом кол-ве существ в открытом мире.
+@onready var _screen_notifier: VisibleOnScreenEnabler2D = get_node_or_null("optimizer")
+var _is_active: bool = true
+
+# Кешируем квадраты радиусов — сравнение дистанций без sqrt (distance_to)
+var _sight_radius_sq: float
+var _hear_radius_sq: float
+var _chase_giveup_sq: float
+var _flee_giveup_sq: float
+var _attack_radius_sq: float
+
 # ═══════════════════════════════════════════════════════════════
 #  INIT
 # ═══════════════════════════════════════════════════════════════
@@ -149,7 +162,25 @@ func _ready() -> void:
 	_resolve_behavior_type()
 	_resolve_patrol_nodes()
 	_build_rays()
+	_cache_squared_radii()
+	_setup_screen_throttle()
 	_enter_state(_default_start_state())
+
+## Квадраты радиусов считаем один раз — сравнение дистанций без sqrt
+func _cache_squared_radii() -> void:
+	_sight_radius_sq  = sight_radius * sight_radius
+	_hear_radius_sq   = hear_radius * hear_radius
+	_chase_giveup_sq  = (sight_radius * 1.6) * (sight_radius * 1.6)
+	_flee_giveup_sq   = (sight_radius * 2.0) * (sight_radius * 2.0)
+	_attack_radius_sq = attack_radius * attack_radius
+
+## Подключаемся к уже существующему VisibleOnScreenEnabler2D ("optimizer" в сцене)
+func _setup_screen_throttle() -> void:
+	if _screen_notifier == null:
+		return
+	_screen_notifier.screen_entered.connect(func(): _is_active = true)
+	_screen_notifier.screen_exited.connect(func(): _is_active = false)
+	_is_active = _screen_notifier.is_on_screen()
 
 func _resolve_behavior_type() -> void:
 	if behavior < -0.33:
@@ -190,6 +221,10 @@ func _physics_process(delta: float) -> void:
 	if current_state == State.DEAD:
 		return
 
+	if not _is_active:
+		_tick_offscreen(delta)
+		return
+
 	_attack_timer = maxf(0.0, _attack_timer - delta)
 	_stun_timer   = maxf(0.0, _stun_timer   - delta)
 	_wander_timer = maxf(0.0, _wander_timer - delta)
@@ -206,6 +241,16 @@ func _physics_process(delta: float) -> void:
 	_tick_poise(delta)
 
 	_tick_state(delta)
+
+## Существо вне экрана: не гоняем детект/рейкасты/move_and_slide,
+## но не даём таймерам "зависнуть", чтобы не было рывков при возврате в кадр.
+func _tick_offscreen(delta: float) -> void:
+	_stun_timer = maxf(0.0, _stun_timer - delta)
+	if use_fear:
+		fear_level = maxf(0.0, fear_level - fear_decay_rate * delta)
+	_tick_poise(delta)
+	if current_state == State.STUNNED and _stun_timer <= 0.0:
+		_enter_state(_default_start_state())
 
 # ═══════════════════════════════════════════════════════════════
 #  STATE MACHINE
@@ -275,10 +320,10 @@ func _tick_patrol(delta: float) -> void:
 func _tick_chase(delta: float) -> void:
 	if not is_instance_valid(target):
 		_lose_target(); return
-	var dist := global_position.distance_to(target.global_position)
-	if dist > sight_radius * 1.6:
+	var dist_sq := global_position.distance_squared_to(target.global_position)
+	if dist_sq > _chase_giveup_sq:
 		_lose_target(); return
-	if dist <= attack_radius:
+	if dist_sq <= _attack_radius_sq:
 		_enter_state(State.ATTACK); return
 	_move_toward(target.global_position, delta)
 
@@ -288,14 +333,14 @@ func _tick_flee(delta: float) -> void:
 		_lose_target(); return
 	var away := global_position + (global_position - target.global_position).normalized() * sight_radius
 	_move_toward(away, delta)
-	if global_position.distance_to(target.global_position) > sight_radius * 2:
+	if global_position.distance_squared_to(target.global_position) > _flee_giveup_sq:
 		_lose_target()
 
 # ── ATTACK ────────────────────────────────────────────────────
 func _tick_attack(_delta: float) -> void:
 	if not is_instance_valid(target):
 		_lose_target(); return
-	if global_position.distance_to(target.global_position) > attack_radius:
+	if global_position.distance_squared_to(target.global_position) > _attack_radius_sq:
 		_enter_state(State.CHASE); return
 	if _attack_timer <= 0.0:
 		_do_attack()
@@ -371,14 +416,14 @@ func _check_for_target() -> void:
 ## Слышим (круг) ИЛИ видим (конус + опционально LOS)
 func _can_sense(body: Node2D) -> bool:
 	var to_body := body.global_position - global_position
-	var dist    := to_body.length()
+	var dist_sq := to_body.length_squared()
 
 	# 1. Слух — простой круг, стены не блокируют
-	if dist <= hear_radius:
+	if dist_sq <= _hear_radius_sq:
 		return true
 
 	# 2. За пределами зрения — не видим
-	if dist > sight_radius:
+	if dist_sq > _sight_radius_sq:
 		return false
 
 	# 3. Проверка угла конуса
@@ -399,7 +444,7 @@ func _has_line_of_sight(target_pos: Vector2) -> bool:
 		global_position, target_pos, wall_collision_mask
 	)
 	query.exclude = [self]
-	return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+	return space.intersect_ray(query).is_empty()
 
 # ═══════════════════════════════════════════════════════════════
 #  TARGET MANAGEMENT
@@ -415,11 +460,7 @@ func _acquire_target(new_target: Node2D) -> void:
 
 func _lose_target() -> void:
 	target = null
-	_enter_target(State.WANDER if _patrol_nodes.is_empty() else State.PATROL)
-
-# исправлена опечатка — приватный вспомогательный метод
-func _enter_target(s: State) -> void:
-	_enter_state(s)
+	_enter_state(State.WANDER if _patrol_nodes.is_empty() else State.PATROL)
 
 # ═══════════════════════════════════════════════════════════════
 #  ATTACK

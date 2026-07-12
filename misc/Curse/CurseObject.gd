@@ -252,8 +252,6 @@ func _explode_dark() -> void:
 	# TODO: заспавнить VFX тёмного взрыва в global_position
 
 
+## Логика вынесена в CurseUtils — раньше дублировалась с Harvestable.gd.
 func _get_armor_curse_multiplier() -> float:
-	# Пример: если у игрока есть метод get_curse_resistance — используем его
-	if _player.has_method("get_curse_resistance"):
-		return 1.0 - clamp(_player.get_curse_resistance(), 0.0, 1.0)
-	return 1.0
+	return CurseUtils.get_armor_curse_multiplier(_player)

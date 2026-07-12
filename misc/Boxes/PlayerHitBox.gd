@@ -90,7 +90,7 @@ func hit(area: Area2D) -> void:
 		return
 
 	if equip is equip_data and equip.is_broken():
-		print("Оружие сломано — удар не наносится!")
+		DebugLog.log("Оружие сломано — удар не наносится!")
 		return
 
 	apply_damage(area, equip.Damage)
@@ -130,7 +130,7 @@ func apply_damage(area: Area2D, damage: float) -> void:
 	# ── Harvestable ──────────────────────────────────────────────────────────
 	if area.is_in_group("Harvestable"):
 		area.Harvest(damage, equip.lvl, equip.is_weapon)
-		print("area is harvestable: " + area.get_parent().name)
+		DebugLog.log("area is harvestable: " + area.get_parent().name)
 		if equip is equip_data:
 			if equip.lvl >= area.harvest_tool_lvl:
 				equip.reduce_durability(1)
@@ -157,10 +157,10 @@ func apply_damage(area: Area2D, damage: float) -> void:
 		target.take_damage(final_damage, self, is_crit, poise_dmg)
 
 		if is_crit:
-			print("КРИТ! " + str(final_damage) + " урона по " + target.name)
+			DebugLog.log("КРИТ! " + str(final_damage) + " урона по " + target.name)
 			emit_signal("critical_hit", target)
 		else:
-			print("weapon damaged: " + str(final_damage) + " on " + target.name)
+			DebugLog.log("weapon damaged: " + str(final_damage) + " on " + target.name)
 
 		if equip is equip_data:
 			equip.reduce_durability(1)

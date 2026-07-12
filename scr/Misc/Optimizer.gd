@@ -1,20 +1,20 @@
 extends VisibleOnScreenEnabler2D
 class_name optimizer
 
-@export var hide_objects : Array[Node]
+@export var hide_objects: Array[Node]
 
-func _init() -> void:
-	connect("screen_entered",on_screen)
-	connect("screen_exited",non_screen)
-	non_screen()
-	pass
+func _ready() -> void:
+	# _ready вместо _init — на момент _init сигналы/сцена ещё не готовы
+	screen_entered.connect(_on_screen)
+	screen_exited.connect(_on_off_screen)
+	_on_off_screen()  # по умолчанию скрыто, пока не попадёт в кадр
 
-func on_screen():
-	for i in hide_objects.size():
-		if !hide_objects[i] == null:
-			hide_objects[i].visible = true
+func _on_screen() -> void:
+	for obj in hide_objects:
+		if obj:
+			obj.visible = true
 
-func non_screen():
-	for i in hide_objects.size():
-		if !hide_objects[i]== null:
-			hide_objects[i].visible = false
+func _on_off_screen() -> void:
+	for obj in hide_objects:
+		if obj:
+			obj.visible = false

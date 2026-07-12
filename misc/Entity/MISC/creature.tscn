@@ -77,9 +77,9 @@ max_distance = 160.0
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=1354189396]
 offset_left = -16.0
-offset_top = 9.0
+offset_top = 4.0
 offset_right = 16.0
-offset_bottom = 11.0
+offset_bottom = 8.0
 theme_override_styles/fill = SubResource("StyleBoxTexture_x812b")
 show_percentage = false
 

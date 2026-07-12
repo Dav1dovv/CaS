@@ -28,9 +28,9 @@ var weather_state: Dictionary = {}
 ## Не дублируй это значение в других системах — читай/меняй только через
 ## get_corruption_level() / add_corruption() ниже.
 var corruption := {
-	"Forest" : 100.0,
-	"Desert" : 100.0,
-	"Thundra" : 100.0,
+	"Forest" : 60,
+	"Desert" : 75,
+	"Thundra" : 70,
 	"Deep" : 100.0
 }
 

@@ -149,6 +149,7 @@ CoinSlot=""
 [gui]
 
 theme/custom="uid://bmjvsrl7b67cy"
+theme/custom_font="uid://dnoo2acsx2r06"
 
 [input]
 

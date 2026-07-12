@@ -18,6 +18,9 @@ class_name Entity
 @export var invincibility_duration: float = 0.25
 # ────────────────────────────────────────────────────────────────
 
+## Печатать подробный лог урона в консоль (выключено — print() не бесплатен)
+@export var debug_log_damage: bool = false
+
 # Сигналы
 signal health_changed(new_health: float)
 signal died
@@ -76,7 +79,8 @@ func take_damage(damage: float, damage_source: Node2D = null, is_critical: bool 
 	Entity_stats.current_health -= actual_damage
 	emit_signal("health_changed", Entity_stats.current_health)
 
-	_log_damage(damage, actual_damage, total_reduction, is_critical, vulnerability_mult)
+	if debug_log_damage:
+		_log_damage(damage, actual_damage, total_reduction, is_critical, vulnerability_mult)
 
 	# ── Реакция существа на удар (страх, стаггер и т.д.) ─────────────
 	if has_method("on_hit"):
@@ -172,20 +176,13 @@ func _find_sprite(node: Node) -> Node:
 			return child
 	return null
 
+## Раньше это был рекурсивный обход всего дерева сцены на каждый удар —
+## заменено на встроенный O(1) доступ к активной камере вьюпорта.
 func _find_camera() -> Camera2D:
 	var vp = get_viewport()
 	if vp == null:
 		return null
-	return _search_camera(get_tree().root)
-
-func _search_camera(node: Node) -> Camera2D:
-	if node is Camera2D and node.is_current():
-		return node
-	for child in node.get_children():
-		var result = _search_camera(child)
-		if result:
-			return result
-	return null
+	return vp.get_camera_2d()
 
 func _log_damage(base: float, actual: float, reduction: float, is_critical: bool = false, vulnerability_mult: float = 1.0) -> void:
 	print("====================================")
@@ -270,7 +267,7 @@ func apply_poison(value: float, duration: float, tick_interval: float) -> void:
 	apply_effect_instance(poison_effect)
 
 func _on_effect_added(effect: Effect) -> void:
-	print("Effect added: " + effect.display_name)
+	DebugLog.log("Effect added: " + effect.display_name)
 
 func _on_effect_removed(effect: Effect) -> void:
-	print("Effect removed: " + effect.display_name)
+	DebugLog.log("Effect removed: " + effect.display_name)

@@ -470,6 +470,7 @@ y_sort_enabled = true
 [node name="Bridge_Horizontal" parent="Structures" index="0" unique_id=1947328939 instance=ExtResource("25_08xar")]
 position = Vector2(-179, -341)
 scale = Vector2(1.2051795, 1.3434504)
+is_builded = true
 
 [node name="Portal" parent="Structures" index="1" unique_id=1193187100 instance=ExtResource("12_wnypi")]
 position = Vector2(-1523, -8)

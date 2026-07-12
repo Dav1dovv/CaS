@@ -35,6 +35,13 @@ var _shader_material: ShaderMaterial
 @export_range(0.0, 1.0, 0.01) var fade_alpha : float = 0.50
 @export_range(0.1, 1.0, 0.05) var fade_duration : float = 0.2
 
+# ОПТИМИЗАЦИЯ: квадрат дистанции — сравнение без sqrt
+var _max_distance_sq : float = 0.0
+# Текущее "выцветшее" состояние — tween запускаем только при его смене,
+# а не каждый physics-кадр
+var _is_faded : bool = false
+
+
 # ─── Combo / Timing Harvest ──────────────────────────────────────────────────
 @export_group("Combo Harvest")
 ## Максимальный интервал между ударами, чтобы комбо не сбросилось (сек)
@@ -78,6 +85,8 @@ func _ready() -> void:
 	if sprite and sprite.material is ShaderMaterial:
 		_shader_material = sprite.material
 		_shader_material.set_shader_parameter("wind_offset", global_position.x)
+
+	_max_distance_sq = max_distance * max_distance
 	
 	#region CORRUPTION
 	# Заражение теперь берётся только из WorldGenerator (родителя) — у него
@@ -175,7 +184,7 @@ func _on_destroyed(tool_lvl: int) -> void:
 				Dropper_component.max_drop = int(round(Dropper_component.max_drop * bonus_mult))
 
 		if is_rich_vein:
-			print("Богатая жила! Бонус к дропу: x%.2f" % bonus_mult)
+			DebugLog.log("Богатая жила! Бонус к дропу: x%.2f" % bonus_mult)
 
 		Dropper_component._drop_items()
 
@@ -209,30 +218,30 @@ func _spawn_curse_object(tier_diff: int) -> void:
 
 
 ## Возвращает множитель заражения в зависимости от брони/амулетов игрока.
-## 1.0 = без защиты, 0.0 = полный иммунитет.
-## TODO: подключить к системе брони когда она будет реализована.
+## Логика вынесена в CurseUtils — раньше дублировалась с CurseObject.gd.
 func _get_armor_curse_multiplier() -> float:
-	# Пример: если у игрока есть метод get_curse_resistance — используем его
-	if player.has_method("get_curse_resistance"):
-		return 1.0 - clamp(player.get_curse_resistance(), 0.0, 1.0)
-	return 1.0
+	return CurseUtils.get_armor_curse_multiplier(player)
 
 
 #region Background transparency
+## ОПТИМИЗАЦИЯ: distance_squared_to вместо distance_to (без sqrt) +
+## tween запускаем только при смене состояния near/far, а не каждый кадр —
+## иначе на каждый Harvestable в мире это create_tween()+kill() 60 раз/сек.
 func update_transparency() -> void:
 	if _shader_material == null:
 		return
-	if player == null:
-		_tween_fade(1.0)
-		return
 
-	var distance = global_position.distance_to(player.global_position)
-	var player_behind = player.global_position.y < global_position.y
+	var should_fade := false
+	if player != null:
+		var dist_sq := global_position.distance_squared_to(player.global_position)
+		var player_behind = player.global_position.y < global_position.y
+		should_fade = player_behind and dist_sq < _max_distance_sq
 
-	if player_behind and distance < max_distance:
-		_tween_fade(fade_alpha)
-	else:
-		_tween_fade(1.0)
+	if should_fade == _is_faded:
+		return  # состояние не изменилось — tween не нужен
+
+	_is_faded = should_fade
+	_tween_fade(fade_alpha if should_fade else 1.0)
 
 func _tween_fade(target_alpha: float) -> void:
 	if tween:

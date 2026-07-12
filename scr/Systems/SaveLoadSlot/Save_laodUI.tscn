@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://scr/Misc/UIelements/button.tscn" id="3_oxe6j"]
 [ext_resource type="Shader" uid="uid://cpqgkpo83gda7" path="res://Assets/Shader/Blur.gdshader" id="4_63qnd"]
 [ext_resource type="Script" uid="uid://8un4fxvacetp" path="res://misc/Entity/Player/skin.gd" id="5_fleqo"]
+[ext_resource type="Theme" uid="uid://bmjvsrl7b67cy" path="res://misc/UI/theme.tres" id="5_gaae2"]
 [ext_resource type="Texture2D" uid="uid://duv7dkh763fec" path="res://misc/Entity/Player/Textures/Skin1.png" id="6_rjumb"]
 [ext_resource type="Texture2D" uid="uid://dobdbv38qprsl" path="res://misc/Entity/Player/Textures/Skin2.png" id="7_e20lw"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="7_p2nwc"]
@@ -1260,6 +1261,7 @@ alignment = 1
 custom_minimum_size = Vector2(160, 5)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("5_gaae2")
 theme_override_font_sizes/font_size = 9
 placeholder_text = "CHARACTER  NAME"
 max_length = 14
@@ -1268,7 +1270,7 @@ max_length = 14
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 10
-text = "random"
+text = "RANDOM"
 icon = SubResource("AtlasTexture_e20lw")
 flat = true
 
@@ -1404,7 +1406,7 @@ icon = SubResource("AtlasTexture_lqclo")
 [node name="Button" parent="NewSavePanel/SkinCreator/HBoxContainer" unique_id=1571615474 instance=ExtResource("3_oxe6j")]
 layout_mode = 2
 size_flags_vertical = 8
-text = "random"
+text = "RANDOM"
 icon = SubResource("AtlasTexture_e20lw")
 flat = true
 

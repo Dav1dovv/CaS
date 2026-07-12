@@ -356,7 +356,7 @@ flat = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/BlazionOg3" unique_id=1953903324]
 libraries/ = SubResource("AnimationLibrary_1g3xe")
-speed_scale = 2.0
+speed_scale = 4.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control/BlazionOg3" unique_id=1546199825]
 

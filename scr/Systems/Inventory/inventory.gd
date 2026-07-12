@@ -122,7 +122,7 @@ func add_item(item_data: ItemData, amount: int = 1) -> bool:
 			break
 		if data.item == null:
 			# Дублируем только стакаемые предметы; нестакаемые — напрямую
-			data.item   = item_data.duplicate() if item_data.stackable else item_data
+			data.item   = item_data if item_data.stackable else item_data
 			var add: int = mini(remaining, item_data.max_count)
 			data.amount  = add
 			data.slot_node.item    = data.item

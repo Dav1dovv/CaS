@@ -1455,10 +1455,10 @@ tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.175585, 0.48685, 0.875265, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.49, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.0540161, 0.0, -0.0686416, 0.0]
+"values": [0.0760624, 0.045797497, 0.0760624]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -1551,10 +1551,10 @@ tracks/9/path = NodePath("Head:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.21017, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-0.015625, -4.00781), Vector2(-0.00198578, -3.72397), Vector2(-0.015625, -4.00781)]
+"values": [Vector2(-0.015625, -4.00781), Vector2(-0.015625, -4.00781)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
@@ -1563,10 +1563,10 @@ tracks/10/path = NodePath("Head:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 0.21017, 0.593265, 0.90985, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.46666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, -0.0517873, -0.00273431, 0.0199403, 0.0]
+"values": [0.0, -0.07800175, 0.0]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -1718,7 +1718,7 @@ libraries/ = SubResource("AnimationLibrary_c3h0l")
 [node name="BodyAnim" type="AnimationPlayer" parent="Skin/Body" index="4" unique_id=958965508]
 libraries/ = SubResource("AnimationLibrary_egpp3")
 autoplay = &"Idle"
-speed_scale = 1.7
+speed_scale = 2.0
 
 [node name="Shadow" type="Sprite2D" parent="Skin" index="1" unique_id=1718775547]
 self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)

@@ -461,7 +461,7 @@ func curse(add_count : float):
 	health_bar.update_value(Entity_stats.current_health,Entity_stats.max_health, corruption)
 	if corruption >= Entity_stats.max_health:
 		die()
-	print("Corrupt")
+	DebugLog.log("Corrupt")
 # ─────────────────────────────────────────────────────────────────────────────
 #  Dev-команды
 # ─────────────────────────────────────────────────────────────────────────────

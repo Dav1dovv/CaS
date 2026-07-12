@@ -80,6 +80,34 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="Curve" id="Curve_3sirv"]
+_data = [Vector2(0, 0.3146068), 0.0, 0.0, 0, 0, Vector2(0.5675676, 0.6741574), 0.0, 0.0, 0, 0, Vector2(1, 0.033707857), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2a35p"]
+curve = SubResource("Curve_3sirv")
+
+[sub_resource type="Gradient" id="Gradient_gbsbb"]
+offsets = PackedFloat32Array(0, 0.30327868, 0.6393443, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mnx7f"]
+gradient = SubResource("Gradient_gbsbb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gaae2"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(4, 4, 4)
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(-5, 0, 0)
+gravity = Vector3(0, -98, 0)
+scale_min = 0.5
+scale_max = 2.0
+scale_over_velocity_max = 53.76
+color = Color(0.18717611, 0.18717614, 0.18717608, 1)
+color_ramp = SubResource("GradientTexture1D_mnx7f")
+alpha_curve = SubResource("CurveTexture_2a35p")
+
 [sub_resource type="Animation" id="Animation_gbsbb"]
 resource_name = "Light"
 length = 1.5
@@ -128,6 +156,12 @@ animation = &"ON"
 autoplay = "ON"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" unique_id=249322329]
+modulate = Color(1, 1, 1, 0.6)
+show_behind_parent = true
+position = Vector2(3, 0)
+amount = 24
+texture = ExtResource("2_0u7hf")
+process_material = SubResource("ParticleProcessMaterial_gaae2")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1173753225]
 position = Vector2(1, -9)

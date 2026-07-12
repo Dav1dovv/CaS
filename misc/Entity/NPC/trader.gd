@@ -36,9 +36,12 @@ func _process(_delta: float) -> void:
 	if current_state == State.DEAD:
 		return
 
-	var dist := global_position.distance_to(player.global_position)
+	# ОПТИМИЗАЦИЯ: sqrt не нужен — сравниваем квадраты расстояний
+	var dist_sq := global_position.distance_squared_to(player.global_position)
+	var face_radius_sq := face_player_radius * face_player_radius
+	var awareness_radius_sq := awareness_radius * awareness_radius
 
-	if dist <= face_player_radius:
+	if dist_sq <= face_radius_sq:
 		# Смотрим на игрока — останавливаемся и поворачиваемся
 		if not _npc_stopped:
 			_npc_stopped = true
@@ -48,7 +51,7 @@ func _process(_delta: float) -> void:
 		if dir_to_player.x != 0.0:
 			$Skin.scale.x = -1.0 if dir_to_player.x < 0.0 else 1.0
 
-	elif dist <= awareness_radius:
+	elif dist_sq <= awareness_radius_sq:
 		# В зоне осведомлённости — останавливаемся, но не поворачиваемся
 		if not _npc_stopped:
 			_npc_stopped = true

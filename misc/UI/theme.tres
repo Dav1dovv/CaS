@@ -174,50 +174,41 @@ texture = SubResource("AtlasTexture_v2w6c")
 atlas = ExtResource("2_sk3jv")
 region = Rect2(128, 112, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_awkti"]
+atlas = ExtResource("2_sk3jv")
+region = Rect2(80, 32, 64, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lrg5a"]
+texture = SubResource("AtlasTexture_awkti")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vaw2w"]
 load_path = "res://.godot/imported/UI.png-3127ff07c75ab5f066f57f51ab20937b.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbecx"]
 atlas = SubResource("CompressedTexture2D_vaw2w")
-region = Rect2(82, 33, 44, 13)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lrg5a"]
-texture = SubResource("AtlasTexture_hbecx")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_right = 1.0
-texture_margin_bottom = 1.0
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_awkti"]
-atlas = ExtResource("2_sk3jv")
-region = Rect2(2, 113, 44, 13)
+region = Rect2(64, 79.7633, 64, 16.236702)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m5kcx"]
-texture = SubResource("AtlasTexture_awkti")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_right = 1.0
-texture_margin_bottom = 1.0
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_hbecx")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_glcgr"]
-texture = SubResource("AtlasTexture_awkti")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_right = 1.0
-texture_margin_bottom = 1.0
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
-modulate_color = Color(0.7121294, 0.7121294, 0.71212935, 1)
+texture = SubResource("AtlasTexture_hbecx")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eebt1"]
 atlas = ExtResource("2_sk3jv")
