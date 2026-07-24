@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dx7g6doff7gue"]
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_n45lw"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_0t0al"]
 [ext_resource type="Texture2D" uid="uid://drri1rppcrhxp" path="res://misc/HarvestItems/Textures/Mushroom.png" id="2_2bia2"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_ymwi6"]
 [ext_resource type="Resource" uid="uid://cc82arvgiindl" path="res://misc/Content/Items/Mushroom.tres" id="3_rb7gh"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_svf7w"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_e6uwh"]
@@ -13,6 +13,13 @@
 [ext_resource type="AudioStream" uid="uid://bucv88ie5tnuv" path="res://misc/HarvestItems/SFX/Tree/WoodDestroy.mp3" id="14_1s5bg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n45lw"]
+
+[sub_resource type="Resource" id="Resource_byf36"]
+script = ExtResource("2_0t0al")
+drop_item = ExtResource("3_rb7gh")
+min_throws = 4
+max_throws = 7
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_t5dff"]
 playback_mode = 1
@@ -31,34 +38,44 @@ load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143
 atlas = SubResource("CompressedTexture2D_i6q74")
 region = Rect2(48, 16, 16, 16)
 
-[sub_resource type="Gradient" id="Gradient_ymwi6"]
+[sub_resource type="Gradient" id="Gradient_wwo1s"]
+offsets = PackedFloat32Array(0.6460177, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rb7gh"]
-gradient = SubResource("Gradient_ymwi6")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_axhva"]
+gradient = SubResource("Gradient_wwo1s")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nny60"]
+[sub_resource type="Curve" id="Curve_tmqmk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.7391304), 0.0, 0.0, 0, 0, Vector2(0.49206346, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_4snad"]
+curve = SubResource("Curve_tmqmk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0t0al"]
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 28.36
-angle_min = -86.399994
-angle_max = 37.00001
-inherit_velocity_ratio = 0.407
+emission_sphere_radius = 14.35
+angle_min = -720.0
+angle_max = 720.0
 direction = Vector3(0, -1, 0)
-spread = 25.0
+spread = 27.628
+flatness = 1.0
 initial_velocity_min = 200.0
-initial_velocity_max = 400.0
+initial_velocity_max = 362.06998
 gravity = Vector3(0, 700, 0)
 damping_min = 100.0
 damping_max = 800.0
-scale_min = 0.5
-color_ramp = SubResource("GradientTexture1D_rb7gh")
+scale_min = 0.099999994
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_4snad")
+color_ramp = SubResource("GradientTexture1D_axhva")
 
 [node name="Mushroom" unique_id=1447700831 instance=ExtResource("1_n45lw")]
 durability = 10.0
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_n45lw")
 
@@ -68,8 +85,7 @@ scale = Vector2(2.15, 2.8)
 hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), NodePath("../Corruption Effect")]
 
 [node name="droper" parent="." index="3" unique_id=1465568748]
-drop_item = Array[ExtResource("2_ymwi6")]([ExtResource("3_rb7gh")])
-max_drop = 5
+drop_resources = Array[ExtResource("2_0t0al")]([SubResource("Resource_byf36")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="5" unique_id=1370246797]
 position = Vector2(0, -17)
@@ -98,8 +114,9 @@ position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_2bia2")
 
 [node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("11_0t0al")]
+position = Vector2(1, -7)
 texture = SubResource("AtlasTexture_wslqt")
-process_material = SubResource("ParticleProcessMaterial_nny60")
+process_material = SubResource("ParticleProcessMaterial_0t0al")
 
 [node name="VFX_damage" parent="." index="11" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
 audio_player = NodePath("../SFX")

@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://bntky2x40cdr3"]
 
 [ext_resource type="Script" uid="uid://yt38gf4blhmb" path="res://Assets/Scenes/Menu/logo_screen.gd" id="1_ammw1"]
-[ext_resource type="Texture2D" uid="uid://tv5rhh3q8hkr" path="res://Assets/Textures/UI/Blazion Text.png" id="2_w1evi"]
+[ext_resource type="Texture2D" uid="uid://dp2rywwblxylk" path="res://Assets/Textures/UI/Dafidovv/TextLogo.png" id="2_o4647"]
 [ext_resource type="AudioStream" uid="uid://dv2t0jmoipilb" path="res://Assets/Audio/SFX/BlazionJump.wav" id="3_lg41u"]
-[ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="3_vqpn1"]
-[ext_resource type="Texture2D" uid="uid://cvo8133epa8g" path="res://Assets/Textures/UI/Blazion3.png" id="4_rg8vd"]
+[ext_resource type="Texture2D" uid="uid://0vmcejksa5fy" path="res://Assets/Textures/UI/Dafidovv/CharacterLogo.png" id="3_rotiq"]
 
 [sub_resource type="Animation" id="Animation_vqpn1"]
 resource_name = "Logo"
@@ -12,26 +11,38 @@ length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/TextureRect:modulate")
+tracks/0/path = NodePath("ColorRect2:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.49, 8.6, 9.866667),
+"times": PackedFloat32Array(0, 0.98, 9, 9.966666),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Control/BlazionOg3:self_modulate")
+tracks/1/path = NodePath("Control/TextureRect:offset_transform_rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 2.3666666, 8.966666, 9.866667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:offset_transform_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_w1evi"]
@@ -39,26 +50,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/TextureRect:modulate")
+tracks/0/path = NodePath("ColorRect2:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Control/BlazionOg3:self_modulate")
+tracks/1/path = NodePath("Control/TextureRect:offset_transform_rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:offset_transform_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rg8vd"]
@@ -250,51 +273,6 @@ _data = {
 &"RESET": SubResource("Animation_bnuf3")
 }
 
-[sub_resource type="Curve" id="Curve_w1evi"]
-_data = [Vector2(0.36094674, 1), 0.0, 0.035282083, 0, 0, Vector2(0.75147927, 0.33704573), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_rg8vd"]
-curve = SubResource("Curve_w1evi")
-
-[sub_resource type="Curve" id="Curve_bnuf3"]
-_limits = [-360.0, 360.0, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_1g3xe"]
-curve = SubResource("Curve_bnuf3")
-
-[sub_resource type="Gradient" id="Gradient_6nx6p"]
-offsets = PackedFloat32Array(0, 0.32371795, 0.4775641, 0.67628205, 0.75641024, 0.82371795)
-colors = PackedColorArray(0.64359254, 0.36427358, 3.85046e-07, 1, 1, 0.38431373, 0, 1, 1, 1, 1, 1, 0.6258831, 0.26071382, 0, 1, 1, 1, 1, 1, 0.6799425, 0.46653318, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gf53j"]
-gradient = SubResource("Gradient_6nx6p")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4e75h"]
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(1, 14.21, 1)
-emission_shape = 3
-emission_box_extents = Vector3(1004.585, 6.075, 1)
-angle_min = -894.0
-angle_max = 720.0
-angle_curve = SubResource("CurveTexture_1g3xe")
-inherit_velocity_ratio = 0.105
-velocity_pivot = Vector3(0, -500, 0)
-direction = Vector3(1, 29.43, 0)
-spread = 30.0
-flatness = 0.352
-initial_velocity_max = 319.28
-gravity = Vector3(0, -260, 0)
-linear_accel_min = -12.240002
-linear_accel_max = 11.699998
-scale_max = 2.0
-scale_over_velocity_min = 29.26
-scale_over_velocity_max = 29.26
-color_ramp = SubResource("GradientTexture1D_gf53j")
-alpha_curve = SubResource("CurveTexture_rg8vd")
-
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1908077074]
 script = ExtResource("1_ammw1")
 
@@ -304,7 +282,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1771465262]
 libraries/ = SubResource("AnimationLibrary_rg8vd")
@@ -316,26 +293,49 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 22.294952
+offset_top = 13.94429
+offset_right = -18.674835
+offset_bottom = -8.89502
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.0883608, 1.0883608)
 pivot_offset = Vector2(241, 157.81076)
 
-[node name="BlazionOg3" type="TextureRect" parent="Control" unique_id=783329138]
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1232872973]
+layout_mode = 0
+offset_left = 76.26149
+offset_top = 124.03977
+offset_right = 13969.262
+offset_bottom = 2742.0398
+scale = Vector2(0.019327099, 0.019327099)
+offset_transform_enabled = true
+texture = ExtResource("2_o4647")
+
+[node name="Control" type="Control" parent="Control" unique_id=693227022]
+anchors_preset = 0
+offset_left = 154.36063
+offset_top = -37.671318
+offset_right = 194.36061
+offset_bottom = 2.328682
+rotation = 0.073307216
+scale = Vector2(1.3422484, 1.3422484)
+
+[node name="BlazionOg3" type="TextureRect" parent="Control/Control" unique_id=783329138]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 25.0
-offset_top = -70.0
+offset_top = 45.0
 offset_right = 345.0
-offset_bottom = 250.0
+offset_bottom = 365.0
 grow_vertical = 2
-scale = Vector2(0.3178556, 0.3178556)
-texture = ExtResource("4_rg8vd")
+scale = Vector2(0.16748056, 0.16748056)
+texture = ExtResource("3_rotiq")
 expand_mode = 1
 
-[node name="Button" type="Button" parent="Control/BlazionOg3" unique_id=110716531]
+[node name="Button" type="Button" parent="Control/Control/BlazionOg3" unique_id=110716531]
 layout_mode = 0
 offset_left = 47.19124
 offset_top = 22.022583
@@ -354,35 +354,20 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_a7mi6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_dh332")
 flat = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/BlazionOg3" unique_id=1953903324]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Control/BlazionOg3" unique_id=1953903324]
 libraries/ = SubResource("AnimationLibrary_1g3xe")
 speed_scale = 4.0
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control/BlazionOg3" unique_id=1546199825]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Control/Control/BlazionOg3" unique_id=1546199825]
 
-[node name="TextureRect" type="TextureRect" parent="Control" unique_id=419487537]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -888.0
-offset_top = -506.86316
-offset_right = 767.0
-offset_bottom = 121.13684
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=383525556]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.23474374, 0.23474374)
-pivot_offset = Vector2(956.82806, 590.98206)
-texture = ExtResource("2_w1evi")
-stretch_mode = 3
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Control/TextureRect" unique_id=1690829581]
-position = Vector2(638.06335, 778.49695)
-texture = ExtResource("3_vqpn1")
-process_material = SubResource("ParticleProcessMaterial_4e75h")
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="pressed" from="Control/BlazionOg3/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Control/Control/BlazionOg3/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://8ysv3553uoh3"]
+
+[ext_resource type="Script" uid="uid://b4lwq0f6a5hv" path="res://misc/Crystal/crystal.gd" id="1_6acrw"]
+[ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="3_m2pa7"]
+[ext_resource type="Material" uid="uid://dt3kmwwp04orp" path="res://misc/HarvestItems/Shinin1.tres" id="3_qqn8e"]
+[ext_resource type="Texture2D" uid="uid://bp731d1yfc2aj" path="res://Assets/Textures/Items/Crystal1.png" id="4_luo6g"]
+[ext_resource type="Texture2D" uid="uid://cjxv2bid4rpja" path="res://Assets/Textures/Items/Crystal2.png" id="5_os00q"]
+[ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/Shader/Shine.gdshader" id="5_yqpoi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xqp04"]
+shader = ExtResource("5_yqpoi")
+shader_parameter/size_effect = 2.0
+shader_parameter/speed = -1.0
+shader_parameter/highlight_strength = 0.3000000640751601
+shader_parameter/color_mode_toggle = false
+shader_parameter/is_horizontal = false
+shader_parameter/pause_duration = 0.5
+shader_parameter/texture_size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_qqn8e"]
+resource_name = "Levitating"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -20.239502), Vector2(0, -35.691166)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crystal:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Crystal:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.47, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.2373896, 1.2373896), Vector2(1.138949, 1.35801), Vector2(1.2373896, 1.2373896)]
+}
+
+[sub_resource type="Animation" id="Animation_luo6g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -20.239502)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crystal:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Crystal:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2373896, 1.2373896)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_os00q"]
+_data = {
+&"Levitating": SubResource("Animation_qqn8e"),
+&"RESET": SubResource("Animation_luo6g")
+}
+
+[node name="crystal" type="Node2D" unique_id=1200449064]
+script = ExtResource("1_6acrw")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=2142861487]
+modulate = Color(0.13333334, 0.14509805, 0.14509805, 0.30980393)
+position = Vector2(0, 2.815113)
+scale = Vector2(1.2373896, 0.33809566)
+texture = ExtResource("3_m2pa7")
+
+[node name="Crystal" type="Sprite2D" parent="." unique_id=655492247]
+clip_children = 2
+material = ExtResource("3_qqn8e")
+position = Vector2(0, -20.239502)
+scale = Vector2(1.2373896, 1.2373896)
+texture = ExtResource("4_luo6g")
+
+[node name="Corrupted" type="Sprite2D" parent="Crystal" unique_id=1685431543]
+visible = false
+material = SubResource("ShaderMaterial_xqp04")
+texture = ExtResource("5_os00q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=943106209]
+libraries/ = SubResource("AnimationLibrary_os00q")
+autoplay = &"Levitating"

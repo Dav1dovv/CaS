@@ -129,12 +129,15 @@ func apply_damage(area: Area2D, damage: float) -> void:
 
 	# ── Harvestable ──────────────────────────────────────────────────────────
 	if area.is_in_group("Harvestable"):
-		area.Harvest(damage, equip.lvl, equip.is_weapon)
-		DebugLog.log("area is harvestable: " + area.get_parent().name)
+		#area.Harvest(damage, equip.lvl, equip.is_weapon)
+		#DebugLog.log("area is harvestable: " + area.get_parent().name)
 		if equip is equip_data:
+			area.Harvest(damage, equip.lvl, equip.is_weapon)
+			DebugLog.log("area is harvestable: " + area.get_parent().name)
 			if equip.lvl >= area.harvest_tool_lvl:
 				equip.reduce_durability(1)
-			else:
+			elif  equip.lvl < area.harvest_tool_lvl:
+				print("resource is harder: " + str(area.harvest_tool_lvl))
 				# Кирка ниже нужного тира — ломается в 4× быстрее
 				equip.reduce_durability(1 * area.harvest_tool_lvl)
 		return
@@ -214,9 +217,12 @@ func _apply_food_effects(food: FoodData) -> void:
 		if effect.effect_type == 0:
 			if p.has_method("heal"):
 				p.heal(effect.value)
+				p.heal(food.health_restore)
 
-	if p.has_method("set_stamina"):
-		p.set_stamina(food.hunmger_restore)
+	if p.has_method("heal"):
+		p.heal(food.health_restore)
+	if p.has_method("remove_curse"):
+		p.remove_curse(food.remove_corription)
 
 
 func eat_food() -> void:

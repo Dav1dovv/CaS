@@ -4,15 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://dx2anf7b2yfha" path="res://misc/HarvestItems/Textures/DiedTree.png" id="2_45q5k"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_hs44r"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_8f8hu"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="5_fmajy"]
 [ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="6_1fv40"]
 [ext_resource type="Shader" uid="uid://cdlafcs161hqt" path="res://Assets/Shader/tree_wind.gdshader" id="6_p2hqp"]
 [ext_resource type="Texture2D" uid="uid://ba68hc527pcvj" path="res://misc/HarvestItems/Textures/Tree.png" id="6_qgcag"]
-[ext_resource type="Script" uid="uid://ctm4b4v8txo1q" path="res://scr/Resources/WeightItem.gd" id="7_buu5p"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="7_1t5m1"]
 [ext_resource type="Resource" uid="uid://bx48che8mxghx" path="res://misc/Content/Items/Apple.tres" id="8_xne83"]
+[ext_resource type="Script" uid="uid://byfijrhr1g24j" path="res://misc/Drop/DropWeapon.gd" id="10_45q5k"]
 [ext_resource type="AudioStream" uid="uid://v4sxnpx0ucxs" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Wood-01.mp3" id="10_jow1p"]
 [ext_resource type="AudioStream" uid="uid://drwfryrgniotc" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Wood-02.mp3" id="11_45q5k"]
-[ext_resource type="Resource" uid="uid://crxv7hg1loq5v" path="res://misc/Content/Items/Stick.tres" id="11_qinkj"]
 [ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="13_jow1p"]
 [ext_resource type="AudioStream" uid="uid://bucv88ie5tnuv" path="res://misc/HarvestItems/SFX/Tree/WoodDestroy.mp3" id="16_3spyh"]
 
@@ -29,17 +28,26 @@ shader_parameter/wind_frequency = 1.2850000610375
 shader_parameter/wind_offset = 23.36400110979
 shader_parameter/fade_alpha = 1.0
 
-[sub_resource type="Resource" id="Resource_mchyi"]
-script = ExtResource("7_buu5p")
-item = ExtResource("8_xne83")
-weight = 0.05
-metadata/_custom_type_script = "uid://ctm4b4v8txo1q"
+[sub_resource type="Resource" id="Resource_wrk2s"]
+script = ExtResource("7_1t5m1")
+drop_item = ExtResource("6_1fv40")
+drop_chance = 1.0
+max_throws = 4
+max_count = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
-[sub_resource type="Resource" id="Resource_wwo1s"]
-script = ExtResource("7_buu5p")
-item = ExtResource("11_qinkj")
-weight = 0.015
-metadata/_custom_type_script = "uid://ctm4b4v8txo1q"
+[sub_resource type="Resource" id="Resource_qinkj"]
+script = ExtResource("7_1t5m1")
+drop_item = ExtResource("8_xne83")
+drop_chance = 0.28409999999999996
+max_throws = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="Resource" id="Resource_01dxt"]
+script = ExtResource("10_45q5k")
+new_damage = -1
+drop_chance = 0.4821
+metadata/_custom_type_script = "uid://byfijrhr1g24j"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mchyi"]
 playback_mode = 1
@@ -85,13 +93,73 @@ damping_max = 800.0
 scale_min = 0.5
 color_ramp = SubResource("GradientTexture1D_uupl7")
 
+[sub_resource type="Animation" id="Animation_45q5k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, -7)]
+}
+
+[sub_resource type="Animation" id="Animation_qinkj"]
+resource_name = "destroy"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.6060654]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2, -7), Vector2(7, -5.000001)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wwo1s"]
+_data = {
+&"RESET": SubResource("Animation_45q5k"),
+&"destroy": SubResource("Animation_qinkj")
+}
+
 [node name="Tree" unique_id=1525282769 instance=ExtResource("1_32v1v")]
-durability = 8.0
+durability = 18.0
 harvest_tool_lvl = 0
 corrupted_texture = ExtResource("2_45q5k")
 max_distance = 70.0
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(1, -3)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_phfk7")
@@ -123,9 +191,7 @@ scale = Vector2(1.8934023, 0.863497)
 texture = ExtResource("4_8f8hu")
 
 [node name="droper" parent="." index="5" unique_id=1465568748]
-drop_item = Array[ExtResource("5_fmajy")]([ExtResource("6_1fv40")])
-unique_items = Array[ExtResource("7_buu5p")]([SubResource("Resource_mchyi"), SubResource("Resource_wwo1s")])
-random_values = true
+drop_resources = Array[ExtResource("7_1t5m1")]([SubResource("Resource_wrk2s"), SubResource("Resource_qinkj"), SubResource("Resource_01dxt")])
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." index="7" unique_id=692783260]
 stream = SubResource("AudioStreamRandomizer_mchyi")
@@ -151,3 +217,6 @@ process_material = SubResource("ParticleProcessMaterial_srima")
 [node name="VFX_damage" parent="." index="12" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
 audio_player = NodePath("../SFX")
 particles = NodePath("../GPUParticles2D")
+
+[node name="AnimationPlayer" parent="." index="13" unique_id=1799726278]
+libraries/ = SubResource("AnimationLibrary_wwo1s")

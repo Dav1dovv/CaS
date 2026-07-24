@@ -1,6 +1,7 @@
 extends Node2D
 
 const need_tool = preload("uid://j25kj8dnkym6")
+const CHEST_CLOSE = preload("uid://e6mf5rd80uw8")
 
 
 @onready var interaction : interaction_area = $interaction_area
@@ -16,7 +17,7 @@ var need_count : int = 10
 func _ready():
 	interaction.interact = Callable(self, "open")
 	if is_hidden: 
-		visible = false
+		$Sprite.visible = false
 		$interaction_area/CollisionShape2D.disabled = true
 	
 	if is_random:
@@ -29,10 +30,12 @@ func _ready():
 func open():
 	print("starting interaction with chest")
 	if !is_opened:
+		get_tree().paused = true
 		$AnimationPlayer.play("Open")
 		is_opened = true
 		$interaction_area.queue_free()
 	elif !is_opened and Global.inventory.has_total_item(need_tool,need_count):
+		get_tree().paused = true
 		$AnimationPlayer.play("Open")
 		Global.inventory.remove_from_total(need_tool,need_count)
 		is_opened = true
@@ -51,6 +54,14 @@ func _on_timer_timeout() -> void:
 func Show_secret(area: Area2D) -> void:
 	print("chest attack alert")
 	if is_hidden: 
-		visible = true
+		$AnimationPlayer.play("Show")
+		$RapierArea2D.queue_free()
+		$Sprite.visible = true
 		$interaction_area/CollisionShape2D.disabled = false
-		$AnimationPlayer.play_backwards("Show")
+func finish_open():
+	get_tree().paused = false
+	
+
+func _on_interaction_area_far() -> void:
+	$SFX.stream = CHEST_CLOSE
+	$SFX.play()

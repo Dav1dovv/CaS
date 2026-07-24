@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bgul038d2vviw"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bgul038d2vviw"]
 
 [ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/Shader/Shine.gdshader" id="1_banog"]
 

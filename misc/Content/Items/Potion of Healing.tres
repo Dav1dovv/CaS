@@ -10,8 +10,8 @@ region = Rect2(160, 128, 16, 16)
 
 [resource]
 script = ExtResource("2_s8w6q")
-hunger_restore = 45.0
 icon = SubResource("AtlasTexture_26u7l")
+play_anim = "Drink"
 item_name = "Potion of Healing"
 price = 30
 metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

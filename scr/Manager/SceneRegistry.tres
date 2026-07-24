@@ -2,13 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dahsqqqv7jj4q" path="res://scr/Resources/SceneController.gd" id="1_d63od"]
 [ext_resource type="Script" uid="uid://b7mb22r6p1vpu" path="res://scr/Systems/SceneRegistry.gd" id="2_bcnq4"]
-[ext_resource type="Resource" uid="uid://b1qwqqlv1y0wb" path="res://Assets/Scenes/Playable/Loc_Cave.tres" id="2_yposh"]
-[ext_resource type="Resource" uid="uid://dmxgvotci7h70" path="res://Assets/Scenes/Playable/Loc_village.tres" id="3_mo4km"]
-[ext_resource type="Resource" uid="uid://crmnt7uhelaxo" path="res://Assets/Scenes/Playable/Loc_Center.tres" id="4_y5ktv"]
-[ext_resource type="Resource" uid="uid://7m0q82nh88ag" path="res://Assets/Scenes/Playable/Loc_Forest.tres" id="5_mo4km"]
-[ext_resource type="Resource" uid="uid://bo8o27psbjlx2" path="res://Assets/Scenes/Playable/Loc_Desert.tres" id="6_y5ktv"]
+[ext_resource type="Resource" uid="uid://cr8qolawx5cee" path="res://Assets/Scenes/DemoTesting/StartScene_dat.tres" id="2_wjorc"]
+[ext_resource type="Resource" uid="uid://df61ndgalseu5" path="res://Assets/Scenes/Playable/SCD_Island of test.tres" id="3_yposh"]
 
 [resource]
 script = ExtResource("2_bcnq4")
-scenes = Array[ExtResource("1_d63od")]([ExtResource("2_yposh"), ExtResource("3_mo4km"), ExtResource("4_y5ktv"), ExtResource("5_mo4km"), ExtResource("6_y5ktv")])
+scenes = Array[ExtResource("1_d63od")]([ExtResource("2_wjorc"), ExtResource("3_yposh")])
 metadata/_custom_type_script = "uid://b7mb22r6p1vpu"

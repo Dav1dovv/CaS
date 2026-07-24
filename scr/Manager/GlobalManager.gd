@@ -10,6 +10,12 @@ extends Node
 #     затиранием float 0-100 значением int 0-3).
 # ─────────────────────────────────────────────────────────────────────────────
 
+@onready var developer_console: CanvasLayer = %DeveloperConsole
+@onready var scene_manager: SceneManager    = $SceneManager
+@onready var day_night: DayNightCycle = $DayNight
+@onready var BGM: AudioStreamPlayer         = $AudioStreamPlayer
+@onready var setting_manager: SettingManager = $SettingManager
+
 # ─────────────────────────────────────────────────────────────────────────────
 #  Данные текущей игры
 # ─────────────────────────────────────────────────────────────────────────────
@@ -27,12 +33,7 @@ var weather_state: Dictionary = {}
 ## ЕДИНСТВЕННЫЙ источник истины по заражению биомов (0.0..100.0 на биом).
 ## Не дублируй это значение в других системах — читай/меняй только через
 ## get_corruption_level() / add_corruption() ниже.
-var corruption := {
-	"Forest" : 60,
-	"Desert" : 75,
-	"Thundra" : 70,
-	"Deep" : 100.0
-}
+var corruption : int = 67
 
 var last_location: String
 var last_position: Vector2
@@ -54,12 +55,7 @@ var night_key
 const MOUSE_Arrow = preload("res://Assets/Textures/UI/Cursors/Cursor1.png")
 const HINT = preload("uid://wyeldfaexejh")
 
-@onready var developer_console: CanvasLayer = %DeveloperConsole
-@onready var scene_manager: SceneManager    = $SceneManager
-@onready var BGM: AudioStreamPlayer         = $AudioStreamPlayer
-@onready var setting_manager: SettingManager = $SettingManager
 
-@onready var day_night: DayNightCycle       = $DayNight
 
 
 func _init() -> void:
@@ -86,24 +82,15 @@ func set_character_name(new_name: String) -> void:
 #  Заражение биомов (единый источник истины)
 # ─────────────────────────────────────────────────────────────────────────────
 
-## Текущий % заражения биома (0..100). Возвращает 0, если ключ неизвестен.
-func get_corruption_percent(biome_key: String) -> float:
-	return corruption.get(biome_key, 0.0)
-
-## Уровень заражения биома в шкале 0-3 (для UI/геймплейной логики,
-## которая раньше хранила это отдельно, например WorldGenerator.corruption_level).
-func get_corruption_level(biome_key: String) -> int:
-	return int(clamp(round(get_corruption_percent(biome_key) / 100.0 * 3.0), 0, 3))
 
 ## Изменяет заражение биома на delta_percent (может быть отрицательным).
 ## Возвращает новый % заражения. Это ЕДИНСТВЕННОЕ место, которое должно
 ## менять словарь corruption — все остальные системы должны вызывать этот метод.
-func add_corruption(biome_key: String, delta_percent: float) -> float:
-	if not corruption.has(biome_key):
-		push_warning("[Global] Неизвестный биом для заражения: %s" % biome_key)
+func add_corruption(delta_percent: float) -> float:
+	if not corruption:
 		return 0.0
-	corruption[biome_key] = clamp(corruption[biome_key] + delta_percent, 0.0, 100.0)
-	return corruption[biome_key]
+	corruption = clamp(corruption + delta_percent, 0.0, 100.0)
+	return corruption
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -184,12 +171,12 @@ func _on_scene_manager_scene_change_finished(scene_key: String) -> void:
 	if not stream:
 		return
 	if night_key:
-		_switch_bgm(&"Night "      + str(randi_range(1, 2)))
+		_switch_bgm(&"Night")
 	else:
 		match scene_key:
 			"Main Menu":  _switch_bgm(&"Main Menu")
 			"Land":       _switch_bgm(&"Land "      + str(randi_range(1, 4)))
-			"Forest":     _switch_bgm(&"Forest "    + str(randi_range(1, 4)))
+			"Forest":     _switch_bgm(&"Forest")
 			"Village":    _switch_bgm(&"Village "   + str(randi_range(1, 2)))
 			"Cave":       _switch_bgm(&"Cave "      + str(randi_range(1, 2)))
 			"Deep Cave":  _switch_bgm(&"Deep Cave " + str(randi_range(1, 2)))
@@ -199,7 +186,7 @@ func _on_scene_manager_scene_change_finished(scene_key: String) -> void:
 			"Beach":      _switch_bgm(&"Beach "     + str(randi_range(1, 2)))
 			"Lullaby":    _switch_bgm(&"Lullaby "   + str(randi_range(1, 2)))
 			"World":      _switch_bgm(&"World")
-			"Night":      _switch_bgm(&"Night "      + str(randi_range(1, 2)))
+			"Night":      _switch_bgm(&"Night")
 
 
 func play_game_over() -> void:

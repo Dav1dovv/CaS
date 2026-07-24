@@ -99,7 +99,8 @@ func _pack_container(container: Array[InventorySlotData]) -> Array:
 				"max_durability"  : item.max_durability
 			})
 		if item is FoodData:
-			entry["hunger"] = item.hunger_restore
+			entry["hunger"] = item.health_restore
+			entry["curse_rmv"] = item.remove_corription
 			if item.eat_sound:
 				entry["eat_sound"] = item.eat_sound.resource_path
 			if item.effects.size() > 0:
@@ -141,7 +142,8 @@ func _create_item_from_dict(data: Dictionary) -> ItemData:
 			item.durability = data.get("durability", item.max_durability)
 		"FoodData":
 			item = FoodData.new()
-			item.hunger_restore = data.get("hunger", 20.0)
+			item.health_restore = data.get("hunger", 20.0)
+			item.remove_corription = data.get("curse_rmv",10) 
 			if data.has("eat_sound") and ResourceLoader.exists(data.eat_sound):
 				item.eat_sound = load(data.eat_sound)
 			if data.has("effects"):

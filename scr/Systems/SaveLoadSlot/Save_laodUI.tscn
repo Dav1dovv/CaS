@@ -1173,12 +1173,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -191.5
+offset_left = -226.0
 offset_top = -120.5
-offset_right = 188.5
+offset_right = 223.0
 offset_bottom = 117.5
 grow_horizontal = 2
 grow_vertical = 2
+offset_transform_enabled = true
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=534385586]
 layout_mode = 2
@@ -1188,12 +1189,15 @@ horizontal_alignment = 1
 uppercase = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer" unique_id=2041146966]
-custom_minimum_size = Vector2(290, 178.83)
+custom_minimum_size = Vector2(400, 178.83)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/scrollbar_v_separation = 14
 
 [node name="SaveSlots" type="VBoxContainer" parent="Panel/VBoxContainer/ScrollContainer" unique_id=1118311292]
-custom_minimum_size = Vector2(371.8, 194.485)
+custom_minimum_size = Vector2(389.14, 194.485)
+clip_contents = true
 layout_mode = 2
 
 [node name="Control" type="Control" parent="Panel/VBoxContainer" unique_id=1361587648]

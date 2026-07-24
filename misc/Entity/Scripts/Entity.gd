@@ -83,8 +83,8 @@ func take_damage(damage: float, damage_source: Node2D = null, is_critical: bool 
 		_log_damage(damage, actual_damage, total_reduction, is_critical, vulnerability_mult)
 
 	# ── Реакция существа на удар (страх, стаггер и т.д.) ─────────────
-	if has_method("on_hit"):
-		call("on_hit", Vector2.ZERO, is_critical, poise_damage)
+	#if has_method("on_hit"):
+		#call("on_hit", Vector2.ZERO, is_critical, poise_damage)
 	# ──────────────────────────────────────────────────────────────────
 
 	if damage_source != null:

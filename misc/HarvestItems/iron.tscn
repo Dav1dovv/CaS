@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_ckdin"]
 [ext_resource type="Script" uid="uid://cemx0w2dlxpco" path="res://misc/HarvestItems/Scripts/shining.gd" id="2_e6m8d"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_ntuou"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="2_xtb5t"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="3_e6m8d"]
 [ext_resource type="Texture2D" uid="uid://cj6hw2ur1wfqb" path="res://misc/HarvestItems/Textures/Minerals.png" id="3_ntuou"]
 [ext_resource type="Resource" uid="uid://ce8lum742bja1" path="res://misc/Content/Items/IronOre.tres" id="4_l2vy5"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="4_q1xnp"]
@@ -16,6 +16,13 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3dfft"]
 radius = 4.0000067
+
+[sub_resource type="Resource" id="Resource_jq5ol"]
+script = ExtResource("3_e6m8d")
+drop_item = ExtResource("4_l2vy5")
+min_throws = 4
+max_throws = 8
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_homfl"]
 atlas = ExtResource("3_ntuou")
@@ -41,36 +48,46 @@ radius = 15.4663
 atlas = ExtResource("14_a56ye")
 region = Rect2(64, 0, 16, 16)
 
-[sub_resource type="Gradient" id="Gradient_7ae0e"]
+[sub_resource type="Gradient" id="Gradient_wwo1s"]
+offsets = PackedFloat32Array(0.6460177, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_0nm72"]
-gradient = SubResource("Gradient_7ae0e")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_axhva"]
+gradient = SubResource("Gradient_wwo1s")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5rm5p"]
+[sub_resource type="Curve" id="Curve_tmqmk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.7391304), 0.0, 0.0, 0, 0, Vector2(0.49206346, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_4snad"]
+curve = SubResource("Curve_tmqmk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e6m8d"]
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 28.36
-angle_min = -86.399994
-angle_max = 37.00001
-inherit_velocity_ratio = 0.407
+emission_sphere_radius = 14.35
+angle_min = -720.0
+angle_max = 720.0
 direction = Vector3(0, -1, 0)
-spread = 25.0
+spread = 27.628
+flatness = 1.0
 initial_velocity_min = 200.0
-initial_velocity_max = 400.0
+initial_velocity_max = 362.06998
 gravity = Vector3(0, 700, 0)
 damping_min = 100.0
 damping_max = 800.0
-scale_min = 0.5
-color_ramp = SubResource("GradientTexture1D_0nm72")
+scale_min = 0.099999994
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_4snad")
+color_ramp = SubResource("GradientTexture1D_axhva")
 
 [node name="Iron" unique_id=1037766192 instance=ExtResource("1_ckdin")]
 script = ExtResource("2_e6m8d")
 durability = 14.0
 harvest_tool_lvl = 2
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(0, -7)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_3dfft")
@@ -81,8 +98,7 @@ scale = Vector2(1.9, 1.4)
 hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), NodePath("../Corruption Effect")]
 
 [node name="droper" parent="." index="3" unique_id=1465568748]
-drop_item = Array[ExtResource("2_ntuou")]([ExtResource("4_l2vy5")])
-max_drop = 8
+drop_resources = Array[ExtResource("3_e6m8d")]([SubResource("Resource_jq5ol")])
 
 [node name="Shadow" type="Sprite2D" parent="." index="5" unique_id=341842603]
 self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)
@@ -96,7 +112,7 @@ position = Vector2(0, -9)
 texture = SubResource("AtlasTexture_homfl")
 offset = Vector2(0, -6)
 hframes = 3
-frame = 1
+frame = 2
 script = ExtResource("4_q1xnp")
 frame_weights = Array[float]([1.0, 1.0, 1.0])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"
@@ -113,7 +129,7 @@ shape = SubResource("CircleShape2D_ckdin")
 
 [node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("13_pvkrq")]
 texture = SubResource("AtlasTexture_gaad7")
-process_material = SubResource("ParticleProcessMaterial_5rm5p")
+process_material = SubResource("ParticleProcessMaterial_e6m8d")
 
 [node name="VFX_damage" parent="." index="11" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
 audio_player = NodePath("../SFX")

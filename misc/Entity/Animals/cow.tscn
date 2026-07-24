@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_2y5go"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="2_6ylgx"]
 [ext_resource type="Script" uid="uid://qtih2rxiyeec" path="res://misc/Entity/Animals/BaseAnimal.gd" id="2_xjoh7"]
+[ext_resource type="AudioStream" uid="uid://b1pe4ord4bxue" path="res://Assets/Audio/SFX/Coin.wav" id="3_jksjw"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_kcttj"]
 
 [sub_resource type="Resource" id="Resource_jksjw"]
@@ -968,10 +969,12 @@ _data = {
 script = ExtResource("2_xjoh7")
 behavior = -0.7
 can_flee = true
-use_fear = true
+flee_on_hit = true
 fear_per_damage = 100.0
 fear_flee_threshold = 1.0
 fear_calm_threshold = 0.565
+fear_sound = ExtResource("3_jksjw")
+flee_speed_multiplier = 2.42
 body_anim = NodePath("Skin/AnimationPlayer")
 Entity_stats = SubResource("Resource_jksjw")
 

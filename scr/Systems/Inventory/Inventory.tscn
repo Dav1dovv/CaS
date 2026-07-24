@@ -5,11 +5,15 @@
 [ext_resource type="Script" uid="uid://bxguvf402r2aw" path="res://scr/Systems/Inventory/TrashSlot.gd" id="3_08cpt"]
 [ext_resource type="PackedScene" uid="uid://bwaixuiwrerk5" path="res://scr/Systems/Inventory/InventorySlot.tscn" id="6_81ckb"]
 [ext_resource type="Shader" uid="uid://cpqgkpo83gda7" path="res://Assets/Shader/Blur.gdshader" id="6_1502c"]
+[ext_resource type="Script" uid="uid://4symdckgf27t" path="res://scr/Resources/ItemData/GoldSlot.gd" id="7_ngij8"]
 [ext_resource type="Script" uid="uid://bggk28l7figbt" path="res://scr/Systems/Inventory/InventorySaver.gd" id="7_viqwy"]
 [ext_resource type="PackedScene" uid="uid://5nk644nw1v5k" path="res://scr/Systems/Craft/SimpleCraft/CraftStation.tscn" id="8_d17u8"]
+[ext_resource type="Resource" uid="uid://bn6updwt4oale" path="res://misc/Content/Items/Coin.tres" id="8_f4jol"]
 [ext_resource type="PackedScene" uid="uid://dts1ot2trd002" path="res://scr/Systems/TradingSystem/TradeWindow.tscn" id="9_f8cid"]
 [ext_resource type="Script" uid="uid://c785sodtl7e0" path="res://scr/Systems/Inventory/hot_bar.gd" id="9_tp014"]
 [ext_resource type="Script" uid="uid://pg86b36iixbs" path="res://misc/UI/Corruption/corruption_panel.gd" id="10_uh2ii"]
+[ext_resource type="AudioStream" uid="uid://dcj5noosq88tu" path="res://Assets/Audio/SFX/UI/Trash/Trash-02.mp3" id="11_0bh7v"]
+[ext_resource type="AudioStream" uid="uid://2sptuiu4d3fy" path="res://Assets/Audio/SFX/UI/Trash/Trash-01.mp3" id="12_h1lmb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f8cid"]
 shader = ExtResource("6_1502c")
@@ -35,6 +39,11 @@ region = Rect2(64, 112, 64, 16)
 texture = SubResource("AtlasTexture_po7el")
 texture_margin_left = 1.0
 modulate_color = Color(0.5839385, 0, 0.23168299, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6y4uj"]
+streams_count = 2
+stream_0/stream = ExtResource("11_0bh7v")
+stream_1/stream = ExtResource("12_h1lmb")
 
 [node name="Inventory" type="Control" unique_id=71132192 groups=["Inventory"]]
 layout_mode = 3
@@ -207,7 +216,7 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -136.0
-offset_bottom = 52.0
+offset_bottom = 102.338104
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
@@ -325,6 +334,13 @@ layout_mode = 2
 [node name="InventorySlot27" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer" unique_id=737651556 instance=ExtResource("6_81ckb")]
 layout_mode = 2
 
+[node name="GoldSlot" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer" unique_id=1448857901 groups=["CoinSlot"] instance=ExtResource("6_81ckb")]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("7_ngij8")
+gold_item = ExtResource("8_f4jol")
+max_stack = 9999
+
 [node name="TrashSlot" type="TextureRect" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer" unique_id=824992838]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
@@ -398,14 +414,29 @@ show_percentage = false
 [node name="Smith" parent="HBoxContainer" unique_id=657580427 instance=ExtResource("8_d17u8")]
 visible = false
 layout_mode = 2
+station_type = 0
+
+[node name="Workbench" parent="HBoxContainer" unique_id=657580428 instance=ExtResource("8_d17u8")]
+visible = false
+layout_mode = 2
 
 [node name="Barmen" parent="HBoxContainer" unique_id=104361974 instance=ExtResource("8_d17u8")]
 visible = false
 layout_mode = 2
+station_type = 2
 
 [node name="TradeWindow" parent="HBoxContainer" unique_id=1491107427 instance=ExtResource("9_f8cid")]
 visible = false
 layout_mode = 2
+
+[node name="UI_TrashSlot_SFX" type="AudioStreamPlayer" parent="." unique_id=1684868196]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_6y4uj")
+bus = &"SFX"
+
+[node name="UI_inv_SFX2" type="AudioStreamPlayer" parent="." unique_id=1729879615]
+unique_name_in_owner = true
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" to="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" to="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/TrashSlot" method="_on_mouse_exited"]

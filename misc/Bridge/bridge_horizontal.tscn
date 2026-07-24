@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b4tlcf3yxx25v"]
 
 [ext_resource type="Script" uid="uid://cpfny7s2gkavl" path="res://misc/Bridge/BridgeLogic.gd" id="1_eibuv"]
-[ext_resource type="Texture2D" uid="uid://b4r05ew3hkplf" path="res://Assets/Textures/Bridge.png" id="2_50nfg"]
+[ext_resource type="Texture2D" uid="uid://b4r05ew3hkplf" path="res://Assets/Textures/Items/Bridge.png" id="2_50nfg"]
 [ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="3_pvmgr"]
 [ext_resource type="Script" uid="uid://btxho8sqg8tnx" path="res://scr/Systems/Interaction/Interaction.gd" id="4_qhy2w"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_5thi4"]

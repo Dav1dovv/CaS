@@ -50,6 +50,7 @@ region = Rect2(96, 48, 16, 16)
 script = ExtResource("2_bbgqo")
 eat_sound = ExtResource("1_rn874")
 effects = Array[ExtResource("1_1wttl")]([SubResource("Resource_7utph"), SubResource("Resource_21ftl"), SubResource("Resource_s27tn")])
+remove_corription = 4
 icon = SubResource("AtlasTexture_81hqh")
 play_anim = "Drink"
 item_name = "Honey"

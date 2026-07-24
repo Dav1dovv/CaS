@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_u8tvf"]
 [ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="6_mwf7e"]
 
-[sub_resource type="Resource" id="Resource_u6aou"]
+[sub_resource type="Resource" id="Resource_38abt"]
 resource_local_to_scene = true
 script = ExtResource("3_u8tvf")
 base_move_speed = 1.0
@@ -14,6 +14,117 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfjqq"]
 size = Vector2(39, 19)
+
+[sub_resource type="Animation" id="Animation_u6aou"]
+resource_name = "Hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shell:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.18301074, 0.18301074),
+"update": 0,
+"values": [Vector2(-7.5769234, -1.5000006), Vector2(-1, -2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shell:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.28, 0.5, 0.81, 1),
+"transitions": PackedFloat32Array(0.18301074, 0.18301074, 0.18301074, 0.18301074, 0.18301074),
+"update": 0,
+"values": [0.0, -0.16909452, 0.19808339, -0.044880792, 0.1760066]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Shell:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.18301074, 0.18301074),
+"update": 0,
+"values": [Vector2(1.0384616, 1), Vector2(1.1607255, 1.1607255)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Snail:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.28, 1),
+"transitions": PackedFloat32Array(0.18301074, 0.18301074, 0.18301074),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(1, -1.0000002), Vector2(3, -3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Snail:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.28, 1),
+"transitions": PackedFloat32Array(0.18301074, 0.18301074, 0.18301074, 0.18301074),
+"update": 0,
+"values": [0.0, 0.107788175, -0.040347762, -0.088639155]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Snail:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.18301074, 0.18301074),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.40351295, 0.40351295)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Part:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.15389307, 0.15389307),
+"update": 0,
+"values": [Vector2(-23.950377, 0.4160604), Vector2(-23.999998, -1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Part:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5707964]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Part:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.21730907, 3.0923338)]
+}
 
 [sub_resource type="Animation" id="Animation_buafu"]
 resource_name = "Idle"
@@ -57,7 +168,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Snail/Part:position")
+tracks/3/path = NodePath("Part:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -69,7 +180,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Snail/Part:rotation")
+tracks/4/path = NodePath("Part:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -81,7 +192,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Snail/Part:scale")
+tracks/5/path = NodePath("Part:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -93,7 +204,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snail/Shell:position")
+tracks/6/path = NodePath("Shell:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -105,7 +216,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Snail/Shell:rotation")
+tracks/7/path = NodePath("Shell:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -117,7 +228,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Snail/Shell:scale")
+tracks/8/path = NodePath("Shell:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -141,7 +252,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Snail/Shell:skew")
+tracks/10/path = NodePath("Shell:skew")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -192,7 +303,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Snail/Part:position")
+tracks/3/path = NodePath("Part:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -204,7 +315,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Snail/Part:rotation")
+tracks/4/path = NodePath("Part:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -216,7 +327,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Snail/Part:scale")
+tracks/5/path = NodePath("Part:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -228,7 +339,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snail/Shell:position")
+tracks/6/path = NodePath("Shell:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -240,7 +351,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Snail/Shell:rotation")
+tracks/7/path = NodePath("Shell:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -252,7 +363,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Snail/Shell:scale")
+tracks/8/path = NodePath("Shell:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -276,7 +387,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Snail/Shell:skew")
+tracks/10/path = NodePath("Shell:skew")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -328,94 +439,70 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Snail/Part:position")
+tracks/3/path = NodePath("Part:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-23.950377, 0.4160604), Vector2(-23.950377, 0.4160604)]
+"values": [-1.5707964, -1.5707964]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Snail/Part:rotation")
+tracks/4/path = NodePath("Part:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-1.5707964, -1.5707964]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Snail/Part:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.45, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0.21730907, 3.0923338), Vector2(0.21730907, 3.492888), Vector2(0.21730907, 3.0923338)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Shell:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snail/Shell:position")
+tracks/6/path = NodePath("Shell:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-7.5769234, -1.5000006), Vector2(-7.5769234, -1.5000006)]
+"values": [Vector2(1.0384616, 1), Vector2(1.0384616, 1)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Snail/Shell:rotation")
+tracks/7/path = NodePath("Snail:skew")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Snail/Shell:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1.0384616, 1), Vector2(1.0384616, 1)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Snail:skew")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.52, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.10995574, 0.0]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Snail/Shell:skew")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Shell:skew")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.52, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -424,6 +511,7 @@ tracks/10/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d65i2"]
 _data = {
+&"Hide": SubResource("Animation_u6aou"),
 &"Idle": SubResource("Animation_buafu"),
 &"RESET": SubResource("Animation_sx7w6"),
 &"Walk": SubResource("Animation_totrt")
@@ -436,13 +524,18 @@ size = Vector2(33, 4)
 position = Vector2(-1, 0)
 script = ExtResource("2_38abt")
 behavior = -0.78
-can_flee = true
 flee_threshold = 0.112
-use_fear = true
+fear_per_damage = 2.405
+fear_proximity_radius = 95.26
+fear_proximity_rate = 1.435
 fear_flee_threshold = 1.0
 fear_calm_threshold = 0.694
+hides_when_scared = true
+hide_duration = 0.22
+hide_damage_reduction = 0.535
+sight_radius = 360.0
 body_anim = NodePath("Skin/AnimationPlayer")
-Entity_stats = SubResource("Resource_u6aou")
+Entity_stats = SubResource("Resource_38abt")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 rect = Rect2(-25, -10, 45, 20)
@@ -467,7 +560,7 @@ offset = Vector2(0, -10)
 region_enabled = true
 region_rect = Rect2(126, 10, 39, 20)
 
-[node name="Part" type="Sprite2D" parent="Skin/Snail" index="0" unique_id=531702936]
+[node name="Part" type="Sprite2D" parent="Skin" index="1" unique_id=531702936]
 modulate = Color(0.95686275, 0.8235294, 0.6117647, 0.654902)
 show_behind_parent = true
 position = Vector2(-23.950377, 0.4160604)
@@ -475,7 +568,7 @@ rotation = -1.5707964
 scale = Vector2(0.21730907, 3.0923338)
 texture = ExtResource("6_mwf7e")
 
-[node name="Shell" type="Sprite2D" parent="Skin/Snail" index="1" unique_id=1865290876]
+[node name="Shell" type="Sprite2D" parent="Skin" index="2" unique_id=1865290876]
 position = Vector2(-7.5769234, -1.5000006)
 scale = Vector2(1.0384616, 1)
 texture = ExtResource("3_brkx7")
@@ -483,7 +576,7 @@ offset = Vector2(2, -8)
 region_enabled = true
 region_rect = Rect2(209, 70, 19, 17)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="1" unique_id=1101735219]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Skin" index="3" unique_id=1101735219]
 libraries/ = SubResource("AnimationLibrary_d65i2")
 
 [node name="HealthBar" parent="." index="8" unique_id=1354189396]

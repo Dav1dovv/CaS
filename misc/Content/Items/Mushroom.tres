@@ -18,6 +18,7 @@ region = Rect2(48, 16, 16, 16)
 [resource]
 script = ExtResource("2_1v76e")
 effects = Array[ExtResource("1_f4mjo")]([SubResource("Resource_nobfn")])
+remove_corription = 2
 icon = SubResource("AtlasTexture_bgefe")
 play_anim = "Eating"
 item_name = "Mushroom"

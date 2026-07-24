@@ -10,6 +10,8 @@ signal chat_message_sent(message: String)  # Обычное сообщение �
 @onready var console_input: LineEdit = $VBoxContainer/LineEdit
 @onready var hint_label: AutoSizeRichTextLabel = $AutoSizeRichTextLabel
 @onready var hint_timer: Timer = $HintTimer                        # создай Timer в той же сцене!
+@onready var chat_overlay: RichTextLabel = $ChatOverlay             # видно даже при закрытой консоли
+@onready var overlay_fade_timer: Timer = $OverlayFadeTimer
 
 # Переменные
 var is_console_visible: bool = false
@@ -17,6 +19,12 @@ var command_history: Array[String] = []      # Только команды с "/
 var history_index: int = -1
 #var max_output_lines: int = 500
 var commands: Dictionary = {}
+
+# Оверлей чата (мини-чат поверх игры, когда консоль закрыта)
+var overlay_lines: Array[String] = []
+const OVERLAY_MAX_LINES: int = 8
+const OVERLAY_HOLD_TIME: float = 6.0   # сколько секунд оверлей виден после последнего сообщения
+const OVERLAY_FADE_TIME: float = 1.0   # длительность затухания
 
 func _ready() -> void:
 	console_container.visible = false
@@ -30,6 +38,13 @@ func _ready() -> void:
 	# Можно добавить свои: register_command("give", _cmd_give, "give <item> <amount>")
 	
 	add_to_console("[color=aaaaaa]Добро пожаловать в игру! Используйте /help для списка команд, или нажмите ` чотбы закрыть консоль.[/color]")
+	
+	# Оверлей чата: всегда в дереве, но невидим, пока нет сообщений
+	chat_overlay.visible = true
+	chat_overlay.modulate.a = 0.0
+	overlay_fade_timer.one_shot = true
+	overlay_fade_timer.wait_time = OVERLAY_HOLD_TIME
+	overlay_fade_timer.timeout.connect(_on_overlay_fade_timer_timeout)
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_call_debugMenu"):  # Обычно это клавиша ~
@@ -47,9 +62,11 @@ func toggle_console() -> void:
 		layer = 128  # Поверх всего
 		console_input.grab_focus()
 		console_input.clear()
+		chat_overlay.visible = false   # полный лог и так виден в OutPut
 	else:
 		layer = 1
 		console_input.release_focus()
+		chat_overlay.visible = true
 
 # Основная функция обработки ввода
 func _on_text_submitted(text: String) -> void:
@@ -99,11 +116,14 @@ func _on_text_submitted(text: String) -> void:
 
 func add_to_console(text: String) -> void:
 	console_output.append_text("[color=#cccccc]" + text + "[/color]\n")
+	_push_overlay("[color=#cccccc]" + text + "[/color]")
 	#_limit_lines()
 
 func add_chat_message(sender: String, message: String, color: Color = Color.WHITE) -> void:
 	var color_hex = color.to_html(false)
-	console_output.append_text("[color=%s][b]%s:[/b] %s[/color]\n" % [color_hex, sender, message])
+	var line = "[color=%s][b]%s:[/b] %s[/color]" % [color_hex, sender, message]
+	console_output.append_text(line + "\n")
+	_push_overlay(line)
 	#_limit_lines()
 	# Автопрокрутка вниз
 	console_output.scroll_to_line(console_output.get_line_count() - 1)
@@ -117,6 +137,36 @@ func add_command_echo(command: String) -> void:
 	#if lines > max_output_lines:
 		#console_output.remove_line(0)
 		#_limit_lines()  # Рекурсивно, пока не уложимся
+
+# --------------------- ОВЕРЛЕЙ ЧАТА (виден при закрытой консоли) ---------------------
+
+## Публичный шорткат для игровых систем: Global.developer_console.log_message("...")
+## Пишет и в полный лог консоли, и в мини-оверлей.
+func log_message(text: String, color: Color = Color(0.8, 0.8, 0.8)) -> void:
+	var color_hex = color.to_html(false)
+	add_to_console("[color=%s]%s[/color]" % [color_hex, text])
+
+func _push_overlay(bbcode_line: String) -> void:
+	overlay_lines.append(bbcode_line)
+	if overlay_lines.size() > OVERLAY_MAX_LINES:
+		overlay_lines.pop_front()
+	
+	chat_overlay.clear()
+	chat_overlay.append_text("\n".join(overlay_lines))
+	chat_overlay.scroll_to_line(chat_overlay.get_line_count() - 1)
+	
+	# Показываем оверлей (если консоль сейчас закрыта) и сбрасываем таймер угасания
+	if not is_console_visible:
+		chat_overlay.visible = true
+		var show_tween = create_tween()
+		show_tween.tween_property(chat_overlay, "modulate:a", 1.0, 0.15)
+	
+	overlay_fade_timer.stop()
+	overlay_fade_timer.start()
+
+func _on_overlay_fade_timer_timeout() -> void:
+	var fade_tween = create_tween()
+	fade_tween.tween_property(chat_overlay, "modulate:a", 0.0, OVERLAY_FADE_TIME)
 
 
 func show_hint(text: String, duration: float = 3.0, color: Color = Color(1, 1, 1)) -> void:

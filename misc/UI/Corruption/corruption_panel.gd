@@ -10,10 +10,4 @@ extends Panel
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	F_progress_bar.value = Global.corruption["Forest"]
-	D_progress_bar.value = Global.corruption["Desert"]
-	T_progress_bar.value = Global.corruption["Thundra"]
-	
-	F_label.text = str(Global.corruption["Forest"])
-	D_label.text = str(Global.corruption["Desert"])
-	T_label.text = str(Global.corruption["Thundra"])
+	F_progress_bar.value = Global.corruption

@@ -589,7 +589,7 @@ script = ExtResource("2_nfayc")
 behavior = -1.0
 can_flee = true
 flee_threshold = 0.959
-use_fear = true
+flee_on_hit = true
 fear_per_damage = 0.5
 fear_proximity_radius = 200.0
 fear_proximity_rate = 1.0
@@ -646,7 +646,6 @@ autoplay = &"Idle"
 
 [node name="HealthBar" parent="." index="8" unique_id=1354189396]
 offset_top = 6.0
-offset_bottom = 8.0
 
 [node name="Fearzone" type="Area2D" parent="." index="10" unique_id=1395366776]
 collision_layer = 0

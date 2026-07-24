@@ -1,23 +1,5 @@
 extends Area2D
 
-# ═══════════════════════════════════════════════════════════════════════════════
-#  Cursor.gd — 7 состояний курсора
-#
-#  Приоритет состояний (от высшего к низшему):
-#    1. CurseObject рядом    → deflect (отбей!)
-#    2. Враг                 → fight
-#    3. Harvestable в зоне   → gather / gather_corrupted_weak / gather_corrupted_strong / gather_wrong_tier
-#    4. Harvestable далеко   → gather_out_of_range
-#    5. Interaction          → interact
-#    6. По умолчанию         → simple
-#
-#  COLLISION MASKS (добавить в _init или в Godot Inspector):
-#    Mask 2  — Harvestable layer
-#    Mask 6  — Enemy HurtBox layer (проверить в своём проекте)
-#    Mask 8  — Interaction layer (уже есть)
-#    Mask 10 — CurseObject layer (если назначен)
-# ═══════════════════════════════════════════════════════════════════════════════
-
 const MOUSE_Arrow    = preload("res://Assets/Textures/UI/Cursors/Cursor1.png")
 const MOUSE_Interact = preload("res://Assets/Textures/UI/Cursors/Cursor5.png")
 const MOUSE_Shot     = preload("res://Assets/Textures/UI/Cursors/Cursor2.png")

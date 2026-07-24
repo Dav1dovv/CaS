@@ -11,8 +11,7 @@ func _on_hit_box_attacked() -> void:
 	if is_attacked:
 		return  # уже убегает — повторно не обрабатываем
 	is_attacked = true
-	drop.drop_item.clear()
-	drop.unique_items.clear()
+	drop.drop_resources.clear()
 	$Skin/Sprite/Sting.visible = false
 	$DeathTimer.start()
 

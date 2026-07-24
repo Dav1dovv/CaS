@@ -111,6 +111,7 @@ generation_item = SubResource("Resource_yomvk")
 metadata/_custom_type_script = "uid://cxixcs17bxicy"
 
 [node name="Desert_Gen_preset" type="Node2D" unique_id=96793758]
+y_sort_enabled = true
 script = ExtResource("1_i7fgs")
 generation_items = Array[ExtResource("2_way8g")]([SubResource("Resource_iuswx"), SubResource("Resource_fxqv4"), SubResource("Resource_te162"), SubResource("Resource_i3qgw"), SubResource("Resource_d2wb4")])
 min_distance = 63.6

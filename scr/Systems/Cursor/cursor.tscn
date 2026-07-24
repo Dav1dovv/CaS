@@ -65,7 +65,6 @@ z_index = 810
 material = SubResource("CanvasItemMaterial_dd4go")
 collision_layer = 256
 collision_mask = 128
-priority = 20
 script = ExtResource("1_64xn1")
 help_label = NodePath("Label")
 metadata/_custom_type_script = "uid://bvjwq42peqx7y"
@@ -85,10 +84,10 @@ one_way_collision_margin = 128.0
 
 [node name="Label" type="Label" parent="." unique_id=1839702549]
 material = SubResource("CanvasItemMaterial_0nsgu")
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 70.0
-offset_bottom = 28.0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 74.0
+offset_bottom = 31.0
 label_settings = SubResource("LabelSettings_3d3f0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=833827734]

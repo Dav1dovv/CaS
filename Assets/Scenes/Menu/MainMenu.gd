@@ -26,6 +26,7 @@ var splash_texts = []
 
 # ═════════════════════════════════════════════════════════════════════════════
 func _ready() -> void:
+	Cursor.detection_mode(false)
 	load_splash_texts()
 	set_random_splash_text()
 	animate_splash()

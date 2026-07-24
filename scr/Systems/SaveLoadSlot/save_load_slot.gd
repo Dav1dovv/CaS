@@ -14,7 +14,6 @@ var MarkovNameGen: MarkovNameGenerator = MarkovNameGenerator.new()
 
 
 func _ready() -> void:
-	MarkovNameGen._build_markov_chain()
 	update_save_slots()
 	new_save_panel.visible = false
 
@@ -61,7 +60,7 @@ func _display_sorted_slots() -> void:
 
 func _on_save_slot_selected(slot_name: String) -> void:
 	if SaveLoad.load_save(slot_name):
-		Global.scene_manager.change_scene("Village", Vector2.ZERO)
+		Global.scene_manager.change_scene("StartScene", Vector2.ZERO)
 
 
 func _on_new_save_pressed() -> void:
@@ -100,7 +99,7 @@ func _on_create_pressed() -> void:
 
 
 func _on_random_name_pressed() -> void:
-	player_name_input.text = MarkovNameGen._generate_random_name()
+	player_name_input.text = MarkovNameGen.generate_name(0)
 	var player_name := player_name_input.text.strip_edges()
 	if player_name.is_empty():
 		create_button.disabled = true

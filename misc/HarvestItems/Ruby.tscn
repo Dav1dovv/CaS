@@ -1,24 +1,75 @@
 [gd_scene format=3 uid="uid://cqq1riut0ynja"]
 
 [ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="1_6mft3"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_3y0qs"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_3y0qs"]
 [ext_resource type="Texture2D" uid="uid://cgcaeuihkhjm6" path="res://misc/HarvestItems/Textures/Ruby.png" id="2_io4gr"]
 [ext_resource type="Resource" uid="uid://crlq2ivo64v4j" path="res://misc/Content/Items/Ruby.tres" id="3_enkf4"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_enkf4"]
+
+[sub_resource type="Resource" id="Resource_mjt5k"]
+script = ExtResource("2_3y0qs")
+drop_item = ExtResource("3_enkf4")
+min_throws = 3
+max_throws = 4
+max_count = 2
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ef6q"]
+atlas = ExtResource("5_enkf4")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="Gradient" id="Gradient_wwo1s"]
+offsets = PackedFloat32Array(0.6460177, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_axhva"]
+gradient = SubResource("Gradient_wwo1s")
+
+[sub_resource type="Curve" id="Curve_tmqmk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.7391304), 0.0, 0.0, 0, 0, Vector2(0.49206346, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_4snad"]
+curve = SubResource("Curve_tmqmk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0pb6k"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 14.35
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, -1, 0)
+spread = 27.628
+flatness = 1.0
+initial_velocity_min = 200.0
+initial_velocity_max = 362.06998
+gravity = Vector3(0, 700, 0)
+damping_min = 100.0
+damping_max = 800.0
+scale_min = 0.099999994
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_4snad")
+color_ramp = SubResource("GradientTexture1D_axhva")
 
 [node name="Ruby" unique_id=1037766192 instance=ExtResource("1_6mft3")]
 durability = 20.0
 harvest_tool_lvl = 3
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(0, -3)
 
 [node name="droper" parent="." index="3" unique_id=1465568748]
-drop_item = Array[ExtResource("2_3y0qs")]([ExtResource("3_enkf4")])
+drop_resources = Array[ExtResource("2_3y0qs")]([SubResource("Resource_mjt5k")])
 
 [node name="Sprite2D" parent="." index="6" unique_id=1965435148]
 position = Vector2(0, -7)
 texture = ExtResource("2_io4gr")
 offset = Vector2(1, -10)
 hframes = 7
-frame = 0
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+
+[node name="GPUParticles2D" parent="." index="10" unique_id=1130400609]
+position = Vector2(0, -3)
+texture = SubResource("AtlasTexture_8ef6q")
+process_material = SubResource("ParticleProcessMaterial_0pb6k")

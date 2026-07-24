@@ -6,11 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="4_01dxt"]
 [ext_resource type="PackedScene" uid="uid://xi525y36l0mn" path="res://scr/Systems/Inventory/Inventory.tscn" id="5_my3yu"]
 [ext_resource type="Script" uid="uid://brgbxkb6l0dem" path="res://scr/Misc/health_bar.gd" id="5_yfmxh"]
-[ext_resource type="PackedScene" uid="uid://bwaixuiwrerk5" path="res://scr/Systems/Inventory/InventorySlot.tscn" id="6_01dxt"]
 [ext_resource type="PackedScene" uid="uid://bhugp3d5bopwb" path="res://misc/UI/Death/death_menu.tscn" id="6_yfmxh"]
 [ext_resource type="PackedScene" uid="uid://b0mf3l56dvooj" path="res://misc/UI/Pause/pause_menu.tscn" id="7_2v76w"]
-[ext_resource type="Script" uid="uid://4symdckgf27t" path="res://scr/Resources/ItemData/GoldSlot.gd" id="7_my3yu"]
-[ext_resource type="Resource" uid="uid://bn6updwt4oale" path="res://misc/Content/Items/Coin.tres" id="8_yfmxh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ukw7k"]
 atlas = ExtResource("2_kscpg")
@@ -206,16 +203,6 @@ process_material = SubResource("ParticleProcessMaterial_1rtb2")
 
 [node name="Inventory" parent="HUD" unique_id=71132192 instance=ExtResource("5_my3yu")]
 layout_mode = 1
-
-[node name="InventorySlot37" parent="HUD" unique_id=1448857901 groups=["CoinSlot"] instance=ExtResource("6_01dxt")]
-layout_mode = 1
-offset_left = 10.0
-offset_top = 30.0
-offset_right = 26.0
-offset_bottom = 46.0
-script = ExtResource("7_my3yu")
-gold_item = ExtResource("8_yfmxh")
-max_stack = 9999
 
 [node name="DeathMenu" parent="." unique_id=20416363 instance=ExtResource("6_yfmxh")]
 visible = false

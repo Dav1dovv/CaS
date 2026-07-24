@@ -21,9 +21,9 @@ _data = {
 [node name="CanvasModulate" type="CanvasModulate" unique_id=1997208922]
 script = ExtResource("1_uhy3e")
 midday_color = Color(0.9704494, 0.7744617, 0.66695976, 1)
-day_to_mid_minutes = 10.0
-mid_to_night_minutes = 2.0
-night_to_day_minutes = 6.0
+day_to_mid_minutes = 6.0
+mid_to_night_minutes = 1.5
+night_to_day_minutes = 5.5
 
 [node name="Timer" type="Timer" parent="." unique_id=808393236]
 

@@ -2,22 +2,25 @@ extends RapierArea2D
 class_name Harvestable
 
 signal collected
+signal hit
 ## Испускается при каждом ударе — множитель можно использовать для UI/попапов чисел
 signal combo_hit(multiplier: float, combo_count: int)
 
 var is_corrupted : bool = false
 var gm
 
-@onready var Dropper_component = $droper
+@onready var Dropper_component : Dropper = $droper
+@onready var animation: AnimationPlayer = $AnimationPlayer
+
 @export_range(2,999,1) var durability : float = 6
 @export_range(0,10) var harvest_tool_lvl : int = 1
 @export var VFX_component : VFX
+@export var can_corrupt : bool = true
 @export var corrupted_texture : Texture2D
 
 # ─── CurseObject ────────────────────────────────────────────────────────────
 ## Сцена CurseObject — создаётся когда объект добывают киркой ниже нужного тира
 @export var curse_object_scene : PackedScene
-
 ## Сколько заражения получает игрок за КАЖДЫЙ удар по заражённому объекту
 ## Финальное значение умножается на armor_curse_multiplier из брони/амулетов
 @export_range(0.0, 20.0, 0.5) var infection_per_hit : float = 2.0
@@ -91,32 +94,33 @@ func _ready() -> void:
 	#region CORRUPTION
 	# Заражение теперь берётся только из WorldGenerator (родителя) — у него
 	# corruption_level настраивается вручную в редакторе на конкретной зоне (0..3).
-	var world_generator = get_parent()
-	var chance: float = 0.0
-	if world_generator and "corruption_level" in world_generator:
-		chance = float(world_generator.corruption_level) / 3.0
+	if can_corrupt:
+		var world_generator = get_parent()
+		var chance: float = 0.0
+		if world_generator and "corruption_level" in world_generator:
+			chance = float(world_generator.corruption_level) / 3.0
 
-	is_corrupted = chance > 0.0 and randf() < chance
-	
-	if is_corrupted:
-		if corrupted_texture:
-			$Sprite2D.texture = corrupted_texture
-		else:
-			modulate = Color(0.733, 0.325, 0.745, 1.0)
-		$PointLight2D.visible = true
-		$"Corruption Effect".emitting = true
-		durability += 20
-	else:
-		# ── Богатая жила — редкий шанс на не заражённом ресурсе ─────────────
-		is_rich_vein = randf() < rich_vein_chance
-		if is_rich_vein:
-			modulate = rich_vein_tint
+		is_corrupted = chance > 0.0 and randf() < chance
+		
+		if is_corrupted:
+			if corrupted_texture:
+				$Sprite2D.texture = corrupted_texture
+			#else:
+				#modulate = Color(0.733, 0.325, 0.745, 1.0)
 			$PointLight2D.visible = true
-			$PointLight2D.color   = rich_vein_tint
-			$"Corruption Effect".queue_free()
+			$"Corruption Effect".emitting = true
+			durability += 20
 		else:
-			$PointLight2D.queue_free()
-			$"Corruption Effect".queue_free()
+			# ── Богатая жила — редкий шанс на не заражённом ресурсе ─────────────
+			is_rich_vein = randf() < rich_vein_chance
+			if is_rich_vein:
+				#modulate = rich_vein_tint
+				$PointLight2D.visible = true
+				$PointLight2D.color   = rich_vein_tint
+				$"Corruption Effect".queue_free()
+			else:
+				$PointLight2D.queue_free()
+				$"Corruption Effect".queue_free()
 		# ─────────────────────────────────────────────────────────────────────
 	#endregion
 
@@ -132,7 +136,7 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 	_last_tool_lvl = tool_lvl
 
 	# ── Комбо-тайминг: бей ритмично — множитель растёт ───────────────────────
-	_update_combo()
+	#_update_combo()
 	# ─────────────────────────────────────────────────────────────────────────
 
 	# ── Визуальный фидбэк ────────────────────────────────────────────────────
@@ -155,38 +159,54 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 		_on_destroyed(tool_lvl)
 
 
-## Тайминг-комбо: удары в узкое окно после предыдущего растят множитель,
-## пауза длиннее combo_window сбрасывает серию.
-func _update_combo() -> void:
-	var now := Time.get_ticks_msec() / 1000.0
-	if now - _last_hit_time <= combo_window:
-		_combo_count += 1
-	else:
-		_combo_count = 0
-	_last_hit_time = now
-	_combo_multiplier = minf(combo_max_multiplier, 1.0 + _combo_count * combo_bonus_per_hit)
-	emit_signal("combo_hit", _combo_multiplier, _combo_count)
+### Тайминг-комбо: удары в узкое окно после предыдущего растят множитель,
+### пауза длиннее combo_window сбрасывает серию.
+#func _update_combo() -> void:
+	#var now := Time.get_ticks_msec() / 1000.0
+	#if now - _last_hit_time <= combo_window:
+		#_combo_count += 1
+	#else:
+		#_combo_count = 0
+	#_last_hit_time = now
+	#_combo_multiplier = minf(combo_max_multiplier, 1.0 + _combo_count * combo_bonus_per_hit)
+	#emit_signal("combo_hit", _combo_multiplier, _combo_count)
 
 
 func _on_destroyed(tool_lvl: int) -> void:
-	# Дроп ресурсов — с бонусом за комбо-тайминг и/или богатую жилу
-	if Dropper_component != null:
-		Dropper_component.max_drop += scale.x
-
-		var bonus_mult := _combo_multiplier
-		if is_rich_vein:
-			bonus_mult *= rich_vein_multiplier
-
-		if bonus_mult > 1.0:
-			if Dropper_component.has_method("set_drop_multiplier"):
-				Dropper_component.set_drop_multiplier(bonus_mult)
-			else:
-				Dropper_component.max_drop = int(round(Dropper_component.max_drop * bonus_mult))
-
-		if is_rich_vein:
-			DebugLog.log("Богатая жила! Бонус к дропу: x%.2f" % bonus_mult)
-
-		Dropper_component._drop_items()
+	## Дроп ресурсов — с бонусом за комбо-тайминг и/или богатую жилу
+	#if Dropper_component != null:
+		#Dropper_component.max_drop += scale.x
+#
+		#var bonus_mult := _combo_multiplier
+		#if is_rich_vein:
+			#bonus_mult *= rich_vein_multiplier
+#
+		#if bonus_mult > 1.0:
+			#if Dropper_component.has_method("set_drop_multiplier"):
+				#Dropper_component.set_drop_multiplier(bonus_mult)
+			#else:
+				#Dropper_component.max_drop = int(round(Dropper_component.max_drop * bonus_mult))
+#
+		#if is_rich_vein:
+			#DebugLog.log("Богатая жила! Бонус к дропу: x%.2f" % bonus_mult)
+#
+		#Dropper_component._drop_items()
+		
+		
+	if is_corrupted: 
+		Dropper_component.drop_resources[0].max_throws += 5
+		Dropper_component.drop_resources[0].min_throws += 5
+	$CollisionShape2D.disabled = true
+	Dropper_component._drop_items()
+	if animation.has_animation("destroy"):
+		animation.play("destroy")
+		await animation.animation_finished
+	else : 
+		$Sprite2D .visible = false
+		$StaticBody2D.queue_free()
+	if $Destroy:
+		$Destroy.play()
+		await $Destroy.finished
 
 	# Регистрация сбора в мире
 	if gm and gm.has_method("register_harvested"):
@@ -197,7 +217,7 @@ func _on_destroyed(tool_lvl: int) -> void:
 	#if tool_lvl < harvest_tool_lvl and curse_object_scene != null:
 	if is_corrupted:
 		_spawn_curse_object(harvest_tool_lvl - tool_lvl)
-		Global.corruption[gm.biome] -= 1
+		Global.corruption -= 1
 	# ─────────────────────────────────────────────────────────────────────────
 
 	emit_signal("collected")

@@ -2,14 +2,33 @@
 
 [ext_resource type="PackedScene" uid="uid://bodm1xuyyxtpt" path="res://misc/HarvestItems/Crystal.tscn" id="1_kvqc7"]
 [ext_resource type="Texture2D" uid="uid://ttc3y6g68a03" path="res://misc/HarvestItems/Textures/ColdCrystal.png" id="2_egw7y"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_xo7vi"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_xo7vi"]
 [ext_resource type="Resource" uid="uid://cnaqjjiqdtoc" path="res://misc/Content/Items/Ice Crystal.tres" id="3_vg62e"]
+
+[sub_resource type="Resource" id="Resource_ooeaw"]
+script = ExtResource("2_xo7vi")
+drop_item = ExtResource("3_vg62e")
+min_throws = 2
+max_throws = 5
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5tadn"]
+load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xo7vi"]
+atlas = SubResource("CompressedTexture2D_5tadn")
+region = Rect2(128, 0, 16, 16)
 
 [node name="Crysrtal" unique_id=189448538 instance=ExtResource("1_kvqc7")]
 harvest_tool_lvl = 2
 
 [node name="droper" parent="." index="3" unique_id=1465568748]
-drop_item = Array[ExtResource("2_xo7vi")]([ExtResource("3_vg62e")])
+drop_resources = Array[ExtResource("2_xo7vi")]([SubResource("Resource_ooeaw")])
 
 [node name="Sprite2D" parent="." index="5" unique_id=1808674882]
 texture = ExtResource("2_egw7y")
+frame = 1
+
+[node name="GPUParticles2D" parent="." index="10" unique_id=1130400609]
+position = Vector2(0, -7)
+texture = SubResource("AtlasTexture_xo7vi")

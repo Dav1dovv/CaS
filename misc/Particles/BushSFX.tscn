@@ -43,11 +43,9 @@ alpha_curve = SubResource("CurveTexture_axuvx")
 
 [node name="Particles" type="GPUParticles2D" unique_id=2009312611]
 z_index = -1
-emitting = false
 amount = 36
 texture = ExtResource("1_ekfnw")
 lifetime = 0.3
-one_shot = true
 speed_scale = 0.3
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_d0531")

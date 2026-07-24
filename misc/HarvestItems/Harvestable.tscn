@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://drmg1ku7aan1k" path="res://misc/Curse/curse_object.tscn" id="2_w5cb6"]
 [ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="3_8a784"]
 [ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="3_n1i2x"]
-[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/DropItem.gd" id="4_wrbgf"]
+[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/Dropper.gd" id="4_wrbgf"]
 [ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="5_5tblg"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="5_w5cb6"]
 
@@ -76,7 +76,6 @@ metadata/_custom_type_script = "uid://dbxsovdq7bbia"
 
 [node name="droper" type="Node" parent="." unique_id=1465568748]
 script = ExtResource("4_wrbgf")
-max_drop = 10
 metadata/_custom_type_script = "uid://c6tw2fkklnri5"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=802892367]
@@ -94,3 +93,5 @@ position = Vector2(0.54052, -10.5402)
 [node name="VFX_damage" type="Node" parent="." unique_id=2140509907]
 script = ExtResource("5_5tblg")
 metadata/_custom_type_script = "uid://b286rq0s2stos"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1799726278]

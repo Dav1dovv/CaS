@@ -4,7 +4,13 @@
 ##   • Ремонт   — починка сломанного предмета за ресурсы/золото
 ##   • Разборка — получить ресурсы из ненужного предмета
 ##
-## Разница между Кузнецом и домашним верстаком — только в is_smithy.
+## Станция бывает трёх видов (station_type), задаётся отдельно для
+## каждого объекта в мире (наковальня / верстак / котёл):
+##   • SMITH     — кузнец: рецепты с station_restriction = SMITH_ONLY или ANY
+##   • WORKBENCH — верстак: рецепты с station_restriction = WORKBENCH_ONLY или ANY
+##   • CAULDRON  — котёл: ВСЕ рецепты категории Food и только они
+##     (еда никогда не показывается у кузнеца/верстака, даже если
+##     на рецепте стоит ANY — см. CraftRecipe.CATEGORY_FOOD)
 ## ─────────────────────────────────────────────────────────────────
 ##
 ## ИЗМЕНЕНИЯ В ЭТОЙ ВЕРСИИ:
@@ -45,8 +51,9 @@ extends Control
 #  НАСТРОЙКИ
 # ─────────────────────────────────────────────────────────────────
 
-## true = Кузнец / false = домашний верстак
-@export var is_smithy: bool = true
+## Вид этой станции — задаётся отдельно для каждого объекта в мире
+enum StationType { SMITH, WORKBENCH, CAULDRON }
+@export var station_type: StationType = StationType.WORKBENCH
 
 ## Предмет "Золото" для проверки оплаты
 @export var gold_item: ItemData
@@ -189,8 +196,18 @@ func _refresh() -> void:
 				if recipe.mode != CraftRecipe.Mode.DISASSEMBLE: continue
 
 		# ── Фильтр по станции ──
-		if is_smithy and recipe.workbench_only: continue
-		if not is_smithy and recipe.smith_only: continue
+		# Еда живёт только в котле, независимо от station_restriction.
+		if recipe.category == CraftRecipe.CATEGORY_FOOD:
+			if station_type != StationType.CAULDRON: continue
+		else:
+			if station_type == StationType.CAULDRON: continue
+			match recipe.station_restriction:
+				CraftRecipe.StationRestriction.SMITH_ONLY:
+					if station_type != StationType.SMITH: continue
+				CraftRecipe.StationRestriction.WORKBENCH_ONLY:
+					if station_type != StationType.WORKBENCH: continue
+				CraftRecipe.StationRestriction.ANY:
+					pass
 
 		# ── Поиск по названию ──
 		#if not search_text.is_empty():

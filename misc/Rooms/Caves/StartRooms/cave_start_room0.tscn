@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://db4ccwy6g3ag5"]
 
 [ext_resource type="PackedScene" uid="uid://5gi0l2jioe6c" path="res://misc/Rooms/TestObject.tscn" id="1_jtr20"]
-[ext_resource type="Texture2D" uid="uid://cf8i27htsnj7e" path="res://Assets/Textures/Door.png" id="2_55mtj"]
+[ext_resource type="Texture2D" uid="uid://cf8i27htsnj7e" path="res://Assets/Textures/Items/Door.png" id="2_55mtj"]
 [ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="2_uy8cc"]
 [ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="3_2cgqk"]
 [ext_resource type="Texture2D" uid="uid://d0m52bcmbo0bp" path="res://Assets/Textures/Light/GradientLight.png" id="3_fps2e"]

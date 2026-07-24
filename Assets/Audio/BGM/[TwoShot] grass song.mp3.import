@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://80w1y6hltqgc"
+path="res://.godot/imported/[TwoShot] grass song.mp3-efc5df25d897a3853d957e2f0ae42b7c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/[TwoShot] grass song.mp3"
+dest_files=["res://.godot/imported/[TwoShot] grass song.mp3-efc5df25d897a3853d957e2f0ae42b7c.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=78.0
+beat_count=38
+bar_beats=4

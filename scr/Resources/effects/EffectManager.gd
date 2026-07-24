@@ -32,7 +32,7 @@ class ActiveEffect:
 
 # ── Хранилище ────────────────────────────────────────────────────────────────
 var active_effects: Dictionary = {}   # { EffectType: ActiveEffect }
-var owner_entity: Entity
+var owner_entity
 
 # ── Модификаторы ─────────────────────────────────────────────────────────────
 var speed_modifier        : float = 0.0
@@ -49,7 +49,7 @@ signal effect_removed(effect: Effect)
 signal effect_tick(effect: Effect)
 
 
-func _init(entity: Entity) -> void:
+func _init(entity) -> void:
 	owner_entity = entity
 
 func _ready() -> void:
@@ -197,7 +197,7 @@ func _process_tick(effect: Effect) -> void:
 
 		Effect.EffectType.BLEED:
 			# Урон = bleed_percent от max HP цели
-			var bleed_dmg := owner_entity.Entity_stats.max_health * effect.bleed_percent
+			var bleed_dmg = owner_entity.Entity_stats.max_health * effect.bleed_percent
 			owner_entity.take_damage(bleed_dmg)
 
 		Effect.EffectType.CORRUPTION:
@@ -276,7 +276,7 @@ func remove_speed_modifier(value: float) -> void:
 
 func _update_speed() -> void:
 	if owner_entity.Entity_stats:
-		var base := owner_entity.Entity_stats.base_move_speed
+		var base = owner_entity.Entity_stats.base_move_speed
 		owner_entity.Entity_stats.move_speed = base * (1.0 + speed_modifier)
 
 func add_damage_modifier(value: float) -> void:
@@ -305,7 +305,7 @@ func remove_defense_modifier(value: float) -> void:
 
 func set_invisibility(value: bool) -> void:
 	is_invisible = value
-	var sprite := owner_entity.get_node_or_null("Sprite2D")
+	var sprite = owner_entity.get_node_or_null("Sprite2D")
 	if sprite:
 		sprite.modulate.a = 0.3 if value else 1.0
 

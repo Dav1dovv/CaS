@@ -54,6 +54,7 @@ Global="*res://scr/Manager/global.tscn"
 PhantomCameraManager="*uid://duq6jhf6unyis"
 Cursor="*res://scr/Systems/Cursor/cursor.tscn"
 SaveLoad="*uid://buc810hj77v4k"
+DialogueManager="*uid://c3rodes2l3gxb"
 
 [dialogic]
 
@@ -103,7 +104,7 @@ layout/default_style="res://misc/UI/DialogBaloon/Dialog.tres"
 
 [dialogue_manager]
 
-runtime/balloon_path="res://misc/UI/DialogueBaloon/balloon.tscn"
+runtime/balloon_path="res://misc/UI/DialogBaloon/balloon.tscn"
 
 [display]
 
@@ -122,7 +123,7 @@ movie_writer/movie_file="C:/Users/davit/OneDrive/Документы/TLOE_adventu
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/flickering_light/plugin.cfg", "res://addons/font_auto_size_labels/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/flickering_light/plugin.cfg", "res://addons/font_auto_size_labels/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 
@@ -239,7 +240,8 @@ Dodge={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Assets/Dialogues/Test/Dialog1.dialogue", "res://Assets/Dialogues/Test/Dialog2.dialogue", "res://Assets/Dialogues/Test/Dialog3.dialogue", "res://Assets/Dialogues/Test/Dialog4.dialogue")
+locale/translations=PackedStringArray("res://misc/Dialogues/Scene1/Yairam.en.translation")
+locale/translations_pot_files=PackedStringArray("res://misc/Dialogs/Bern/Bern1.dialogue", "res://misc/Dialogs/Dialogues/Scene1/Yairam.dialogue", "res://misc/Ruins/Syncer.dialogue")
 
 [layer_names]
 

@@ -32,6 +32,10 @@ enum Mode {
 ## Категория для фильтра
 @export_enum("Weapons", "Pickaxe", "Food", "Materials", "Acsesories") var category: int = 0
 
+## Индекс "Food" в @export_enum category выше.
+## Рецепты с этой категорией автоматически доступны ТОЛЬКО в котле (см. CraftStation).
+const CATEGORY_FOOD := 2
+
 # ─────────────────────────────────────────────────────────────────
 #  РЕЗУЛЬТАТ  (для CRAFT и REPAIR)
 # ─────────────────────────────────────────────────────────────────
@@ -90,8 +94,14 @@ enum Mode {
 # ─────────────────────────────────────────────────────────────────
 
 @export var required_smith_level: int = 1
-@export var workbench_only: bool = false
-@export var smith_only: bool = false
+
+## Где доступен рецепт (не касается еды — она всегда только в котле, см. ниже).
+enum StationRestriction {
+	ANY,             ## Доступен и у кузнеца, и на верстаке
+	SMITH_ONLY,      ## Только у кузнеца
+	WORKBENCH_ONLY,  ## Только на верстаке
+}
+@export var station_restriction: StationRestriction = StationRestriction.ANY
 
 # ─────────────────────────────────────────────────────────────────
 #  ЛОГИКА ПРОВЕРКИ

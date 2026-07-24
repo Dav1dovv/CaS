@@ -12,7 +12,9 @@ region = Rect2(16, 64, 16, 16)
 
 [resource]
 script = ExtResource("2_djmqm")
+remove_corription = 10
 icon = SubResource("AtlasTexture_g3778")
+play_anim = "Drink"
 item_name = "Milk"
 max_count = 20
 price = 10

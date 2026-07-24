@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ysh8w6vpmjfx" path="res://Assets/Scenes/Menu/MainMenu.gd" id="1_xj65m"]
 [ext_resource type="Script" uid="uid://bttgnk3bb2a8i" path="res://addons/font_auto_size_labels/auto_size_label.gd" id="3_bwn3d"]
-[ext_resource type="Texture2D" uid="uid://r74tdo0kcej2" path="res://Assets/Textures/UI/Title/file.png" id="3_x4w70"]
+[ext_resource type="Texture2D" uid="uid://c7o5i4gtx8q3g" path="res://Assets/Textures/UI/Title/Title.png" id="3_x4w70"]
 [ext_resource type="Shader" uid="uid://vrsslnus0n8r" path="res://Assets/Shader/Shine.gdshader" id="4_axoc4"]
 [ext_resource type="PackedScene" uid="uid://gb7k36a7pc6o" path="res://scr/Misc/UIelements/button.tscn" id="5_bwn3d"]
 [ext_resource type="Theme" uid="uid://bmjvsrl7b67cy" path="res://misc/UI/theme.tres" id="6_tuj82"]
@@ -72,7 +72,6 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_qbvys"]
-font_size = 12
 font_color = Color(0.992157, 0.733333, 0.294118, 1)
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
@@ -250,10 +249,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 93.481
-offset_top = -9.843903
-offset_right = 238.01886
-offset_bottom = 59.1593
+offset_left = 86.05934
+offset_top = -39.530563
+offset_right = 274.78876
+offset_bottom = 29.472656
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.15631552
@@ -264,9 +263,8 @@ label_settings = SubResource("LabelSettings_qbvys")
 autowrap_mode = 3
 script = ExtResource("3_bwn3d")
 _max_size = 12
-_min_size = 6
+_min_size = 8
 _current_font_size = 12
-_size_just_modified_by_autosizer = true
 _editor_defaults_set = true
 metadata/_custom_type_script = "uid://bttgnk3bb2a8i"
 

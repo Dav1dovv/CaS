@@ -22,6 +22,9 @@ metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfjqq"]
 size = Vector2(28, 16)
 
+[sub_resource type="Animation" id="Animation_f6kux"]
+resource_name = "Hide"
+
 [sub_resource type="Animation" id="Animation_buafu"]
 resource_name = "Idle"
 loop_mode = 1
@@ -431,6 +434,7 @@ tracks/10/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d65i2"]
 _data = {
+&"Hide": SubResource("Animation_f6kux"),
 &"Idle": SubResource("Animation_buafu"),
 &"RESET": SubResource("Animation_sx7w6"),
 &"Walk": SubResource("Animation_totrt")
@@ -443,7 +447,6 @@ size = Vector2(34, 5)
 script = ExtResource("2_f6kux")
 behavior = -0.54
 flee_threshold = 0.776
-use_fear = true
 fear_per_damage = 1.835
 fear_proximity_radius = 70.205
 fear_proximity_rate = 0.125

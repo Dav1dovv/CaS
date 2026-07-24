@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="5_dh3r4"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_h0w0q"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="6_8ksjs"]
+[ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="7_h6rqw"]
 
 [sub_resource type="Resource" id="Resource_h6rqw"]
 resource_local_to_scene = true
@@ -27,9 +28,10 @@ region = Rect2(0, 16, 16, 16)
 [sub_resource type="Resource" id="Resource_4xexb"]
 script = ExtResource("3_owdma")
 Damage = 3
+hit_distance = 20.0
 equiped_weapon_sprite = SubResource("AtlasTexture_4w85q")
 critical_radius = 2.25
-critical_chance = 0.09999999999999999
+critical_chance = 0.1
 icon = SubResource("AtlasTexture_4w85q")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
@@ -53,7 +55,7 @@ icon = SubResource("AtlasTexture_5xc2f")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hprji"]
-size = Vector2(10, 21)
+size = Vector2(18, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ac6fd"]
 atlas = ExtResource("5_h0w0q")
@@ -1544,12 +1546,18 @@ position = Vector2(0, -10.5)
 shape = SubResource("RectangleShape2D_lrqgb")
 
 [node name="HitBox" parent="." index="2" unique_id=1440497730]
+position = Vector2(0, -9)
 random_weapons = Array[ExtResource("3_owdma")]([SubResource("Resource_4xexb"), SubResource("Resource_h0w0q")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0" unique_id=757434288]
-position = Vector2(0, -10.5)
+position = Vector2(21, -2)
 shape = SubResource("RectangleShape2D_hprji")
 disabled = true
+
+[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+stream = ExtResource("7_h6rqw")
+pitch_scale = 0.54
+bus = &"SFX"
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=1935695162]
 

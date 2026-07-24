@@ -26,8 +26,8 @@ region = Rect2(144, 128, 16, 16)
 [resource]
 script = ExtResource("3_puq1x")
 effects = Array[ExtResource("1_hdfip")]([SubResource("Resource_gpc6h")])
-hunger_restore = 10.0
 icon = SubResource("AtlasTexture_xhqfj")
+play_anim = "Drink"
 item_name = "Resistance Potion"
 price = 36
 metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

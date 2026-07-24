@@ -1,16 +1,28 @@
 [gd_scene format=3 uid="uid://dy3lr5g4apbby"]
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_h8fx1"]
-[ext_resource type="Texture2D" uid="uid://c20y2y3iagaw3" path="res://Assets/Textures/Honeycomb.png" id="2_ibp3t"]
+[ext_resource type="Texture2D" uid="uid://c20y2y3iagaw3" path="res://Assets/Textures/Items/Honeycomb.png" id="2_ibp3t"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_igalg"]
+[ext_resource type="Resource" uid="uid://dt6c2htc1a2l5" path="res://misc/Content/Items/Honey.tres" id="3_3m5dl"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="3_igalg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cdos3"]
 radius = 4.2601004
 
+[sub_resource type="Resource" id="Resource_4snad"]
+script = ExtResource("2_igalg")
+drop_item = ExtResource("3_3m5dl")
+max_throws = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1kdp3"]
 size = Vector2(29, 23.4598)
 
 [node name="HarvestItem" unique_id=1934415035 instance=ExtResource("1_h8fx1")]
+durability = 60.0
+harvest_tool_lvl = 3
+rich_vein_chance = 0.0
+rich_vein_multiplier = 1.0
 
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(0, -5)
@@ -19,6 +31,9 @@ shape = SubResource("CapsuleShape2D_cdos3")
 
 [node name="optimizer" parent="." index="2" unique_id=2100972979]
 rect = Rect2(-18, -28, 34, 29)
+
+[node name="droper" parent="." index="3" unique_id=1465568748]
+drop_resources = Array[ExtResource("2_igalg")]([SubResource("Resource_4snad")])
 
 [node name="CollisionShape2D" parent="." index="5" unique_id=1716306559]
 position = Vector2(-0.49999976, -12.2701)

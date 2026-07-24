@@ -5,14 +5,11 @@
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_0r3tc"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="3_2kdck"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_0r3tc"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="5_onooq"]
-[ext_resource type="Resource" uid="uid://dthgslbfnjeal" path="res://misc/Content/Items/Slime.tres" id="6_3sfyk"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="7_ojvg7"]
-[ext_resource type="AudioStream" uid="uid://c5mo6fcly4d21" path="res://Assets/Audio/SFX/Creatures/Slime/Slime2.mp3" id="7_onooq"]
+[ext_resource type="AudioStream" uid="uid://03ghu38ruspr" path="res://Assets/Audio/SFX/Creatures/Slime/Slime 3.mp3" id="7_onooq"]
 [ext_resource type="AudioStream" uid="uid://c6e0oujv5udu7" path="res://Assets/Audio/SFX/Creatures/Slime/Slime.mp3" id="10_3sfyk"]
-[ext_resource type="AudioStream" uid="uid://03ghu38ruspr" path="res://Assets/Audio/SFX/Creatures/Slime/Slime 3.mp3" id="11_h4df7"]
 
-[sub_resource type="Resource" id="Resource_lw71o"]
+[sub_resource type="Resource" id="Resource_0r3tc"]
 resource_local_to_scene = true
 resource_name = "Slime Stat"
 script = ExtResource("3_0r3tc")
@@ -26,6 +23,42 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 script = ExtResource("3_2kdck")
 Damage = 2
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
+
+[sub_resource type="Curve" id="Curve_k51xm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.642857, 0.651685), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4qrji"]
+curve = SubResource("Curve_k51xm")
+
+[sub_resource type="Gradient" id="Gradient_xwwyn"]
+offsets = PackedFloat32Array(0.28106508, 0.727273)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6rmse"]
+gradient = SubResource("Gradient_xwwyn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ojvg7"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.5
+direction = Vector3(0.5, -0.5, 0)
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 700, 0)
+damping_min = 46.789
+damping_max = 100.0
+scale_min = 0.8
+scale_max = 2.0
+color = Color(0, 0.85287786, 0.69180375, 1)
+color_ramp = SubResource("GradientTexture1D_6rmse")
+alpha_curve = SubResource("CurveTexture_4qrji")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n87c8"]
+random_pitch = 1.0905077
+streams_count = 1
+stream_0/stream = ExtResource("7_onooq")
 
 [sub_resource type="Animation" id="Animation_0r3tc"]
 resource_name = "Death"
@@ -220,10 +253,9 @@ tracks/5/keys = {
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g38em"]
 playback_mode = 1
-random_pitch = 1.3348398
-streams_count = 2
+random_pitch = 1.2599211
+streams_count = 1
 stream_0/stream = ExtResource("10_3sfyk")
-stream_1/stream = ExtResource("11_h4df7")
 
 [sub_resource type="Animation" id="Animation_h4df7"]
 resource_name = "Walk"
@@ -291,6 +323,7 @@ _data = {
 
 [node name="Slime" unique_id=1251952136 node_paths=PackedStringArray("body_anim") instance=ExtResource("1_djix7")]
 script = ExtResource("2_2l84w")
+max_agr_phase = 5
 hear_radius = 100.0
 fov_half_angle = 120.0
 wander_interval_min = 6.0
@@ -300,7 +333,7 @@ avoidance_strength = 2.0
 attack_radius = 0.0
 attack_cooldown = 0.8
 body_anim = NodePath("Skin/AnimationPlayer")
-Entity_stats = SubResource("Resource_lw71o")
+Entity_stats = SubResource("Resource_0r3tc")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 hide_objects = [NodePath("../Skin")]
@@ -316,12 +349,14 @@ equip = SubResource("Resource_2l84w")
 position = Vector2(0, -7)
 shape = SubResource("CircleShape2D_djix7")
 
-[node name="Drop" parent="." index="3" unique_id=1587885386]
-drop_item = Array[ExtResource("5_onooq")]([ExtResource("6_3sfyk")])
-max_drop = 5
+[node name="DamageVFX" parent="." index="5" unique_id=1460921651]
+process_material = SubResource("ParticleProcessMaterial_ojvg7")
 
 [node name="DamageSFX" parent="." index="6" unique_id=2033228583]
-stream = ExtResource("7_onooq")
+stream = SubResource("AudioStreamRandomizer_n87c8")
+volume_db = 22.66
+pitch_scale = 1.0
+bus = &"SFX"
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=557302533]
 
@@ -344,6 +379,9 @@ root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_v5uk5")
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." index="10" unique_id=1507744453]
-max_distance = 300.0
+max_distance = 150.0
+attenuation = 2.219139
+max_polyphony = 5
+bus = &"SFX"
 
 [connection signal="health_changed" from="." to="." method="_on_Damaged"]

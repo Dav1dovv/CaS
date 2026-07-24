@@ -55,6 +55,7 @@ region = Rect2(32, 48, 16, 16)
 script = ExtResource("2_mjdse")
 eat_sound = ExtResource("1_kbrae")
 effects = Array[ExtResource("1_h0luh")]([SubResource("Resource_wywww"), SubResource("Resource_dcjpb"), SubResource("Resource_ox5yh")])
+remove_corription = 7
 icon = SubResource("AtlasTexture_vrolc")
 play_anim = "Eating"
 item_name = "Cooked Meat"

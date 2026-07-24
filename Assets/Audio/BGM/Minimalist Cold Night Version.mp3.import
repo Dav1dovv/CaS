@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dhn05nuxaocwt"
+path="res://.godot/imported/Minimalist Cold Night Version.mp3-995f6aba01aac77dc944691c5b62ae65.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/BGM/Minimalist Cold Night Version.mp3"
+dest_files=["res://.godot/imported/Minimalist Cold Night Version.mp3-995f6aba01aac77dc944691c5b62ae65.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=120.0
+beat_count=58
+bar_beats=4

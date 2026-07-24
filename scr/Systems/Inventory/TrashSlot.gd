@@ -6,6 +6,7 @@ class_name TrashSlot
 @export var hover_texture:   Texture2D
 
 @onready var icon: TextureRect = $Icon  # TextureRect внутри ноды для отображения иконки корзины
+@onready var ui_trash_slot_sfx: AudioStreamPlayer = %UI_TrashSlot_SFX
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -42,7 +43,7 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 			src.slot_node.hotbar._recalculate_accessories()
 
 	print("Удалено в мусорку: %s × %d" % [drag_item.item_name, data.get("amount", 1)])
-
+	%UI_TrashSlot_SFX.play()
 # ── Подсветка при наведении ──────────────────────────────────────
 
 func _notification(what: int) -> void:

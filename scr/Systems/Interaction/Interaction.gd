@@ -2,13 +2,14 @@
 extends RapierArea2D
 class_name interaction_area
 
+signal far
+
 @export_multiline var show_message : String = "interact"
 @export var icon_help : Texture2D
 var is_in_zone = false
 var player
 var interact: Callable = func():
 	pass
-
 # Исправлено: connect сигналов перенесён из _init() в _ready(),
 # так как в _init нода ещё не добавлена в дерево сцены
 func _init() -> void:
@@ -31,8 +32,9 @@ func _input(event: InputEvent) -> void:
 			if player == null:
 				return
 			# Исправлено: сообщение "your so far" → "you're too far"
-			if global_position.distance_to(player.global_position) >= 30:
+			if global_position.distance_to(player.global_position) >= 60:
 				Global.hint(get_parent(), "you're too far")
+				emit_signal("far")
 			else:
 				interact.call()
 

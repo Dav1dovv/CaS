@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bodm1xuyyxtpt" path="res://misc/HarvestItems/Crystal.tscn" id="11_yomvk"]
 [ext_resource type="PackedScene" uid="uid://t1mi61y84oib" path="res://misc/Chest/chest.tscn" id="12_v2kxy"]
 [ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="14_wyacb"]
+[ext_resource type="PackedScene" uid="uid://bxb0fsvt4mjfw" path="res://misc/Stations/Boiler.tscn" id="15_1530k"]
 [ext_resource type="PackedScene" uid="uid://h106lj2xe051" path="res://misc/Structures/ennemy_camp.tscn" id="15_a7hw1"]
 [ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Stations/camp.tscn" id="15_jkv1d"]
 [ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Ruins/syncer.tscn" id="17_5um0f"]
@@ -35,6 +36,11 @@ script = ExtResource("2_p3tyn")
 Generation_scene = ExtResource("5_qkko6")
 spawn_weight = 0.084
 Generation_random_versions = Array[PackedScene]([ExtResource("4_268is")])
+random_scales = {
+"Big": Vector2(2, 2),
+"Middle": Vector2(1.5, 1.5),
+"Standart": Vector2(1.2, 1.2)
+}
 metadata/_custom_type_script = "uid://bwabf86cec2s5"
 
 [sub_resource type="Resource" id="Resource_iuswx"]
@@ -94,7 +100,7 @@ metadata/_custom_type_script = "uid://bwabf86cec2s5"
 script = ExtResource("2_p3tyn")
 Generation_scene = ExtResource("15_jkv1d")
 spawn_weight = 0.818
-Generation_random_versions = Array[PackedScene]([ExtResource("15_a7hw1"), ExtResource("15_jkv1d")])
+Generation_random_versions = Array[PackedScene]([ExtResource("15_a7hw1"), ExtResource("15_1530k")])
 random_scales = {
 "Big": Vector2(1, 1),
 "Middle": Vector2(1, 1),
@@ -151,6 +157,7 @@ spawn_chance = 0.715
 metadata/_custom_type_script = "uid://cxixcs17bxicy"
 
 [node name="Land" type="Node2D" unique_id=96793758]
+y_sort_enabled = true
 script = ExtResource("1_dk566")
 generation_items = Array[ExtResource("2_p3tyn")]([SubResource("Resource_j1707"), SubResource("Resource_7s3k3"), SubResource("Resource_iuswx"), SubResource("Resource_fxqv4"), SubResource("Resource_te162"), SubResource("Resource_q2fde"), SubResource("Resource_i3qgw"), SubResource("Resource_d2wb4")])
 special_structures = Array[ExtResource("14_wyacb")]([SubResource("Resource_y14l7"), SubResource("Resource_7pk4t"), SubResource("Resource_tymmd")])

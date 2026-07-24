@@ -5,9 +5,8 @@
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="4_nnn6h"]
 [ext_resource type="Shader" uid="uid://cdlafcs161hqt" path="res://Assets/Shader/tree_wind.gdshader" id="5_50bdx"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="5_my7y8"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="6_nnn6h"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="6_t78ob"]
 [ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="7_my7y8"]
-[ext_resource type="Script" uid="uid://ctm4b4v8txo1q" path="res://scr/Resources/WeightItem.gd" id="8_5tu0i"]
 [ext_resource type="Resource" uid="uid://dwhy2xb7bqqsf" path="res://misc/Content/Items/LifeFruit.tres" id="8_vxks1"]
 [ext_resource type="AudioStream" uid="uid://bdpgims8h837c" path="res://misc/HarvestItems/SFX/Tree/Chop1.mp3" id="9_50bdx"]
 [ext_resource type="AudioStream" uid="uid://7cg0p0tt6th1" path="res://misc/HarvestItems/SFX/Tree/Chop3.mp3" id="11_20o6u"]
@@ -28,11 +27,20 @@ shader_parameter/wind_frequency = 1.2850000610375
 shader_parameter/wind_offset = 23.36400110979
 shader_parameter/fade_alpha = 1.0
 
-[sub_resource type="Resource" id="Resource_2wdbu"]
-script = ExtResource("8_5tu0i")
-item = ExtResource("8_vxks1")
-weight = 0.5
-metadata/_custom_type_script = "uid://ctm4b4v8txo1q"
+[sub_resource type="Resource" id="Resource_1t5m1"]
+script = ExtResource("6_t78ob")
+drop_item = ExtResource("7_my7y8")
+drop_chance = 1.0
+max_throws = 4
+max_count = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="Resource" id="Resource_45q5k"]
+script = ExtResource("6_t78ob")
+drop_item = ExtResource("8_vxks1")
+drop_chance = 1.0
+max_throws = 3
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5cbeb"]
 playback_mode = 1
@@ -79,7 +87,7 @@ color_ramp = SubResource("GradientTexture1D_uupl7")
 durability = 10.0
 harvest_tool_lvl = 0
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(3, -4)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_phfk7")
@@ -110,8 +118,7 @@ scale = Vector2(1.22948, 0.739666)
 texture = ExtResource("5_my7y8")
 
 [node name="droper" parent="." index="5" unique_id=1465568748]
-drop_item = Array[ExtResource("6_nnn6h")]([ExtResource("7_my7y8")])
-unique_items = Array[ExtResource("8_5tu0i")]([SubResource("Resource_2wdbu")])
+drop_resources = Array[ExtResource("6_t78ob")]([SubResource("Resource_1t5m1"), SubResource("Resource_45q5k")])
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." index="7" unique_id=1486453752]
 stream = SubResource("AudioStreamRandomizer_5cbeb")

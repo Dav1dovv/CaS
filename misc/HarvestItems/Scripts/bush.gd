@@ -1,9 +1,8 @@
 extends Harvestable
 class_name bush
 
-const BERRY = preload("uid://dt3jv77sc1amr")
-const BLUE_BERRY = preload("uid://cek8v8e4qeq28")
-@warning_ignore("unused_parameter")
+@export var berry_drp_rsc : DropResource
+@export var blue_berry_drp_rsc : DropResource
 
 func _ready() -> void:
 	super._ready()
@@ -17,10 +16,10 @@ func Harvest(hit_strenght: float, tool_lvl: int, is_weapon: bool):
 			if randf() < 0.03:
 				Dropper_component.drop_bonus_heart()
 		1:
-			Dropper_component.drop_item[0] = BERRY
+			Dropper_component.drop_resources[0] = berry_drp_rsc
 			Dropper_component._drop_items()
 		2:
-			Dropper_component.drop_item[0] = BLUE_BERRY
+			Dropper_component.drop_resources[0] = blue_berry_drp_rsc
 			Dropper_component._drop_items()
 
 	$Sprite2D.visible = false

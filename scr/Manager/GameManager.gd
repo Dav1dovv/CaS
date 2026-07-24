@@ -191,6 +191,4 @@ func _load_harvested() -> void:
 
 
 func Die():
-	print("player_died, C_lvl" + str(Global.corruption[biome]))
-	Global.corruption[biome] += 10
-	print("C_lvl " + str(Global.corruption[biome]))
+	Global.corruption += 10

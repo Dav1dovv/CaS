@@ -18,6 +18,7 @@ func _hit_vfx(new_character : Node2D) -> void:
 
 func _damage_vfx(new_character : Node2D):
 	_play_audio()
+	_play_particles()
 	var tween = create_tween()
 	tween.tween_property(character, "rotation", randf_range(-0.2, 0.2), 0.1)
 	await tween.tween_property(character, 'modulate', Color(3.705, 0.0, 0.0, 1.0), 0.1)

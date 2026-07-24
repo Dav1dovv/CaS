@@ -8,8 +8,8 @@ const HAND_ANIM_SPEED_SCALE := 1.0
 #  Скорость
 # ─────────────────────────────────────────────────────────────────────────────
 
-var standart_speed: float = 10.0
-var slow_speed:     float = 7.0
+var standart_speed: float = 15.0
+var slow_speed:     float = 8.0
 var dash_speed:     float = 20.0
 
 @export_range(0.01, 1.0, 0.01) var acceleration: float = 0.20
@@ -39,7 +39,7 @@ var _lunge_hit_bodies: Array   = []
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Dodge / перекат (не зависит от оружия — базовое умение игрока)
+#  Dodge / перекат (не завdисит от оружия — базовое умение игрока)
 # ─────────────────────────────────────────────────────────────────────────────
 
 ## Требует action "Dodge" в Input Map (например, Space или Shift)
@@ -83,10 +83,15 @@ var corruption : float = 0
 # ─────────────────────────────────────────────────────────────────────────────
 #  Инициализация
 # ─────────────────────────────────────────────────────────────────────────────
+const YAIRAM = preload("uid://dbhmebbny0165")
 
 func _ready() -> void:
 	super._ready()
-
+	$Skin.visible = false
+	$Spawn.restart()
+	$Spawn.emitting = true
+	#await  $Spawn.finished
+	#$Skin.visible = true
 	Global.hotbar    = get_tree().get_first_node_in_group("Hotbar")    as Hotbar
 	Global.inventory = get_tree().get_first_node_in_group("Inventory") as Inventory
 	get_tree().get_first_node_in_group("DebugObject").update()
@@ -176,9 +181,12 @@ func _start_dodge() -> void:
 
 	if dodge_invincible:
 		_hurt_col.disabled = true
-
-	if Vfx != null and Vfx.has_method("_dodge_vfx"):
-		Vfx._dodge_vfx(self)
+	
+	BodyAnimator.play("Dash")
+	if $VFX_Dodge != null:
+		$VFX_Dodge.restart()
+		$VFX_Dodge.emitting = true
+		$SFX_Dodge.play()
 
 
 func _update_dodge(delta: float) -> void:
@@ -238,10 +246,12 @@ func _animate() -> void:
 		BodyAnimator.play("Walk", -1.0, spd)
 		if not is_attack:
 			HandAanimator.play("Walk", -1.0, spd)
+			$VFX_Walk.emitting = true
 	else:
 		BodyAnimator.play("Idle")
 		if not is_attack:
 			HandAanimator.play("Idle")
+			$VFX_Walk.emitting = false
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -409,6 +419,10 @@ func save_game() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 #  Сигналы и смерть
 # ─────────────────────────────────────────────────────────────────────────────
+
+func remove_curse(value: int):
+	corruption -= value
+	health_bar.update_value(Entity_stats.current_health,Entity_stats.max_health, corruption)
 
 func _on_health_changed(new_health: float) -> void:
 	health_bar.update_value(new_health,Entity_stats.max_health, corruption)

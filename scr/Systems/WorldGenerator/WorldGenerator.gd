@@ -115,7 +115,7 @@ func _ready() -> void:
 		return
 
 	location_id = location_id + Global.player_name
-	_game_manager = get_parent()
+	_game_manager = get_parent().get_parent()
 	_setup_noise()
 	_cache_polygon()
 	_cache_weights()
@@ -190,9 +190,9 @@ func _cache_weights() -> void:
 func _sync_corruption_from_global() -> void:
 	if biome_key.is_empty():
 		return
-	if not ("corruption" in Global) or not Global.corruption.has(biome_key):
+	if not ("corruption" in Global) or not Global.corruption:
 		return
-	var pct: float = Global.corruption[biome_key]  # 0..100
+	var pct: float = Global.corruption  # 0..100
 	corruption_level = int(clamp(round(pct / 100.0 * 3.0), 0, 3))
 
 
@@ -464,10 +464,10 @@ func get_nearest_structure(pos: Vector2, type: int = -1) -> Dictionary:
 ## источник истины), а не в локальное поле. Если biome_key пуст — старое
 ## локальное поведение сохраняется для обратной совместимости.
 func modify_corruption(delta: int) -> int:
-	if not biome_key.is_empty() and ("corruption" in Global) and Global.corruption.has(biome_key):
-		var pct: float = Global.corruption[biome_key]
+	if not biome_key.is_empty() and ("corruption" in Global) and Global.corruption:
+		var pct: float = Global.corruption
 		pct = clamp(pct + delta * (100.0 / 3.0), 0.0, 100.0)
-		Global.corruption[biome_key] = pct
+		Global.corruption = pct
 		corruption_level = int(clamp(round(pct / 100.0 * 3.0), 0, 3))
 	else:
 		corruption_level = clamp(corruption_level + delta, 0, 3)

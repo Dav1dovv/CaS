@@ -85,7 +85,7 @@ func set_data(item: ItemData) -> void:
 		if item.max_durability > 0:
 			bb += _durability_line(item.get_durability(), item.max_durability)
 	elif item is FoodData:
-		bb += _stat_line("Восстанавливает", "%d" % item.hunger_restore, COLOR_FOOD)
+		bb += _stat_line("Восстанавливает", "%d" % item.health_restore, COLOR_FOOD)
 
 	desc_label.text = bb
 	# Видимость НЕ трогаем здесь — её включает/выключает InventorySlot

@@ -26,8 +26,9 @@ region = Rect2(128, 64, 16, 16)
 [resource]
 script = ExtResource("4_srevl")
 effects = Array[ExtResource("1_xdckt")]([SubResource("Resource_gpc6h")])
-hunger_restore = 10.0
+remove_corription = 13
 icon = SubResource("AtlasTexture_usf3c")
+play_anim = "Drink"
 item_name = "Bomb Berry Potion"
 price = 36
 metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

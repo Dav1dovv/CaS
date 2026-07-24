@@ -8,8 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="4_cfyhe"]
 [ext_resource type="PackedScene" uid="uid://bgoo5cwnuj0lj" path="res://misc/Projectiles/Arrow.tscn" id="5_4w85q"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="5_5xc2f"]
+[ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="7_5xc2f"]
 
-[sub_resource type="Resource" id="Resource_ehkkp"]
+[sub_resource type="Resource" id="Resource_kdvry"]
 resource_local_to_scene = true
 script = ExtResource("2_b50er")
 max_health = 35
@@ -29,7 +30,7 @@ script = ExtResource("3_b50er")
 Damage = 3
 equiped_weapon_sprite = SubResource("AtlasTexture_4w85q")
 critical_radius = 2.25
-critical_chance = 0.09999999999999999
+critical_chance = 0.1
 icon = SubResource("AtlasTexture_4w85q")
 metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
@@ -1533,7 +1534,7 @@ behavior = 0.5
 hear_radius = 140.0
 body_anim = NodePath("Skin/Body/BodyAnim")
 hand_anim = NodePath("Skin/Body/Hand/AnimationPlayer")
-Entity_stats = SubResource("Resource_ehkkp")
+Entity_stats = SubResource("Resource_kdvry")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 hide_objects = [NodePath("../Skin")]
@@ -1549,6 +1550,15 @@ random_weapons = Array[ExtResource("3_b50er")]([SubResource("Resource_cfyhe"), S
 position = Vector2(0, -10.5)
 shape = SubResource("RectangleShape2D_hprji")
 disabled = true
+
+[node name="VFX" parent="." index="4" unique_id=304494227 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../DamageSFX")
+particles = NodePath("../DamageVFX")
+
+[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+stream = ExtResource("7_5xc2f")
+pitch_scale = 0.4
+bus = &"SFX"
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=1935695162]
 

@@ -1,6 +1,10 @@
 extends Harvestable
 
 @export var Boss : PackedScene
+@export_placeholder("Scare") var boss_name : String = ""
+
+var message_1 := "Evil is awakening"
+var message_2 := "one hit and "
 
 # Переопределяем логику уничтожения из Harvestable
 func _on_tree_exiting() -> void:
@@ -17,11 +21,16 @@ func _spawn_boss_delayed(delay: float) -> void:
 	timer.wait_time = delay
 	timer.one_shot = true
 	timer.start()
-
+	
+	if durability <= durability / 2:
+		print(message_1)
+	elif durability <= durability /3:
+		print(message_2)
+	
 	var boss_instance = Boss.instantiate()
 	var spawn_pos = Vector2(
-		global_position.x + randf_range(-10, 10),
-		global_position.y + randf_range(-10, 10)
+		global_position.x + randf_range(-5, 5),
+		global_position.y + randf_range(-5, 5)
 	)
 	boss_instance.global_position = spawn_pos
 

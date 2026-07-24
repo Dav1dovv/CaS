@@ -39,8 +39,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -240.0
 offset_top = -135.0
-offset_right = 57.0
-offset_bottom = 134.0
+offset_right = 7.823044
+offset_bottom = 16.521698
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hpr4m")
@@ -75,6 +75,7 @@ theme_override_constants/separation = 9
 alignment = 1
 
 [node name="TabCraft" type="Button" parent="Craft/TabBar" unique_id=2084197745]
+visible = false
 custom_minimum_size = Vector2(70, 18)
 layout_mode = 2
 size_flags_vertical = 4
@@ -82,6 +83,7 @@ theme_override_font_sizes/font_size = 12
 text = "Craft"
 
 [node name="TabRepair" type="Button" parent="Craft/TabBar" unique_id=1285823383]
+visible = false
 custom_minimum_size = Vector2(70, 18)
 layout_mode = 2
 size_flags_vertical = 4
@@ -89,6 +91,7 @@ theme_override_font_sizes/font_size = 12
 text = "Repair"
 
 [node name="TabDisassemble" type="Button" parent="Craft/TabBar" unique_id=1831849426]
+visible = false
 custom_minimum_size = Vector2(70, 18)
 layout_mode = 2
 size_flags_vertical = 4

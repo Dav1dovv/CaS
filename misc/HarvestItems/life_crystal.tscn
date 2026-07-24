@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4utefe16m5jg"]
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_mpy3a"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="2_3mg1d"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_51311"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="2_kwsjy"]
 [ext_resource type="Texture2D" uid="uid://c1lu2mx28lw8e" path="res://misc/HarvestItems/Textures/LifeCrystal.png" id="3_jjxvs"]
 [ext_resource type="Resource" uid="uid://c6ysff0u2v0n" path="res://misc/Content/Items/Life Crystal.tres" id="3_sdryy"]
@@ -14,6 +14,12 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3mg1d"]
 radius = 6.0
 height = 32.0
+
+[sub_resource type="Resource" id="Resource_ac0cp"]
+script = ExtResource("2_51311")
+drop_item = ExtResource("3_sdryy")
+max_throws = 2
+metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kjewb"]
 playback_mode = 1
@@ -37,35 +43,45 @@ load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143
 atlas = SubResource("CompressedTexture2D_epgrp")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="Gradient" id="Gradient_kjewb"]
+[sub_resource type="Gradient" id="Gradient_wwo1s"]
+offsets = PackedFloat32Array(0.6460177, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_77c5i"]
-gradient = SubResource("Gradient_kjewb")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_axhva"]
+gradient = SubResource("Gradient_wwo1s")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8a1ut"]
+[sub_resource type="Curve" id="Curve_tmqmk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.7391304), 0.0, 0.0, 0, 0, Vector2(0.49206346, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_4snad"]
+curve = SubResource("Curve_tmqmk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_51311"]
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 28.36
-angle_min = -86.399994
-angle_max = 37.00001
-inherit_velocity_ratio = 0.407
+emission_sphere_radius = 14.35
+angle_min = -720.0
+angle_max = 720.0
 direction = Vector3(0, -1, 0)
-spread = 25.0
+spread = 27.628
+flatness = 1.0
 initial_velocity_min = 200.0
-initial_velocity_max = 400.0
+initial_velocity_max = 362.06998
 gravity = Vector3(0, 700, 0)
 damping_min = 100.0
 damping_max = 800.0
-scale_min = 0.5
-color_ramp = SubResource("GradientTexture1D_77c5i")
+scale_min = 0.099999994
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_4snad")
+color_ramp = SubResource("GradientTexture1D_axhva")
 
 [node name="LifeCrystal" unique_id=926458431 instance=ExtResource("1_mpy3a")]
 durability = 10.0
 harvest_tool_lvl = 3
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1226065190) index="0" unique_id=605264910]
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(0, -6)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_3mg1d")
@@ -76,8 +92,7 @@ scale = Vector2(1.8, 1.65)
 hide_objects = [NodePath("../Shadow"), NodePath("../Sprite2D"), NodePath("../Corruption Effect")]
 
 [node name="droper" parent="." index="3" unique_id=1465568748]
-drop_item = Array[ExtResource("2_3mg1d")]([ExtResource("3_sdryy")])
-max_drop = 1
+drop_resources = Array[ExtResource("2_51311")]([SubResource("Resource_ac0cp")])
 
 [node name="Shadow" type="Sprite2D" parent="." index="5" unique_id=2073692932]
 self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)
@@ -103,8 +118,9 @@ position = Vector2(0.54052, -14)
 shape = SubResource("CircleShape2D_mpy3a")
 
 [node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("11_i01v7")]
+position = Vector2(0, -15)
 texture = SubResource("AtlasTexture_00ryl")
-process_material = SubResource("ParticleProcessMaterial_8a1ut")
+process_material = SubResource("ParticleProcessMaterial_51311")
 
 [node name="VFX_damage" parent="." index="11" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
 audio_player = NodePath("../SFX")

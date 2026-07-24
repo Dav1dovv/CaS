@@ -27,6 +27,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	inventory = get_tree().get_first_node_in_group("Inventory")
 	if inventory:
+		inventory.gold_slot = self
 		inventory.inventory_changed.connect(_refresh)
 	var hb = get_tree().get_first_node_in_group("Hotbar")
 	if hb:

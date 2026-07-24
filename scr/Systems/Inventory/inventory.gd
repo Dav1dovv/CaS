@@ -21,13 +21,15 @@ signal inventory_changed
 #Menus
 @onready var inventory: Panel = $HBoxContainer/Inventory
 @onready var smith: Control = $HBoxContainer/Smith
+@onready var workbench: Control = $HBoxContainer/Workbench
 @onready var barmen: Control = $HBoxContainer/Barmen
 @onready var trade_window: TradeWindow = $HBoxContainer/TradeWindow
 
 
 # ── Слот золота ──────────────────────────────────────────────────
 # Добавь ноду: HBoxContainer/Inventory/VBoxContainer/GoldSlot
-@onready var gold_slot: GoldSlot
+@onready var gold_slot: GoldSlot = $HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/GoldSlot
+
 
 var items: Array[InventorySlotData] = []
 var items_storage: Array[ItemData]
@@ -51,8 +53,6 @@ func _ready() -> void:
 	Global.inventory = self
 	Global.developer_console.register_command("all_items_list", _cmd_list, "List all items")
 	Global.developer_console.register_command("add_item", _cmd_add_item, "Usage: add_item [itm_indx] [count]")
-	gold_slot = get_tree().get_first_node_in_group("CoinSlot")
-
 	inventory_changed.connect(_mark_count_cache_dirty)
 	if hotbar:
 		hotbar.hotbar_changed.connect(_mark_count_cache_dirty)
@@ -278,44 +278,50 @@ func call_inventory():
 	inventory.visible = true
 	smith.visible = false
 	trade_window.visible = false
+	$HBoxContainer/Workbench.visible = false
+	$HBoxContainer/Barmen.visible  = false
 	Cursor.detection_mode(is_opened)
 
-func uncall_craft():
-	is_opened = false
-	Global.is_opened_menu = false
-	$Panel.visible = is_opened
-	$HBoxContainer.visible = false
-	inventory.visible = false
-	smith.visible = false
-	trade_window.visible = false
-	Cursor.detection_mode(false)
-
-
-
-func call_craft():
+## Общая логика вызова любой из станций крафта (кузнец / верстак / котёл).
+## Каждый вызывающий объект в мире дёргает свой конкретный метод ниже —
+## call_smith() / call_workbench() / call_cauldron().
+func _call_craft_station(station: Control) -> void:
 	if Global.is_opened_menu && !is_opened:
 		return
 	is_opened = !is_opened
 	Global.is_opened_menu = is_opened
 	$HBoxContainer.visible = is_opened
 	$Panel.visible = is_opened
-	smith.visible = true
-	inventory.visible = false
-	Cursor.detection_mode(is_opened)
-	if is_opened:
-		smith._refresh()
-		smith._update_preview()
 
-func uncall_trade():
-	is_opened = false
-	Global.is_opened_menu = false
-	$Panel.visible = is_opened
-	$HBoxContainer.visible = false
 	inventory.visible = false
+	smith.visible = false
+	workbench.visible = false
+	barmen.visible = false
 	trade_window.visible = false
-	Cursor.detection_mode(false)
 
+	station.visible = is_opened
+	Cursor.detection_mode(is_opened)
 
+	if is_opened:
+		station._refresh()
+		station._update_preview()
+
+## Наковальня — рецепты с station_restriction = SMITH_ONLY / ANY
+func call_smith() -> void:
+	_call_craft_station(smith)
+
+## Верстак — рецепты с station_restriction = WORKBENCH_ONLY / ANY
+func call_workbench() -> void:
+	_call_craft_station(workbench)
+
+## Котёл — вся еда (category = Food), независимо от station_restriction
+func call_cauldron() -> void:
+	_call_craft_station(barmen)
+
+## Оставлено для обратной совместимости — если где-то в мире объект ещё
+## вызывает call_craft(), он по-прежнему откроет кузнеца.
+func call_craft() -> void:
+	call_smith()
 
 func call_trade(Trader : TraderData):
 	if Global.is_opened_menu && !is_opened:

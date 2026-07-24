@@ -19,6 +19,4 @@ secondary_amount = 3
 third_resource = ExtResource("5_j3cso")
 gold_cost = 32
 required_smith_level = 2
-workbench_only = true
-smith_only = true
 metadata/_custom_type_script = "uid://b47c08bhjaot6"

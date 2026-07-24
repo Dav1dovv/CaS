@@ -10,8 +10,9 @@ region = Rect2(0, 64, 16, 16)
 
 [resource]
 script = ExtResource("2_sbk3q")
-hunger_restore = 8.0
+remove_corription = 26
 icon = SubResource("AtlasTexture_ykh0l")
+play_anim = "Eating"
 item_name = "Salad"
 price = 24
 metadata/_custom_type_script = "uid://ds5d4cljtsmfp"

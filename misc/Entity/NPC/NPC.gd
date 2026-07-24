@@ -3,8 +3,6 @@ class_name NPC
 
 @onready var interaction: interaction_area = $interaction_area
 
-@export var dialog_timeline: Array[String]
-
 ## Расстояние, на котором НПС останавливается и смотрит на игрока
 @export var awareness_radius: float = 80.0
 ## Расстояние, на котором НПС поворачивается лицом к игроку
@@ -23,11 +21,8 @@ func _ready() -> void:
 	interaction.interact = Callable(self, "Interact")
 
 func Interact() -> void:
-	if !dialog_timeline.is_empty():
-		pass
-		#Dialogic.start(dialog_timeline.pick_random())
-	else:
-		push_warning("NPC '%s': dialog_timeline не задан!" % name)
+	if $show_dialog:
+		$show_dialog.start()
 
 func _process(_delta: float) -> void:
 	if not is_instance_valid(player):

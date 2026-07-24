@@ -5,13 +5,13 @@
 [ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="3_6xjkt"]
 [ext_resource type="Script" uid="uid://d2b3gchtl7jhb" path="res://misc/Boxes/HurtBox.gd" id="4_y0r7g"]
 [ext_resource type="Script" uid="uid://c8gtsucgxp2ef" path="res://misc/Boxes/EnemyHitBox.gd" id="5_uoj0l"]
-[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/DropItem.gd" id="6_ghm6a"]
+[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/Dropper.gd" id="6_ghm6a"]
 [ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="7_oq05h"]
 [ext_resource type="Script" uid="uid://ctm4b4v8txo1q" path="res://scr/Resources/WeightItem.gd" id="8_a6daw"]
 [ext_resource type="Resource" uid="uid://bn6updwt4oale" path="res://misc/Content/Items/Coin.tres" id="9_1q6xj"]
 [ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="10_l73nt"]
 [ext_resource type="PackedScene" uid="uid://digbxx3ko1dgy" path="res://misc/Particles/BloodSplash.tscn" id="11_2upue"]
-[ext_resource type="AudioStream" uid="uid://b7e11d7dloks2" path="res://Assets/Audio/SFX/Creatures/Hurt.wav" id="12_aglwa"]
+[ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="12_n87c8"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="13_5aled"]
 
 [sub_resource type="Resource" id="Resource_15r6q"]
@@ -24,6 +24,11 @@ script = ExtResource("8_a6daw")
 item = ExtResource("9_1q6xj")
 weight = 0.5
 metadata/_custom_type_script = "uid://ctm4b4v8txo1q"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3sfyk"]
+random_pitch = 1.0905077
+streams_count = 1
+stream_0/stream = ExtResource("12_n87c8")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_po7el"]
 atlas = ExtResource("13_5aled")
@@ -64,21 +69,24 @@ unique_items = Array[ExtResource("8_a6daw")]([SubResource("Resource_g37m6")])
 max_drop = 10
 metadata/_custom_type_script = "uid://c6tw2fkklnri5"
 
-[node name="VFX" type="Node" parent="." unique_id=304494227]
+[node name="VFX" type="Node" parent="." unique_id=304494227 node_paths=PackedStringArray("audio_player", "particles")]
 script = ExtResource("10_l73nt")
+audio_player = NodePath("../DamageSFX")
+particles = NodePath("../DamageVFX")
 metadata/_custom_type_script = "uid://cyqd8atmamgy0"
 
 [node name="DamageVFX" parent="." unique_id=1460921651 instance=ExtResource("11_2upue")]
 position = Vector2(0, -9.999999)
 
 [node name="DamageSFX" type="AudioStreamPlayer2D" parent="." unique_id=2033228583]
-stream = ExtResource("12_aglwa")
+stream = SubResource("AudioStreamRandomizer_3sfyk")
+pitch_scale = 0.4
 max_distance = 160.0
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=1354189396]
-offset_left = -16.0
+offset_left = -14.0
 offset_top = 4.0
-offset_right = 16.0
+offset_right = 14.0
 offset_bottom = 8.0
 theme_override_styles/fill = SubResource("StyleBoxTexture_x812b")
 show_percentage = false
