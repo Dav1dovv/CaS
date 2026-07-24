@@ -10,6 +10,7 @@ class_name GameManager
 # ═══════════════════════════════════════════════════════════════════════════════
 
 signal world_ready
+@onready var CLOUD = preload("uid://4x24skg3et6a")
 
 @export var world_seed: String = ""
 
@@ -33,6 +34,8 @@ func _ready() -> void:
 	_initialize_seed_system()
 	_load_harvested()
 	emit_signal("world_ready")
+	#CLOUD.seed = randi_range(-20,20)
+	#$Panel.material.noise_texture = CLOUD
 	# Day/night управляется SceneManager через SceneData.is_underground,
 	# но на случай если сцена открывается напрямую — применяем локальный флаг
 	if Global.day_night:

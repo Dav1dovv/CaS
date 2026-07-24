@@ -6,9 +6,6 @@
 [ext_resource type="Script" uid="uid://d2b3gchtl7jhb" path="res://misc/Boxes/HurtBox.gd" id="4_y0r7g"]
 [ext_resource type="Script" uid="uid://c8gtsucgxp2ef" path="res://misc/Boxes/EnemyHitBox.gd" id="5_uoj0l"]
 [ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/Dropper.gd" id="6_ghm6a"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="7_oq05h"]
-[ext_resource type="Script" uid="uid://ctm4b4v8txo1q" path="res://scr/Resources/WeightItem.gd" id="8_a6daw"]
-[ext_resource type="Resource" uid="uid://bn6updwt4oale" path="res://misc/Content/Items/Coin.tres" id="9_1q6xj"]
 [ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="10_l73nt"]
 [ext_resource type="PackedScene" uid="uid://digbxx3ko1dgy" path="res://misc/Particles/BloodSplash.tscn" id="11_2upue"]
 [ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="12_n87c8"]
@@ -18,12 +15,6 @@
 script = ExtResource("2_dm04a")
 base_move_speed = 1.0
 metadata/_custom_type_script = "uid://cpp05fs341abo"
-
-[sub_resource type="Resource" id="Resource_g37m6"]
-script = ExtResource("8_a6daw")
-item = ExtResource("9_1q6xj")
-weight = 0.5
-metadata/_custom_type_script = "uid://ctm4b4v8txo1q"
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3sfyk"]
 random_pitch = 1.0905077
@@ -64,9 +55,6 @@ metadata/_custom_type_script = "uid://c8gtsucgxp2ef"
 
 [node name="Drop" type="Node" parent="." unique_id=1587885386]
 script = ExtResource("6_ghm6a")
-drop_item = Array[ExtResource("7_oq05h")]([null])
-unique_items = Array[ExtResource("8_a6daw")]([SubResource("Resource_g37m6")])
-max_drop = 10
 metadata/_custom_type_script = "uid://c6tw2fkklnri5"
 
 [node name="VFX" type="Node" parent="." unique_id=304494227 node_paths=PackedStringArray("audio_player", "particles")]
@@ -82,6 +70,7 @@ position = Vector2(0, -9.999999)
 stream = SubResource("AudioStreamRandomizer_3sfyk")
 pitch_scale = 0.4
 max_distance = 160.0
+bus = &"SFX"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=1354189396]
 offset_left = -14.0

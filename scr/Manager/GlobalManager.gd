@@ -184,7 +184,7 @@ func _on_scene_manager_scene_change_finished(scene_key: String) -> void:
 			"Desert":     _switch_bgm(&"Desert 1")
 			"Corrupted":  _switch_bgm(&"Corrupted " + str(randi_range(1, 2)))
 			"Beach":      _switch_bgm(&"Beach "     + str(randi_range(1, 2)))
-			"Lullaby":    _switch_bgm(&"Lullaby "   + str(randi_range(1, 2)))
+			"Lullaby":    _switch_bgm(&"Lullaby")
 			"World":      _switch_bgm(&"World")
 			"Night":      _switch_bgm(&"Night")
 

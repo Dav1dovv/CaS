@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_mbdrw"]
 [ext_resource type="Script" uid="uid://qtih2rxiyeec" path="res://misc/Entity/Animals/BaseAnimal.gd" id="2_3e55d"]
-[ext_resource type="AudioStream" uid="uid://b1pe4ord4bxue" path="res://Assets/Audio/SFX/Coin.wav" id="3_3e55d"]
+[ext_resource type="AudioStream" uid="uid://cb5cmfn05yd1q" path="res://misc/Entity/SFX/SheepHurt.wav" id="3_3e55d"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_oh5qd"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="4_1ihow"]
 
@@ -973,6 +973,7 @@ fear_per_damage = 100.0
 fear_flee_threshold = 1.0
 fear_calm_threshold = 0.565
 fear_sound = ExtResource("3_3e55d")
+flee_speed_multiplier = 6.0
 body_anim = NodePath("Skin/AnimationPlayer")
 Entity_stats = SubResource("Resource_jksjw")
 
@@ -983,6 +984,9 @@ hide_objects = [NodePath("../DamageVFX"), NodePath("../Skin")]
 position = Vector2(0.34671402, -9.708061)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_2y5go")
+
+[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+stream = null
 
 [node name="CollisionShape2D" parent="." index="8" unique_id=713772618]
 position = Vector2(0.34671402, -9.708061)

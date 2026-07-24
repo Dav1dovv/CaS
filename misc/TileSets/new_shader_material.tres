@@ -1,5 +1,7 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://ck0bsq2xn8j1g"]
 
+[ext_resource type="FastNoiseLite" uid="uid://4x24skg3et6a" path="res://Assets/Shader/Cloud.tres" id="1_j53w5"]
+
 [sub_resource type="Shader" id="Shader_er8rm"]
 code = "shader_type canvas_item;
 //render_mode unshaded; // optional
@@ -26,16 +28,12 @@ void fragment() {
 }
 "
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_j53w5"]
-noise_type = 3
-seed = -8
-frequency = 0.0102
-
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tb0hn"]
 width = 64
 height = 64
-noise = SubResource("FastNoiseLite_j53w5")
+noise = ExtResource("1_j53w5")
 seamless = true
+invert = true
 
 [resource]
 shader = SubResource("Shader_er8rm")

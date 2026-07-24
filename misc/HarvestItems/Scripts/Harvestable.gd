@@ -9,6 +9,13 @@ signal combo_hit(multiplier: float, combo_count: int)
 var is_corrupted : bool = false
 var gm
 
+## Если >= 0 — переопределяет заражение чанка, выставленное спавнером
+## (WorldMapGenerator) НА ЭТОТ конкретный инстанс ДО add_child(), вместо чтения
+## общего corruption_level с родителя. Это устраняет гонку, когда в одном
+## кадре в одну и ту же ноду-родителя спавнятся ресурсы из разных чанков
+## с разным уровнем заражения. -1 = старое поведение (брать с родителя).
+var forced_corruption_level : int = -1
+
 @onready var Dropper_component : Dropper = $droper
 @onready var animation: AnimationPlayer = $AnimationPlayer
 
@@ -95,10 +102,13 @@ func _ready() -> void:
 	# Заражение теперь берётся только из WorldGenerator (родителя) — у него
 	# corruption_level настраивается вручную в редакторе на конкретной зоне (0..3).
 	if can_corrupt:
-		var world_generator = get_parent()
 		var chance: float = 0.0
-		if world_generator and "corruption_level" in world_generator:
-			chance = float(world_generator.corruption_level) / 3.0
+		if forced_corruption_level >= 0:
+			chance = float(forced_corruption_level) / 3.0
+		else:
+			var world_generator = get_parent()
+			if world_generator and "corruption_level" in world_generator:
+				chance = float(world_generator.corruption_level) / 3.0
 
 		is_corrupted = chance > 0.0 and randf() < chance
 		
