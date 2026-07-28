@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SpecialStructure" format=3 uid="uid://df70mryquxya7"]
 
-[ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Ruins/syncer.tscn" id="1_bvxvj"]
+[ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Structures/Ruins/syncer.tscn" id="1_bvxvj"]
 [ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="3_rg1rm"]
 [ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="4_om2jp"]
 

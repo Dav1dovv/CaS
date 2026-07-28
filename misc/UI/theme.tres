@@ -1,6 +1,5 @@
 [gd_resource type="Theme" format=3 uid="uid://bmjvsrl7b67cy"]
 
-[ext_resource type="FontFile" uid="uid://b6dq8pnpngkme" path="res://Assets/Fonts/PlainPixel-Regular.ttf" id="2_5ot5n"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="2_sk3jv"]
 [ext_resource type="FontFile" uid="uid://dnoo2acsx2r06" path="res://Assets/Fonts/Neucha-Regular.ttf" id="3_vaw2w"]
 
@@ -418,7 +417,6 @@ Panel/styles/panel = SubResource("StyleBoxTexture_60d0j")
 ProgressBar/font_sizes/font_size = 25
 ProgressBar/styles/background = SubResource("StyleBoxTexture_v2w6c")
 ProgressBar/styles/fill = SubResource("StyleBoxTexture_c7kau")
-TabContainer/fonts/font = ExtResource("2_5ot5n")
 TabContainer/icons/decrement = SubResource("AtlasTexture_bcl10")
 TabContainer/icons/decrement_highlight = SubResource("AtlasTexture_m6g4m")
 TabContainer/icons/increment = SubResource("AtlasTexture_ekbp4")

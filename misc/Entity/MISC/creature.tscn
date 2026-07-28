@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://dba47bfyot3vs" path="res://misc/Entity/Scripts/Creature.gd" id="1_n87c8"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="2_dm04a"]
 [ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="3_6xjkt"]
-[ext_resource type="Script" uid="uid://d2b3gchtl7jhb" path="res://misc/Boxes/HurtBox.gd" id="4_y0r7g"]
-[ext_resource type="Script" uid="uid://c8gtsucgxp2ef" path="res://misc/Boxes/EnemyHitBox.gd" id="5_uoj0l"]
-[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/Dropper.gd" id="6_ghm6a"]
+[ext_resource type="Script" uid="uid://d2b3gchtl7jhb" path="res://misc/Utils/Boxes/HurtBox.gd" id="4_y0r7g"]
+[ext_resource type="Script" uid="uid://c8gtsucgxp2ef" path="res://misc/Utils/Boxes/EnemyHitBox.gd" id="5_uoj0l"]
+[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Utils/Drop/Dropper.gd" id="6_ghm6a"]
 [ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="10_l73nt"]
 [ext_resource type="PackedScene" uid="uid://digbxx3ko1dgy" path="res://misc/Particles/BloodSplash.tscn" id="11_2upue"]
 [ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="12_n87c8"]
@@ -70,7 +70,6 @@ position = Vector2(0, -9.999999)
 stream = SubResource("AudioStreamRandomizer_3sfyk")
 pitch_scale = 0.4
 max_distance = 160.0
-bus = &"SFX"
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=1354189396]
 offset_left = -14.0

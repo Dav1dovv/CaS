@@ -6,7 +6,6 @@ class_name bush
 
 func _ready() -> void:
 	super._ready()
-	if is_corrupted : queue_free()
 func Harvest(hit_strenght: float, tool_lvl: int, is_weapon: bool):
 	if tool_lvl < harvest_tool_lvl:
 		return

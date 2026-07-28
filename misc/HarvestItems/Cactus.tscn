@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cqpn8wkvr12am"]
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_s8r23"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_vuf1c"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="2_vuf1c"]
 [ext_resource type="Resource" uid="uid://dxg74nxb8uriw" path="res://misc/Content/Items/Cactus.tres" id="3_hkyrd"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="3_plvqm"]
 [ext_resource type="Texture2D" uid="uid://c7hhm5i1vluh6" path="res://misc/HarvestItems/Textures/DeseertCactus.png" id="4_hkyrd"]
 [ext_resource type="Resource" uid="uid://ddwhfl04i6i1m" path="res://misc/Content/Items/Cactus Mace.tres" id="4_q54if"]
-[ext_resource type="Script" uid="uid://c8gtsucgxp2ef" path="res://misc/Boxes/EnemyHitBox.gd" id="4_wjwgw"]
-[ext_resource type="Script" uid="uid://byfijrhr1g24j" path="res://misc/Drop/DropWeapon.gd" id="5_1s7c2"]
+[ext_resource type="Script" uid="uid://c8gtsucgxp2ef" path="res://misc/Utils/Boxes/EnemyHitBox.gd" id="4_wjwgw"]
+[ext_resource type="Script" uid="uid://byfijrhr1g24j" path="res://misc/Utils/Drop/DropWeapon.gd" id="5_1s7c2"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="5_gjidl"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="5_plvqm"]
 [ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="11_q54if"]
@@ -28,6 +28,9 @@ new_damage = 0
 drop_item = ExtResource("4_q54if")
 metadata/_custom_type_script = "uid://byfijrhr1g24j"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjidl"]
+size = Vector2(20, 27)
+
 [sub_resource type="Resource" id="Resource_6bkd1"]
 script = ExtResource("5_plvqm")
 Damage = 1.5
@@ -35,9 +38,6 @@ metadata/_custom_type_script = "uid://b2ovoyoflp1gw"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_plvqm"]
 radius = 9.055386
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjidl"]
-size = Vector2(20, 27)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1s7c2"]
 load_path = "res://.godot/imported/Items-Sheet.png-aac78636ff9000301da0a84e0a143de0.ctex"
@@ -88,13 +88,17 @@ position = Vector2(2, -8)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_hkyrd")
 
-[node name="optimizer" parent="." index="2" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(2.38419e-07, -14.5)
 scale = Vector2(1.3, 1.65)
 hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
 
-[node name="droper" parent="." index="3" unique_id=1465568748]
+[node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("2_vuf1c")]([SubResource("Resource_mwbrk"), SubResource("Resource_hcit2")])
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
+position = Vector2(0, -12.5)
+shape = SubResource("RectangleShape2D_gjidl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="5" unique_id=107325732]
 position = Vector2(0, -18)
@@ -122,11 +126,7 @@ metadata/_custom_type_script = "uid://c8gtsucgxp2ef"
 position = Vector2(0, -14)
 shape = SubResource("CircleShape2D_plvqm")
 
-[node name="CollisionShape2D" parent="." index="8" unique_id=1716306559]
-position = Vector2(0, -12.5)
-shape = SubResource("RectangleShape2D_gjidl")
-
-[node name="GPUParticles2D" parent="." index="11" unique_id=1130400609 instance=ExtResource("11_q54if")]
+[node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("11_q54if")]
 position = Vector2(0, -12)
 texture = SubResource("AtlasTexture_msyvo")
 process_material = SubResource("ParticleProcessMaterial_2n6rs")

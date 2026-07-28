@@ -6,15 +6,7 @@ signal hit
 ## Испускается при каждом ударе — множитель можно использовать для UI/попапов чисел
 signal combo_hit(multiplier: float, combo_count: int)
 
-var is_corrupted : bool = false
 var gm
-
-## Если >= 0 — переопределяет заражение чанка, выставленное спавнером
-## (WorldMapGenerator) НА ЭТОТ конкретный инстанс ДО add_child(), вместо чтения
-## общего corruption_level с родителя. Это устраняет гонку, когда в одном
-## кадре в одну и ту же ноду-родителя спавнятся ресурсы из разных чанков
-## с разным уровнем заражения. -1 = старое поведение (брать с родителя).
-var forced_corruption_level : int = -1
 
 @onready var Dropper_component : Dropper = $droper
 @onready var animation: AnimationPlayer = $AnimationPlayer
@@ -22,15 +14,7 @@ var forced_corruption_level : int = -1
 @export_range(2,999,1) var durability : float = 6
 @export_range(0,10) var harvest_tool_lvl : int = 1
 @export var VFX_component : VFX
-@export var can_corrupt : bool = true
-@export var corrupted_texture : Texture2D
 
-# ─── CurseObject ────────────────────────────────────────────────────────────
-## Сцена CurseObject — создаётся когда объект добывают киркой ниже нужного тира
-@export var curse_object_scene : PackedScene
-## Сколько заражения получает игрок за КАЖДЫЙ удар по заражённому объекту
-## Финальное значение умножается на armor_curse_multiplier из брони/амулетов
-@export_range(0.0, 20.0, 0.5) var infection_per_hit : float = 2.0
 # ────────────────────────────────────────────────────────────────────────────
 
 var player
@@ -75,6 +59,16 @@ var _last_hit_time : float = -999.0
 
 var is_rich_vein : bool = false
 
+# ── ОПТИМИЗАЦИЯ: throttle вне экрана ─────────────────────────────
+# В сцене уже есть VisibleOnScreenEnabler2D ("optimizer"), но раньше он не
+# использовался в скрипте — update_transparency() дистанции до игрока
+# считался для КАЖДОГО Harvestable на карте каждый physics-кадр, даже для
+# тех, что далеко за пределами экрана (а таких на большой карте может быть
+# сотни одновременно). Теперь вне экрана эта проверка просто пропускается —
+# как и у Creature.gd, где этот же паттерн уже применён.
+@onready var _screen_notifier: VisibleOnScreenEnabler2D = get_node_or_null("optimizer")
+var _is_active: bool = true
+
 func _init() -> void:
 	set_collision_layer_value(2,true)
 	set_collision_layer_value(5,true)
@@ -97,44 +91,22 @@ func _ready() -> void:
 		_shader_material.set_shader_parameter("wind_offset", global_position.x)
 
 	_max_distance_sq = max_distance * max_distance
-	
-	#region CORRUPTION
-	# Заражение теперь берётся только из WorldGenerator (родителя) — у него
-	# corruption_level настраивается вручную в редакторе на конкретной зоне (0..3).
-	if can_corrupt:
-		var chance: float = 0.0
-		if forced_corruption_level >= 0:
-			chance = float(forced_corruption_level) / 3.0
-		else:
-			var world_generator = get_parent()
-			if world_generator and "corruption_level" in world_generator:
-				chance = float(world_generator.corruption_level) / 3.0
+	_setup_screen_throttle()
 
-		is_corrupted = chance > 0.0 and randf() < chance
-		
-		if is_corrupted:
-			if corrupted_texture:
-				$Sprite2D.texture = corrupted_texture
-			#else:
-				#modulate = Color(0.733, 0.325, 0.745, 1.0)
-			$PointLight2D.visible = true
-			$"Corruption Effect".emitting = true
-			durability += 20
-		else:
-			# ── Богатая жила — редкий шанс на не заражённом ресурсе ─────────────
-			is_rich_vein = randf() < rich_vein_chance
-			if is_rich_vein:
-				#modulate = rich_vein_tint
-				$PointLight2D.visible = true
-				$PointLight2D.color   = rich_vein_tint
-				$"Corruption Effect".queue_free()
-			else:
-				$PointLight2D.queue_free()
-				$"Corruption Effect".queue_free()
-		# ─────────────────────────────────────────────────────────────────────
-	#endregion
+
+## Подключаемся к уже существующему VisibleOnScreenEnabler2D ("optimizer" в сцене) —
+## тот же паттерн, что и в Creature.gd.
+func _setup_screen_throttle() -> void:
+	if _screen_notifier == null:
+		return
+	_screen_notifier.screen_entered.connect(func(): _is_active = true)
+	_screen_notifier.screen_exited.connect(func(): _is_active = false)
+	_is_active = _screen_notifier.is_on_screen()
+
 
 func _physics_process(_delta: float) -> void:
+	if not _is_active:
+		return
 	update_transparency()
 
 
@@ -155,12 +127,6 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 		await VFX_component.vfx_finished
 	# ─────────────────────────────────────────────────────────────────────────
 
-	# ── Заражение игрока при каждом ударе по corrupted объекту ───────────────
-	if is_corrupted and player and player.has_method("curse"):
-		var mult: float = _get_armor_curse_multiplier()
-		player.curse(infection_per_hit * mult)
-	# ─────────────────────────────────────────────────────────────────────────
-
 	# ── Уменьшение прочности (с бонусом от комбо-тайминга) ───────────────────
 	durability -= hit_strenght * _combo_multiplier
 	# ─────────────────────────────────────────────────────────────────────────
@@ -169,43 +135,9 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 		_on_destroyed(tool_lvl)
 
 
-### Тайминг-комбо: удары в узкое окно после предыдущего растят множитель,
-### пауза длиннее combo_window сбрасывает серию.
-#func _update_combo() -> void:
-	#var now := Time.get_ticks_msec() / 1000.0
-	#if now - _last_hit_time <= combo_window:
-		#_combo_count += 1
-	#else:
-		#_combo_count = 0
-	#_last_hit_time = now
-	#_combo_multiplier = minf(combo_max_multiplier, 1.0 + _combo_count * combo_bonus_per_hit)
-	#emit_signal("combo_hit", _combo_multiplier, _combo_count)
-
-
 func _on_destroyed(tool_lvl: int) -> void:
-	## Дроп ресурсов — с бонусом за комбо-тайминг и/или богатую жилу
-	#if Dropper_component != null:
-		#Dropper_component.max_drop += scale.x
-#
-		#var bonus_mult := _combo_multiplier
-		#if is_rich_vein:
-			#bonus_mult *= rich_vein_multiplier
-#
-		#if bonus_mult > 1.0:
-			#if Dropper_component.has_method("set_drop_multiplier"):
-				#Dropper_component.set_drop_multiplier(bonus_mult)
-			#else:
-				#Dropper_component.max_drop = int(round(Dropper_component.max_drop * bonus_mult))
-#
-		#if is_rich_vein:
-			#DebugLog.log("Богатая жила! Бонус к дропу: x%.2f" % bonus_mult)
-#
-		#Dropper_component._drop_items()
 		
 		
-	if is_corrupted: 
-		Dropper_component.drop_resources[0].max_throws += 5
-		Dropper_component.drop_resources[0].min_throws += 5
 	$CollisionShape2D.disabled = true
 	Dropper_component._drop_items()
 	if animation.has_animation("destroy"):
@@ -222,35 +154,10 @@ func _on_destroyed(tool_lvl: int) -> void:
 	if gm and gm.has_method("register_harvested"):
 		var loc_key := get_tree().current_scene.scene_file_path
 		gm.register_harvested(loc_key, global_position)
-
-	# ── Спавн CurseObject если тир кирки ниже требуемого ────────────────────
-	#if tool_lvl < harvest_tool_lvl and curse_object_scene != null:
-	if is_corrupted:
-		_spawn_curse_object(harvest_tool_lvl - tool_lvl)
-		Global.corruption -= 1
 	# ─────────────────────────────────────────────────────────────────────────
 
 	emit_signal("collected")
 	queue_free()
-
-
-func _spawn_curse_object(tier_diff: int) -> void:
-	## Сила проклятия растёт с разницей тиров:
-	##   tier_diff 1 → infection_damage 8
-	##   tier_diff 2 → infection_damage 16
-	##   tier_diff 3 → infection_damage 24
-	var curse = curse_object_scene.instantiate()
-	curse.global_position = global_position
-	curse.infection_damage = tier_diff * 8.0
-
-	# Отдаём в сцену (не в себя — мы сами queue_free)
-	get_tree().current_scene.add_child(curse)
-
-
-## Возвращает множитель заражения в зависимости от брони/амулетов игрока.
-## Логика вынесена в CurseUtils — раньше дублировалась с CurseObject.gd.
-func _get_armor_curse_multiplier() -> float:
-	return CurseUtils.get_armor_curse_multiplier(player)
 
 
 #region Background transparency

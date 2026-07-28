@@ -73,51 +73,12 @@ func _determine_state() -> String:
 	if _overlapping_enemy:
 		return "fight"
 
-	# 3. Harvestable — определяем подтип
-	if _overlapping_harvestable != null:
-		return _get_harvestable_state(_overlapping_harvestable)
-
 	# 4. Interaction
 	if _overlapping_interaction != null:
 		return "interact"
 
 	# 5. Default
 	return "simple"
-
-
-func _get_harvestable_state(h: Harvestable) -> String:
-	# Расстояние от игрока до объекта
-	if _player != null:
-		var dist = _player.global_position.distance_to(h.global_position)
-		if dist > harvest_range:
-			return "gather_out_of_range"
-
-	# Текущий tier инструмента
-	var tool_lvl := _get_current_tool_lvl()
-
-	# Неверный tier — кирка сломается быстрее, спавн CurseObject
-	if tool_lvl < h.harvest_tool_lvl:
-		return "gather_wrong_tier"
-
-	# Заражённый объект
-	if h.is_corrupted:
-		# Сильно заражённый (durability > базовой + 15 → считаем сильно)
-		if h.durability > 30.0:
-			return "gather_corrupted_strong"
-		return "gather_corrupted_weak"
-
-	return "gather"
-
-
-func _get_current_tool_lvl() -> int:
-	if _hotbar == null:
-		return 0
-	if _hotbar.selected_index >= _hotbar.slots.size():
-		return 0
-	var slot = _hotbar.slots[_hotbar.selected_index]
-	if slot.item is equip_data:
-		return (slot.item as equip_data).lvl
-	return 0
 
 
 # ─── Применение курсора ────────────────────────────────────────────────────────

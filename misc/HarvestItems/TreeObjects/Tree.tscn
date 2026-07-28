@@ -1,15 +1,14 @@
 [gd_scene format=3 uid="uid://d0qb8iwxdcwpn"]
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_32v1v"]
-[ext_resource type="Texture2D" uid="uid://dx2anf7b2yfha" path="res://misc/HarvestItems/Textures/DiedTree.png" id="2_45q5k"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_hs44r"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_8f8hu"]
 [ext_resource type="Resource" uid="uid://10qblpi41tcd" path="res://misc/Content/Items/Wood.tres" id="6_1fv40"]
 [ext_resource type="Shader" uid="uid://cdlafcs161hqt" path="res://Assets/Shader/tree_wind.gdshader" id="6_p2hqp"]
 [ext_resource type="Texture2D" uid="uid://ba68hc527pcvj" path="res://misc/HarvestItems/Textures/Tree.png" id="6_qgcag"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="7_1t5m1"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="7_1t5m1"]
 [ext_resource type="Resource" uid="uid://bx48che8mxghx" path="res://misc/Content/Items/Apple.tres" id="8_xne83"]
-[ext_resource type="Script" uid="uid://byfijrhr1g24j" path="res://misc/Drop/DropWeapon.gd" id="10_45q5k"]
+[ext_resource type="Script" uid="uid://byfijrhr1g24j" path="res://misc/Utils/Drop/DropWeapon.gd" id="10_45q5k"]
 [ext_resource type="AudioStream" uid="uid://v4sxnpx0ucxs" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Wood-01.mp3" id="10_jow1p"]
 [ext_resource type="AudioStream" uid="uid://drwfryrgniotc" path="res://Assets/Audio/SFX/Environemnt/HarvesstItems/Wood-02.mp3" id="11_45q5k"]
 [ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="13_jow1p"]
@@ -18,15 +17,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_phfk7"]
 radius = 2.570777
 height = 15.6869
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lh26m"]
-resource_local_to_scene = true
-shader = ExtResource("6_p2hqp")
-shader_parameter/wind_strength = 1.7570000834575
-shader_parameter/wind_speed = 1.7070000810825
-shader_parameter/wind_frequency = 1.2850000610375
-shader_parameter/wind_offset = 23.36400110979
-shader_parameter/fade_alpha = 1.0
 
 [sub_resource type="Resource" id="Resource_wrk2s"]
 script = ExtResource("7_1t5m1")
@@ -49,15 +39,24 @@ new_damage = -1
 drop_chance = 0.4821
 metadata/_custom_type_script = "uid://byfijrhr1g24j"
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lh26m"]
+resource_local_to_scene = true
+shader = ExtResource("6_p2hqp")
+shader_parameter/wind_strength = 1.7570000834575
+shader_parameter/wind_speed = 1.7070000810825
+shader_parameter/wind_frequency = 1.2850000610375
+shader_parameter/wind_offset = 23.36400110979
+shader_parameter/fade_alpha = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phfk7"]
+size = Vector2(21.7234, 24.4137)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mchyi"]
 playback_mode = 1
 random_pitch = 1.4753766
 streams_count = 2
 stream_0/stream = ExtResource("10_jow1p")
 stream_1/stream = ExtResource("11_45q5k")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_phfk7"]
-size = Vector2(21.7234, 24.4137)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4cjpm"]
 polygon = PackedVector2Array(-8, -6, -9, -1, 13, -1, 12, -7)
@@ -156,7 +155,6 @@ _data = {
 [node name="Tree" unique_id=1525282769 instance=ExtResource("1_32v1v")]
 durability = 18.0
 harvest_tool_lvl = 0
-corrupted_texture = ExtResource("2_45q5k")
 max_distance = 70.0
 
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
@@ -164,10 +162,13 @@ position = Vector2(1, -3)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_phfk7")
 
-[node name="optimizer" parent="." index="2" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(1.3378, -22.6682)
 scale = Vector2(1.71349, 2.43441)
 hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
+drop_resources = Array[ExtResource("7_1t5m1")]([SubResource("Resource_wrk2s"), SubResource("Resource_qinkj"), SubResource("Resource_01dxt")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3" unique_id=1603376117]
 process_thread_group = 2
@@ -190,8 +191,9 @@ position = Vector2(2.85278, -2.19958)
 scale = Vector2(1.8934023, 0.863497)
 texture = ExtResource("4_8f8hu")
 
-[node name="droper" parent="." index="5" unique_id=1465568748]
-drop_resources = Array[ExtResource("7_1t5m1")]([SubResource("Resource_wrk2s"), SubResource("Resource_qinkj"), SubResource("Resource_01dxt")])
+[node name="CollisionShape2D" parent="." index="6" unique_id=1716306559]
+position = Vector2(1.31389, -12.7471)
+shape = SubResource("RectangleShape2D_phfk7")
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." index="7" unique_id=692783260]
 stream = SubResource("AudioStreamRandomizer_mchyi")
@@ -202,9 +204,9 @@ playback_type = 2
 [node name="Destroy" type="AudioStreamPlayer2D" parent="." index="8" unique_id=1206173942]
 stream = ExtResource("16_3spyh")
 
-[node name="CollisionShape2D" parent="." index="9" unique_id=1716306559]
-position = Vector2(1.31389, -12.7471)
-shape = SubResource("RectangleShape2D_phfk7")
+[node name="VFX_damage" parent="." index="9" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../SFX")
+particles = NodePath("../GPUParticles2D")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." index="10" unique_id=1545977258]
 visible = false
@@ -214,9 +216,5 @@ occluder = SubResource("OccluderPolygon2D_4cjpm")
 texture = SubResource("AtlasTexture_qinkj")
 process_material = SubResource("ParticleProcessMaterial_srima")
 
-[node name="VFX_damage" parent="." index="12" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
-audio_player = NodePath("../SFX")
-particles = NodePath("../GPUParticles2D")
-
-[node name="AnimationPlayer" parent="." index="13" unique_id=1799726278]
+[node name="AnimationPlayer" parent="." index="12" unique_id=1799726278]
 libraries/ = SubResource("AnimationLibrary_wwo1s")

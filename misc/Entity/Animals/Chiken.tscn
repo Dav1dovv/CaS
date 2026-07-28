@@ -2,12 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_u5kcg"]
 [ext_resource type="Script" uid="uid://bk36fux275vc" path="res://misc/Entity/Animals/nox.gd" id="2_cah1w"]
-[ext_resource type="AudioStream" uid="uid://cjwyd3rppgxoy" path="res://misc/Entity/SFX/chickenhurt.mp3" id="3_cah1w"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_hg2v1"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_xvynw"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="5_fsq11"]
 
-[sub_resource type="Resource" id="Resource_hg2v1"]
+[sub_resource type="Resource" id="Resource_u5kcg"]
 resource_local_to_scene = true
 script = ExtResource("3_hg2v1")
 max_health = 25
@@ -596,12 +595,10 @@ fear_proximity_radius = 200.0
 fear_proximity_rate = 1.0
 fear_flee_threshold = 0.034
 fear_calm_threshold = 0.015
-fear_sound = ExtResource("3_cah1w")
-flee_speed_multiplier = 10.0
 hear_radius = 200.0
 sight_radius = 200.0
 body_anim = NodePath("Skin/AnimationPlayer")
-Entity_stats = SubResource("Resource_hg2v1")
+Entity_stats = SubResource("Resource_u5kcg")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 rect = Rect2(-10, -15, 21, 25)

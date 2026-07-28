@@ -1,43 +1,11 @@
 [gd_scene format=3 uid="uid://bny4sqh4i8i5v"]
 
 [ext_resource type="Script" uid="uid://ckghcn3me8e7p" path="res://misc/HarvestItems/Scripts/Harvestable.gd" id="1_wrbgf"]
-[ext_resource type="PackedScene" uid="uid://drmg1ku7aan1k" path="res://misc/Curse/curse_object.tscn" id="2_w5cb6"]
 [ext_resource type="Script" uid="uid://dbxsovdq7bbia" path="res://scr/Misc/Optimizer.gd" id="3_8a784"]
 [ext_resource type="Script" uid="uid://busd3yfk5p1mx" path="res://addons/godot-rapier2d/custom_nodes/rapier_static_body_2d.gd" id="3_n1i2x"]
-[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Drop/Dropper.gd" id="4_wrbgf"]
+[ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Utils/Drop/Dropper.gd" id="4_wrbgf"]
 [ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="5_5tblg"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="5_w5cb6"]
-
-[sub_resource type="Curve" id="Curve_5tblg"]
-_data = [Vector2(0.42628205, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_n1i2x"]
-curve = SubResource("Curve_5tblg")
-
-[sub_resource type="Curve" id="Curve_n1i2x"]
-_data = [Vector2(0, 0.9916129), 0.0, 1.0176345, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_1uxp1"]
-curve = SubResource("Curve_n1i2x")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_twfjw"]
-particle_flag_disable_z = true
-direction = Vector3(0, -1, 0)
-spread = 180.0
-initial_velocity_min = 8.0
-initial_velocity_max = 20.0
-gravity = Vector3(0, -15, 0)
-scale_min = 1.5
-scale_max = 3.0
-scale_curve = SubResource("CurveTexture_1uxp1")
-color = Color(0.8509804, 0.29411766, 0.95686275, 1)
-alpha_curve = SubResource("CurveTexture_n1i2x")
-turbulence_noise_strength = 0.1
-turbulence_noise_scale = 2.0
-turbulence_noise_speed = Vector3(5, 5, 5)
-turbulence_influence_max = 0.15
 
 [node name="HarvestItem" type="Area2D" unique_id=1934415035 node_paths=PackedStringArray("VFX_component") groups=["Harvestable"]]
 collision_layer = 19
@@ -45,7 +13,6 @@ collision_mask = 136
 script = ExtResource("1_wrbgf")
 durability = 15.0
 VFX_component = NodePath("VFX_damage")
-curse_object_scene = ExtResource("2_w5cb6")
 metadata/_custom_type_script = "uid://ckghcn3me8e7p"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=273132599]
@@ -59,19 +26,9 @@ metadata/_custom_type_script = "uid://busd3yfk5p1mx"
 position = Vector2(0, -10.7399)
 debug_color = Color(0.99072, 0.0103639, 0.261337, 0.42)
 
-[node name="Corruption Effect" type="GPUParticles2D" parent="." unique_id=1597076134]
-position = Vector2(0, -9)
-emitting = false
-amount = 12
-lifetime = 2.0
-preprocess = 1.0
-randomness = 0.5
-fixed_fps = 10
-process_material = SubResource("ParticleProcessMaterial_twfjw")
-
 [node name="optimizer" type="VisibleOnScreenEnabler2D" parent="." unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 script = ExtResource("3_8a784")
-hide_objects = [NodePath("../Corruption Effect")]
+hide_objects = [null]
 metadata/_custom_type_script = "uid://dbxsovdq7bbia"
 
 [node name="droper" type="Node" parent="." unique_id=1465568748]

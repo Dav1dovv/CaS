@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_vlig4"]
 [ext_resource type="Texture2D" uid="uid://fntr6jml7ihq" path="res://misc/HarvestItems/Textures/Bone.png" id="2_hdpap"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_igy4k"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="2_igy4k"]
 [ext_resource type="Resource" uid="uid://cw4dpl8n3v440" path="res://misc/Content/Items/Bone.tres" id="3_2tqya"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_dvcta"]
 [ext_resource type="PackedScene" uid="uid://d4dhrx0cb6776" path="res://misc/Particles/SplashParticles.tscn" id="4_hdpap"]
@@ -66,14 +66,14 @@ durability = 13.0
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 shape = SubResource("CircleShape2D_igy4k")
 
-[node name="optimizer" parent="." index="2" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 rect = Rect2(-17, -30, 36, 31)
 hide_objects = [NodePath("../Sprite2D")]
 
-[node name="droper" parent="." index="3" unique_id=1465568748]
+[node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("2_igy4k")]([SubResource("Resource_psih1")])
 
-[node name="CollisionShape2D" parent="." index="5" unique_id=1716306559]
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
 position = Vector2(0.5000003, -11.2701)
 shape = SubResource("RectangleShape2D_2tqya")
 

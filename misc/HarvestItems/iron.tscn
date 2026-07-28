@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_ckdin"]
 [ext_resource type="Script" uid="uid://cemx0w2dlxpco" path="res://misc/HarvestItems/Scripts/shining.gd" id="2_e6m8d"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="2_xtb5t"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="3_e6m8d"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="3_e6m8d"]
 [ext_resource type="Texture2D" uid="uid://cj6hw2ur1wfqb" path="res://misc/HarvestItems/Textures/Minerals.png" id="3_ntuou"]
 [ext_resource type="Resource" uid="uid://ce8lum742bja1" path="res://misc/Content/Items/IronOre.tres" id="4_l2vy5"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="4_q1xnp"]
@@ -24,6 +24,9 @@ min_throws = 4
 max_throws = 8
 metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ckdin"]
+radius = 15.4663
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_homfl"]
 atlas = ExtResource("3_ntuou")
 region = Rect2(0, 64, 96, 32)
@@ -40,9 +43,6 @@ playback_mode = 1
 random_pitch = 1.4142135
 streams_count = 1
 stream_0/stream = ExtResource("11_e6m8d")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ckdin"]
-radius = 15.4663
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gaad7"]
 atlas = ExtResource("14_a56ye")
@@ -92,13 +92,16 @@ position = Vector2(0, -7)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_3dfft")
 
-[node name="optimizer" parent="." index="2" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(-1, -11)
 scale = Vector2(1.9, 1.4)
-hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), NodePath("../Corruption Effect")]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), null]
 
-[node name="droper" parent="." index="3" unique_id=1465568748]
+[node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("3_e6m8d")]([SubResource("Resource_jq5ol")])
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
+shape = SubResource("CircleShape2D_ckdin")
 
 [node name="Shadow" type="Sprite2D" parent="." index="5" unique_id=341842603]
 self_modulate = Color(0.0392157, 0.0705882, 0.2, 0.388235)
@@ -124,13 +127,10 @@ stream = SubResource("AudioStreamRandomizer_gaad7")
 stream = SubResource("AudioStreamRandomizer_7ae0e")
 max_polyphony = 20
 
-[node name="CollisionShape2D" parent="." index="9" unique_id=1716306559]
-shape = SubResource("CircleShape2D_ckdin")
+[node name="VFX_damage" parent="." index="9" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../SFX")
+particles = NodePath("../GPUParticles2D")
 
 [node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("13_pvkrq")]
 texture = SubResource("AtlasTexture_gaad7")
 process_material = SubResource("ParticleProcessMaterial_e6m8d")
-
-[node name="VFX_damage" parent="." index="11" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
-audio_player = NodePath("../SFX")
-particles = NodePath("../GPUParticles2D")

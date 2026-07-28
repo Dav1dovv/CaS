@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqq1riut0ynja"]
 
 [ext_resource type="PackedScene" uid="uid://f8jtm4nt748t" path="res://misc/HarvestItems/iron.tscn" id="1_6mft3"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_3y0qs"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="2_3y0qs"]
 [ext_resource type="Texture2D" uid="uid://cgcaeuihkhjm6" path="res://misc/HarvestItems/Textures/Ruby.png" id="2_io4gr"]
 [ext_resource type="Resource" uid="uid://crlq2ivo64v4j" path="res://misc/Content/Items/Ruby.tres" id="3_enkf4"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="5_enkf4"]
@@ -59,7 +59,10 @@ harvest_tool_lvl = 3
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(0, -3)
 
-[node name="droper" parent="." index="3" unique_id=1465568748]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), null]
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("2_3y0qs")]([SubResource("Resource_mjt5k")])
 
 [node name="Sprite2D" parent="." index="6" unique_id=1965435148]

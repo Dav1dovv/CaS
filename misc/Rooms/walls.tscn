@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cxtqhworanqrv"]
 
-[ext_resource type="PackedScene" uid="uid://b74rp6vq14uh2" path="res://misc/Blocks/StoneBlock.tscn" id="1_g5fof"]
+[ext_resource type="PackedScene" uid="uid://b74rp6vq14uh2" path="res://misc/Structures/Blocks/StoneBlock.tscn" id="1_g5fof"]
 
 [node name="Walls" type="Node2D" unique_id=2131055735]
 y_sort_enabled = true

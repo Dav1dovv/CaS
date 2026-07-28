@@ -128,6 +128,9 @@ func change_scene(scene_key: String, spawn = Vector2.ZERO) -> void:
 	_current_scene_data = scene_data
 	_is_transitioning = false
 	emit_signal("scene_change_finished", scene_data.music_key)
+	$CanvasLayer/CanvasLayer2/Control/Label.text = scene_data.display_name
+	$CanvasLayer/CanvasLayer2/Control/Label2.text = scene_data.display_name
+	$CanvasLayer/CanvasLayer2/LabelAnim.play("Show")
 
 
 ## Переход в главное меню с автосохранением.

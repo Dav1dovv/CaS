@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SpecialStructure" format=3 uid="uid://bdqrewenogiar"]
 
-[ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Stations/camp.tscn" id="1_oxbsa"]
+[ext_resource type="PackedScene" uid="uid://dc6224o6es5o2" path="res://misc/Structures/camp.tscn" id="1_oxbsa"]
 [ext_resource type="Script" uid="uid://bwabf86cec2s5" path="res://scr/Systems/WorldGenerator/Generation.gd" id="2_4i0m6"]
 [ext_resource type="Script" uid="uid://cxixcs17bxicy" path="res://scr/Systems/WorldGenerator/SpecialStructure.gd" id="3_cbk2l"]
 

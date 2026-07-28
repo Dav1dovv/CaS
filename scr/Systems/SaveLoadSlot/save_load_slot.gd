@@ -60,7 +60,7 @@ func _display_sorted_slots() -> void:
 
 func _on_save_slot_selected(slot_name: String) -> void:
 	if SaveLoad.load_save(slot_name):
-		Global.scene_manager.change_scene("StartScene", Vector2.ZERO)
+		Global.scene_manager.change_scene("Forest", Vector2.ZERO)
 
 
 func _on_new_save_pressed() -> void:

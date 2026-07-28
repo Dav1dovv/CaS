@@ -158,3 +158,4 @@ visible = false
 [connection signal="pressed" from="Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="closed" from="OptionMenu" to="." method="_on_option_menu_closed"]

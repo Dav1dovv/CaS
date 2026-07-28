@@ -3,11 +3,12 @@
 ## Открывается поверх игры. Закрывается по ESC или кнопке.
 extends CanvasLayer
 
+signal closed
+
 # ──────────────────────────────────────────
 #  УЗЛЫ  (уникальные имена через %)
 # ──────────────────────────────────────────
 
-@onready var tab_container: TabContainer = %TabContainer
 
 # Звук
 @onready var slider_master : HSlider  = %SliderMaster
@@ -81,11 +82,12 @@ func _input(event: InputEvent) -> void:
 func open() -> void:
 	_load_ui()
 	show()
-	tab_container.current_tab = 0
 
 func close() -> void:
 	_cancel_rebind()
+	layer = -5
 	hide()
+	emit_signal("closed")
 
 # ──────────────────────────────────────────
 #  BUILD UI (один раз в _ready)

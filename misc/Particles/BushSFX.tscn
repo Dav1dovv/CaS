@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtmd2j03iu8sl"]
 
-[ext_resource type="Texture2D" uid="uid://flab6oe40r8p" path="res://misc/Particles/Leafe.png" id="1_ekfnw"]
+[ext_resource type="Texture2D" uid="uid://flab6oe40r8p" path="res://Assets/Textures/Leafe.png" id="1_ekfnw"]
 
 [sub_resource type="Curve" id="Curve_h5ne8"]
 _data = [Vector2(0.503106, 1), 0.0, -5.99131, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -43,9 +43,11 @@ alpha_curve = SubResource("CurveTexture_axuvx")
 
 [node name="Particles" type="GPUParticles2D" unique_id=2009312611]
 z_index = -1
+emitting = false
 amount = 36
 texture = ExtResource("1_ekfnw")
 lifetime = 0.3
+one_shot = true
 speed_scale = 0.3
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_d0531")

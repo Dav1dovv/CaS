@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dx7g6doff7gue" path="res://misc/HarvestItems/mushroom.tscn" id="1_xkn0m"]
 [ext_resource type="Texture2D" uid="uid://x5m4oh8mgik4" path="res://misc/HarvestItems/Textures/Icy Mushroom.png" id="2_231yx"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="2_okvq7"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="2_okvq7"]
 [ext_resource type="Resource" uid="uid://cc82arvgiindl" path="res://misc/Content/Items/Mushroom.tres" id="3_ghj66"]
 [ext_resource type="Texture2D" uid="uid://dsqxjnpk365qg" path="res://Assets/Textures/Light/Light.png" id="3_okvq7"]
 [ext_resource type="Script" uid="uid://723ph54wqoia" path="res://addons/flickering_light/flickering_light_2d.gd" id="4_ghj66"]
@@ -51,7 +51,10 @@ color_ramp = SubResource("GradientTexture1D_axhva")
 [node name="Mushroom" unique_id=1447700831 instance=ExtResource("1_xkn0m")]
 durability = 9.0
 
-[node name="droper" parent="." index="3" unique_id=1465568748]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), null]
+
+[node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("2_okvq7")]([SubResource("Resource_gjy1t")])
 
 [node name="Sprite2D" parent="." index="5" unique_id=1370246797]

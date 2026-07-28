@@ -53,6 +53,8 @@ func _on_exit_pressed() -> void:
 	is_opened = false
 
 func _on_options_pressed() -> void:
+	$Panel.visible = false
+	option_menu.layer = 8
 	option_menu.visible = true
 	Global.is_opened_menu = true
 	Global.is_opened_menu = true
@@ -64,3 +66,7 @@ func _notification(what):
 				#resume()
 			NOTIFICATION_APPLICATION_FOCUS_OUT:
 				pause()
+
+
+func _on_option_menu_closed() -> void:
+	$Panel.visible = true

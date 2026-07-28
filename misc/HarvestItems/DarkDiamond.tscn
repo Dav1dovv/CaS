@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ldbuhshorw27" path="res://misc/HarvestItems/Textures/DarkDiamond.png" id="2_s0xnl"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_e0qjt"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_0d8ad"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="5_e0qjt"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="5_e0qjt"]
 [ext_resource type="AudioStream" uid="uid://dhnejho0mmxmq" path="res://misc/HarvestItems/SFX/Mining/Destroy1.mp3" id="5_gprsu"]
 [ext_resource type="Resource" uid="uid://qo838w3683f6" path="res://misc/Content/Items/Dark Diamond.tres" id="6_0d8ad"]
 [ext_resource type="AudioStream" uid="uid://prb16b2eig2m" path="res://misc/HarvestItems/SFX/Mining/Destroy2.mp3" id="6_fj1df"]
@@ -86,6 +86,11 @@ harvest_tool_lvl = 4
 rotation = -1.5707941
 shape = SubResource("CapsuleShape2D_bhrl0")
 
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+position = Vector2(0, -13)
+rect = Rect2(-18, -14, 36, 28)
+hide_objects = [NodePath("../Sprite2D"), null]
+
 [node name="Sprite2D" type="Sprite2D" parent="." index="2" unique_id=1581771079]
 position = Vector2(0, -16)
 texture = ExtResource("2_s0xnl")
@@ -99,16 +104,15 @@ position = Vector2(0, 13)
 scale = Vector2(2.625, 1.125)
 texture = ExtResource("4_0d8ad")
 
-[node name="optimizer" parent="." index="3" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
-position = Vector2(0, -13)
-rect = Rect2(-18, -14, 36, 28)
-hide_objects = [NodePath("../Sprite2D"), NodePath("../Corruption Effect")]
-
-[node name="droper" parent="." index="4" unique_id=1465568748]
+[node name="droper" parent="." index="3" unique_id=1465568748]
 drop_resources = Array[ExtResource("5_e0qjt")]([SubResource("Resource_tibt7")])
 
-[node name="CollisionShape2D" parent="." index="6" unique_id=1716306559]
+[node name="CollisionShape2D" parent="." index="5" unique_id=1716306559]
 shape = SubResource("CircleShape2D_bhrl0")
+
+[node name="VFX_damage" parent="." index="6" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../SFX")
+particles = NodePath("../GPUParticles2D")
 
 [node name="Destroy" type="AudioStreamPlayer2D" parent="." index="7" unique_id=1053901091]
 stream = SubResource("AudioStreamRandomizer_bhrl0")
@@ -122,7 +126,3 @@ playback_type = 2
 position = Vector2(1, -6)
 texture = SubResource("AtlasTexture_dobey")
 process_material = SubResource("ParticleProcessMaterial_e0qjt")
-
-[node name="VFX_damage" parent="." index="10" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
-audio_player = NodePath("../SFX")
-particles = NodePath("../GPUParticles2D")

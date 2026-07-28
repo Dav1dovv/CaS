@@ -1,33 +1,18 @@
 [gd_scene format=3 uid="uid://fgmnq4ft82wh"]
 
-[ext_resource type="Script" uid="uid://bdpkv7mxycsja" path="res://scr/Manager/GameManager.gd" id="1_8lo6w"]
-[ext_resource type="Material" uid="uid://ck0bsq2xn8j1g" path="res://misc/TileSets/new_shader_material.tres" id="5_2wn0h"]
-[ext_resource type="PackedScene" uid="uid://drmg1ku7aan1k" path="res://misc/Curse/curse_object.tscn" id="5_q0jo5"]
 [ext_resource type="PackedScene" uid="uid://qc6y8v64442s" path="res://misc/Entity/Player/player.tscn" id="6_bd8m6"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="7_1ds54"]
 [ext_resource type="Script" uid="uid://cx0477dq0nkws" path="res://scr/Misc/Blaze_camera.gd" id="7_2ifnd"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_1ds54"]
 [ext_resource type="Script" uid="uid://bl7jbpdad5e77" path="res://scr/Systems/Creature_Spawner/creature_spawner.gd" id="8_2ifnd"]
 [ext_resource type="Script" uid="uid://cspf06hgc8h0w" path="res://scr/Systems/Creature_Spawner/SpawnConfig.gd" id="9_1ds54"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_n55o3"]
 [ext_resource type="PackedScene" uid="uid://bu36h4hqr8fy5" path="res://misc/Entity/Enemies/slime.tscn" id="10_n55o3"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_q0jo5"]
-[ext_resource type="FontFile" uid="uid://dfsuae2k2msy7" path="res://Assets/Fonts/NavirianScript-Regular.ttf" id="12_n55o3"]
 
 [sub_resource type="Resource" id="Resource_q0jo5"]
 script = ExtResource("9_1ds54")
 creature_scene = ExtResource("10_n55o3")
 metadata/_custom_type_script = "uid://cspf06hgc8h0w"
 
-[sub_resource type="Resource" id="Resource_qujxp"]
-script = ExtResource("9_1ds54")
-creature_scene = ExtResource("5_q0jo5")
-spawn_weight = 0.495
-min_day = 5
-max_alive = 6
-metadata/_custom_type_script = "uid://cspf06hgc8h0w"
-
-[sub_resource type="Resource" id="Resource_ubcgh"]
+[sub_resource type="Resource" id="Resource_bd8m6"]
 resource_local_to_scene = true
 resource_name = "Player Stat"
 script = ExtResource("7_1ds54")
@@ -36,199 +21,20 @@ base_armor = 10.0
 base_defense_modifier = 0.2
 metadata/_custom_type_script = "uid://cpp05fs341abo"
 
-[sub_resource type="Resource" id="Resource_xe8ot"]
-script = ExtResource("10_q0jo5")
-
-[sub_resource type="LabelSettings" id="LabelSettings_cdos3"]
-font = ExtResource("12_n55o3")
-font_color = Color(0.47843137, 1, 1, 1)
-shadow_color = Color(0, 0, 0, 0.18039216)
-shadow_offset = Vector2(0, 1.845)
-stacked_outline_count = 1
-stacked_outline_0/size = 2
-stacked_outline_0/color = Color(0, 0.41960785, 0.7058824, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_0ah42"]
-shadow_size = 8
-shadow_color = Color(0, 0, 0, 0.18039216)
-shadow_offset = Vector2(0, 0.5)
-stacked_outline_count = 2
-stacked_outline_0/size = 2
-stacked_outline_0/color = Color(0.54891276, 0.7774165, 0.9999996, 1)
-stacked_outline_1/size = 1
-stacked_outline_1/color = Color(0, 0, 0, 0.40784314)
-
-[sub_resource type="Animation" id="Animation_2wn0h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -56)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Control/Label:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Control/Label2:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_jigvp"]
-resource_name = "Show"
-length = 3.0000000000000004
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.2333333, 2.7666667, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, -56), Vector2(0, 1), Vector2(0, 1), Vector2(0, -56)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Control/Label:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.76666665, 1.11),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Control/Label2:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.3666667, 1.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0okwq"]
-_data = {
-&"RESET": SubResource("Animation_2wn0h"),
-&"Show": SubResource("Animation_jigvp")
-}
-
 [node name="LocationRoot" type="Node2D" unique_id=1133907741 groups=["World"]]
 y_sort_enabled = true
-script = ExtResource("1_8lo6w")
 
 [node name="CreatureSpawner" type="Node2D" parent="." unique_id=2003484596]
 script = ExtResource("8_2ifnd")
-creatures = Array[ExtResource("9_1ds54")]([SubResource("Resource_q0jo5"), SubResource("Resource_qujxp")])
+creatures = Array[ExtResource("9_1ds54")]([SubResource("Resource_q0jo5")])
 metadata/_custom_type_script = "uid://bl7jbpdad5e77"
 
-[node name="Panel" type="ColorRect" parent="." unique_id=1457772363]
-z_index = -26
-material = ExtResource("5_2wn0h")
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="Player" parent="." unique_id=1150737309 instance=ExtResource("6_bd8m6")]
-dodge_speed = 45.0
-dodge_duration = 0.22
-Entity_stats = SubResource("Resource_ubcgh")
+Entity_stats = SubResource("Resource_bd8m6")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1490511306]
-physics_interpolation_mode = 1
-top_level = true
-position = Vector2(0, -9.62)
-process_callback = 0
-position_smoothing_speed = 2.0
-editor_draw_limits = true
+[node name="Blaze_camera" type="Camera2D" parent="Player" unique_id=294408334]
+position = Vector2(0, -8)
 script = ExtResource("7_2ifnd")
-auto_screenshot = false
 metadata/_custom_type_script = "uid://cx0477dq0nkws"
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=364165481]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("8_1ds54")
-
-[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=2085077661 node_paths=PackedStringArray("follow_target")]
-top_level = true
-position = Vector2(0, -9.62)
-script = ExtResource("9_n55o3")
-follow_mode = 2
-follow_target = NodePath("../Player")
-tween_resource = SubResource("Resource_xe8ot")
-follow_offset = Vector2(0, -9.62)
-draw_limits = true
-limit_target = NodePath("../TileMapLayer")
-limit_margin = Vector4i(-106, -68, -107, -44)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=348255047]
-layer = 0
-
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=320329871]
-layout_mode = 3
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = -56.0
-offset_bottom = -56.0
-grow_horizontal = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=165993221]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 45.0
-grow_horizontal = 2
-text = "TEST"
-label_settings = SubResource("LabelSettings_cdos3")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="CanvasLayer/Control" unique_id=1015281008]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 7.0
-offset_bottom = 52.0
-grow_horizontal = 2
-text = "TEST"
-label_settings = SubResource("LabelSettings_0ah42")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=1089510476]
-libraries/ = SubResource("AnimationLibrary_0okwq")
-autoplay = &"Show"
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]

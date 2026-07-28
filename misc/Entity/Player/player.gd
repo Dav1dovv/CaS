@@ -37,24 +37,6 @@ var _lunge_timer:      float   = 0.0
 var _lunge_direction:  Vector2 = Vector2.ZERO
 var _lunge_hit_bodies: Array   = []
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  Dodge / перекат (не завdисит от оружия — базовое умение игрока)
-# ─────────────────────────────────────────────────────────────────────────────
-
-## Требует action "Dodge" в Input Map (например, Space или Shift)
-@export_category("Dodge")
-@export var dodge_speed:      float = 45.0
-@export var dodge_duration:   float = 0.22
-@export var dodge_cooldown:   float = 0.6
-@export var dodge_invincible: bool  = true
-
-var _is_dodging:            bool    = false
-var _dodge_timer:           float   = 0.0
-var _dodge_cooldown_timer:  float   = 0.0
-var _dodge_direction:       Vector2 = Vector2.ZERO
-
-
 # ─────────────────────────────────────────────────────────────────────────────
 #  Ноды
 # ─────────────────────────────────────────────────────────────────────────────
@@ -87,11 +69,6 @@ const YAIRAM = preload("uid://dbhmebbny0165")
 
 func _ready() -> void:
 	super._ready()
-	$Skin.visible = false
-	$Spawn.restart()
-	$Spawn.emitting = true
-	#await  $Spawn.finished
-	#$Skin.visible = true
 	Global.hotbar    = get_tree().get_first_node_in_group("Hotbar")    as Hotbar
 	Global.inventory = get_tree().get_first_node_in_group("Inventory") as Inventory
 	get_tree().get_first_node_in_group("DebugObject").update()
@@ -136,82 +113,22 @@ func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 
 	if is_alive:
-		_dodge_cooldown_timer = maxf(0.0, _dodge_cooldown_timer - delta)
-		_update_dodge(delta)
 
-		if not _is_dodging:
-			_update_lunge(delta)
+
 			if not _is_lunging:
 				if _exit_walk_active:
 					_update_exit_walk(delta)
 				else:
 					_movement(delta)
-		_animate()
+			_animate()
 
-		if not is_attack:
-			hit_box.look_at(mouse_pos)
+			if not is_attack:
+				hit_box.look_at(mouse_pos)
 
-		if velocity.length_squared() <= 1.0 or is_attack:
-			skin.scale.x = scale.x if mouse_pos.x > position.x else -scale.x
+			if velocity.length_squared() <= 1.0 or is_attack:
+				skin.scale.x = scale.x if mouse_pos.x > position.x else -scale.x
 
 	move_and_slide()
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("Dodge") and _can_dodge():
-		_start_dodge()
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  Dodge / перекат
-# ─────────────────────────────────────────────────────────────────────────────
-
-func _can_dodge() -> bool:
-	return is_alive and not _is_dodging and not _is_lunging \
-		and _dodge_cooldown_timer <= 0.0 and not Global.is_opened_menu
-
-
-func _start_dodge() -> void:
-	_is_dodging           = true
-	_dodge_timer          = dodge_duration
-	_dodge_cooldown_timer = dodge_cooldown
-
-	var input_dir := Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown").normalized()
-	_dodge_direction = input_dir if input_dir != Vector2.ZERO else (mouse_pos - global_position).normalized()
-
-	if dodge_invincible:
-		_hurt_col.disabled = true
-	
-	BodyAnimator.play("Dash")
-	if $VFX_Dodge != null:
-		$VFX_Dodge.restart()
-		$VFX_Dodge.emitting = true
-		$SFX_Dodge.play()
-
-
-func _update_dodge(delta: float) -> void:
-	if not _is_dodging:
-		return
-
-	_dodge_timer -= delta
-	velocity = _dodge_direction * dodge_speed * standart_speed
-
-	if _dodge_direction.x > 0:
-		skin.scale.x = 1
-	elif _dodge_direction.x < 0:
-		skin.scale.x = -1
-
-	if _dodge_timer <= 0.0:
-		_end_dodge()
-
-
-func _end_dodge() -> void:
-	_is_dodging       = false
-	_current_velocity = velocity * 0.4  # плавный выход из переката, а не резкий стоп
-
-	if dodge_invincible:
-		_hurt_col.disabled = false
-
 
 func _movement(delta: float) -> void:
 	if Global.is_opened_menu:
@@ -246,12 +163,10 @@ func _animate() -> void:
 		BodyAnimator.play("Walk", -1.0, spd)
 		if not is_attack:
 			HandAanimator.play("Walk", -1.0, spd)
-			$VFX_Walk.emitting = true
 	else:
 		BodyAnimator.play("Idle")
 		if not is_attack:
 			HandAanimator.play("Idle")
-			$VFX_Walk.emitting = false
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -475,7 +390,7 @@ func curse(add_count : float):
 	health_bar.update_value(Entity_stats.current_health,Entity_stats.max_health, corruption)
 	if corruption >= Entity_stats.max_health:
 		die()
-	DebugLog.log("Corrupt")
+	#DebugLog.log("Corrupt")
 # ─────────────────────────────────────────────────────────────────────────────
 #  Dev-команды
 # ─────────────────────────────────────────────────────────────────────────────

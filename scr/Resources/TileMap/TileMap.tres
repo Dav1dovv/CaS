@@ -1,14 +1,10 @@
 [gd_resource type="TileSet" format=3 uid="uid://dfbl1otmpel7t"]
 
-[ext_resource type="Texture2D" uid="uid://ypff3r6dbpxy" path="res://Assets/Textures/TileMap/DungeonTileSet.png" id="1_bhymp"]
-[ext_resource type="Texture2D" uid="uid://d3gjaoqc743yo" path="res://Assets/Textures/TileMap/grassCorners.png" id="2_xu2h1"]
-[ext_resource type="Texture2D" uid="uid://cqo4btcwmrybu" path="res://Assets/Textures/TileMap/Wood.png" id="4_k3h00"]
 [ext_resource type="Texture2D" uid="uid://bsexb4ve63na1" path="res://Assets/Textures/TileMap/GrassAutoTile.png" id="4_w8k58"]
 [ext_resource type="Texture2D" uid="uid://nqtmxlsrasn6" path="res://Assets/Textures/TileMap/WaterAutoTile.png" id="5_txbf5"]
 [ext_resource type="Texture2D" uid="uid://bsqrpbgoonw3f" path="res://Assets/Textures/TileMap/WorldTileSet.png" id="5_yee2x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uj8pi"]
-texture = ExtResource("1_bhymp")
 0:0/0 = 0
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -75,7 +71,6 @@ texture = ExtResource("1_bhymp")
 13:3/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aifd0"]
-texture = ExtResource("2_xu2h1")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -171,7 +166,6 @@ texture = ExtResource("2_xu2h1")
 14:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ruio"]
-texture = ExtResource("4_k3h00")
 0:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -215,18 +209,14 @@ texture = ExtResource("4_k3h00")
 8:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:8/0 = 0
 4:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-5:2/size_in_atlas = Vector2i(2, 2)
 5:2/0 = 0
 5:2/0/z_index = -16
-0:2/size_in_atlas = Vector2i(2, 3)
 0:2/0 = 0
 0:2/0/y_sort_origin = 11
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 4, 12, 4, 12, 24, -12.590111, 24.460787)
-7:0/size_in_atlas = Vector2i(2, 3)
 7:0/0 = 0
 7:0/0/y_sort_origin = 11
 7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 16, -8, 16)
-6:7/size_in_atlas = Vector2i(3, 2)
 6:7/0 = 0
 6:7/0/y_sort_origin = 7
 6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -4, 16, -4, 16, 16, -16, 16)

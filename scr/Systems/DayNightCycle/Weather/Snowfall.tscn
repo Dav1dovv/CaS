@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d1db77vb5cyfq"]
 
 [ext_resource type="Script" uid="uid://dlswreqv7akhj" path="res://scr/Systems/DayNightCycle/Weather/WeatherEffect.gd" id="1_8b07k"]
-[ext_resource type="Texture2D" uid="uid://ctgel1bdfuv1o" path="res://misc/Particles/Snow-sheet.png" id="1_n7lem"]
+[ext_resource type="Texture2D" uid="uid://ctgel1bdfuv1o" path="res://Assets/Textures/Snow-sheet.png" id="1_n7lem"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8b07k"]
 particles_animation = true

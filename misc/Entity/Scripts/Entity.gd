@@ -43,8 +43,8 @@ func _ready():
 	Entity_stats.current_health = Entity_stats.max_health
 	effect_manager = EffectManager.new(self)
 	add_child(effect_manager)
-	effect_manager.effect_added.connect(_on_effect_added)
-	effect_manager.effect_removed.connect(_on_effect_removed)
+	#effect_manager.effect_added.connect(_on_effect_added)
+	#effect_manager.effect_removed.connect(_on_effect_removed)
 	_entity_sprite = _find_sprite(self)
 
 # ── КРИТЫ / STAGGER (переопределяется в подклассах, напр. Creature) ─
@@ -266,8 +266,8 @@ func apply_poison(value: float, duration: float, tick_interval: float) -> void:
 	poison_effect.tick_interval = tick_interval
 	apply_effect_instance(poison_effect)
 
-func _on_effect_added(effect: Effect) -> void:
-	DebugLog.log("Effect added: " + effect.display_name)
-
-func _on_effect_removed(effect: Effect) -> void:
-	DebugLog.log("Effect removed: " + effect.display_name)
+#func _on_effect_added(effect: Effect) -> void:
+	#DebugLog.log("Effect added: " + effect.display_name)
+#
+#func _on_effect_removed(effect: Effect) -> void:
+	#DebugLog.log("Effect removed: " + effect.display_name)

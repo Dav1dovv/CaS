@@ -3,7 +3,7 @@ extends Node2D
 class_name WorldMapGenerator
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  WorldMapGenerator — генерирует ТАЙЛОВЫЙ ландшафт (трава/вода/дороги) на карте
+#  WorldMapGenerator — генерирует ТАЙЛОВЫЙ ландшафт (трава/вода) на карте
 #  ФИКСИРОВАННОГО размера, но строит его ЧАНКАМИ, как твой старый ChunkManager —
 #  чтобы не проседали кадры на большой карте.
 #
@@ -19,9 +19,9 @@ class_name WorldMapGenerator
 #     него (поток), и работа размазана по кадрам через chunks_per_frame,
 #     чтобы не было хитчей. Если target_path пуст — вся (фиксированная!)
 #     карта строится один раз при старте, тоже по бюджету кадра.
-#   • Дороги и спец-структуры (лагеря, данжи) — используют тот же RNG/сид и
+#   • Спец-структуры (лагеря, данжи) — используют тот же RNG/сид и
 #     ресурс SpecialStructure.gd, который уже есть в проекте, чтобы не
-#     плодить второй похожий класс.
+#     плодить второй похожий класс. Генерация дорог убрана.
 # ═══════════════════════════════════════════════════════════════════════════════
 
 # ─────────────────────────────────────────
@@ -39,7 +39,6 @@ class_name WorldMapGenerator
 @export_group("Layers")
 @export var ground_layer: TileMapLayer      # трава/суша
 @export var water_layer: TileMapLayer       # вода. Если не задан — вода красится в ground_layer тем же TileSet'ом
-@export var road_layer: TileMapLayer        # дороги (опционально)
 
 ## Terrain Set / Terrain ID для земли и воды — смотри во вкладке TileSet → Terrains.
 ## Подтверждено скриншотом: Terrain Set 0, grass_terrain = id 0, water_terrain = id 1.
@@ -53,12 +52,29 @@ class_name WorldMapGenerator
 @export var water_atlas_source_id: int = 0
 @export var water_atlas_coords: Vector2i = Vector2i(0, 0)
 
-## Дороги: если у тебя тоже настроен Terrain для дорог — впиши id ниже.
-## Если нет — используется обычный atlas_source_id + atlas_coords (без автосвязи).
-@export var road_terrain_set: int = -1
-@export var road_terrain_id: int = -1
-@export var road_atlas_source_id: int = 0
-@export var road_atlas_coords: Vector2i = Vector2i(0, 0)
+# ─────────────────────────────────────────
+#  Декоративные вариации травы (НЕ terrain-тайлы — обычные альтернативные
+#  тайлы того же атласа, например "трава с цветами/камушками"). Автотайлинг
+#  их не расставляет сам, поэтому раскидываем их вручную поверх готовой
+#  земли, псевдослучайно и детерминированно (по сиду чанка).
+# ─────────────────────────────────────────
+@export_group("Grass Variation")
+## Слой, куда рисуются декоративные тайлы травы (поверх ground_layer).
+## Если не задан — рисуются прямо в ground_layer (может немного мешать
+## пересчёту terrain-автосвязи на этом тайле в будущем — отдельный слой безопаснее).
+@export var grass_variation_layer: TileMapLayer
+## Atlas source id тайлсета, где лежат декоративные варианты травы (обычно
+## тот же атлас, что и grass_atlas_source_id / GrassAutoTile.png и т.п.).
+@export var grass_variation_atlas_source_id: int = 0
+## Координаты тайла(ов)-вариаций в атласе (кликни на нужный тайл в панели
+## "Тайлы" внизу — Godot покажет его atlas coords). Можно добавить несколько —
+## тогда каждый раз будет выбираться случайный из списка.
+@export var grass_variation_coords: Array[Vector2i] = []
+## Шанс, что конкретный тайл травы получит декорацию (0..1).
+@export_range(0.0, 1.0) var grass_variation_chance: float = 0.12
+## Если true — декорации не ставятся на тайлы, граничащие с водой/дорогой
+## (край автотайла выглядит иначе, декорация там может "торчать").
+@export var grass_variation_avoid_edges: bool = true
 
 # ─────────────────────────────────────────
 #  Шум ландшафта
@@ -67,14 +83,6 @@ class_name WorldMapGenerator
 @export var noise_scale: float = 0.02
 @export var noise_octaves: int = 3
 @export_range(0.0, 1.0) var water_level: float = 0.35   # ниже этого — вода
-
-# ─────────────────────────────────────────
-#  Дороги
-# ─────────────────────────────────────────
-@export_group("Roads")
-@export var generate_roads: bool = true
-@export var road_anchor_count: int = 5
-@export var road_width: int = 1
 
 # ─────────────────────────────────────────
 #  Специальные структуры (переиспользуем существующий ресурс)
@@ -90,11 +98,10 @@ class_name WorldMapGenerator
 ## Список того, что может появиться на земле в этой локации, с весами
 ## (Generation.spawn_weight) — так же, как в старом WorldGenerator.
 @export var resource_items: Array[Generation] = []
-## Сколько ресурсов пытаемся посадить на один чанк (до фильтрации по спейсингу/воде/дорогам).
+## Сколько ресурсов пытаемся посадить на один чанк (до фильтрации по спейсингу/воде).
 @export var resources_per_chunk: int = 4
 ## Минимальное расстояние между двумя заспавненными ресурсами (px).
 @export var resource_min_spacing: float = 20.0
-@export var resource_avoid_roads: bool = true
 ## Если true — уже собранные (harvested) позиции не заспавнятся повторно
 ## после перезахода в локацию (используется SaveSystem.save_harvested/load_harvested).
 @export var track_harvested: bool = true
@@ -106,24 +113,12 @@ class_name WorldMapGenerator
 #  Зоны (биомы) — переиспользуем существующий ресурс GenerationZone.gd
 # ─────────────────────────────────────────
 @export_group("Zones")
-## Зоны определяют доминантные ресурсы (и, если задано, заражение) в разных
-## участках карты. Зона активна в чанке, если значение zone-шума в этом чанке
-## не ниже её noise_threshold. Если зон несколько — побеждает та, у которой
-## порог выше (более "требовательные"/редкие зоны приоритетнее общих).
+## Зоны определяют доминантные ресурсы в разных участках карты. Зона активна
+## в чанке, если значение zone-шума в этом чанке не ниже её noise_threshold.
+## Если зон несколько — побеждает та, у которой порог выше (более
+## "требовательные"/редкие зоны приоритетнее общих).
 @export var zones: Array[GenerationZone] = []
 @export var zone_noise_scale: float = 0.008
-
-# ─────────────────────────────────────────
-#  Заражение чанков
-# ─────────────────────────────────────────
-@export_group("Corruption")
-## Уровень заражения (0..3) чанка берётся из его зоны (GenerationZone.corruption_level),
-## если она задана. Если зоны у чанка нет (или зоны заражение не настраивают),
-## заражение считается по отдельному шуму — так получаются плавные "пятна"
-## заражения на карте, а не полностью случайный шум по каждому ресурсу отдельно.
-@export var corruption_noise_scale: float = 0.015
-@export_range(0.0, 1.0) var corruption_threshold: float = 0.55   ## выше этого — заражённый чанк
-@export_range(0, 3) var max_corruption_level: int = 3
 
 # ─────────────────────────────────────────
 #  Потоковая генерация (streaming)
@@ -138,13 +133,19 @@ class_name WorldMapGenerator
 ## дороже, чем чистая суша). Раз в кадр обрабатываем чанки, пока не выйдем
 ## за этот бюджет — так лагов от генерации быть не должно.
 @export var chunk_time_budget_ms: float = 3.0
+## Сколько РЕСУРСОВ (кустов/руды/деревьев) реально инстанцировать (instantiate +
+## add_child) за один кадр. Покраска тайлов чанка быстрая (пакетный вызов), а вот
+## заспавнить сразу десятки физических объектов (Harvestable — коллизии, шейдеры,
+## частицы) в один кадр — самый частый источник хитчей, особенно на старте или
+## когда игрок быстро бежит и сразу открывается много новых чанков. Поэтому
+## инстанцирование ресурсов размазано по кадрам отдельно от покраски тайлов.
+@export var resource_spawn_per_frame: int = 6
 
 # ─────────────────────────────────────────
 #  Внутреннее состояние
 # ─────────────────────────────────────────
 var _noise: FastNoiseLite
 var _zone_noise: FastNoiseLite
-var _corruption_noise: FastNoiseLite
 var _rng: RandomNumberGenerator
 var _location_seed: int
 var _target: Node2D
@@ -156,7 +157,6 @@ var _chunk_min: Vector2i
 var _chunk_max: Vector2i   # эксклюзивная граница
 
 var _chunk_zone: Dictionary = {}         # Vector2i(chunk) -> GenerationZone или null
-var _chunk_corruption: Dictionary = {}   # Vector2i(chunk) -> int (0..max_corruption_level)
 var _save_system: Node   # автозагрузка SaveSystem — берём по пути, т.к. class_name SaveSystem
 						  # конфликтует с именем синглтона при прямом обращении "SaveSystem.xxx()"
 
@@ -172,6 +172,11 @@ var _use_ground_terrain: bool = false
 var _chunk_resource_nodes: Dictionary = {}   # Vector2i(chunk) -> Array[Node], для очистки при erase_chunk
 var _harvested_set: Dictionary = {}          # "x,y" -> true, снято через SaveSystem.load_harvested()
 var _total_resource_weight: float = 0.0
+
+## Ресурсы, для которых уже выбрана позиция/тип (дёшево), но ЕЩЁ НЕ
+## инстанцированы (дорого) — обрабатываются по resource_spawn_per_frame за кадр.
+## Каждый элемент: { "chunk": Vector2i, "pos": Vector2, "item": Generation }
+var _pending_resource_spawns: Array[Dictionary] = []
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -204,8 +209,8 @@ func _ready() -> void:
 		if _target == null:
 			push_warning("[WorldMapGenerator] target_path='%s' не резолвится в ноду — стриминг не запустится, карта не будет построена." % target_path)
 
-	if generate_roads or not special_structures.is_empty():
-		_generate_roads_and_structures()
+	if not special_structures.is_empty():
+		_place_special_structures()
 
 	if _target:
 		# Игрок мог заспавниться на позиции, которая по шуму оказывается водой
@@ -265,12 +270,6 @@ func _setup_seed() -> void:
 	_zone_noise.fractal_octaves = 2
 	_zone_noise.frequency = zone_noise_scale
 	_zone_noise.seed = _location_seed + 1
-
-	_corruption_noise = FastNoiseLite.new()
-	_corruption_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
-	_corruption_noise.fractal_octaves = 2
-	_corruption_noise.frequency = corruption_noise_scale
-	_corruption_noise.seed = _location_seed + 2
 
 	_rng = RandomNumberGenerator.new()
 	_rng.seed = _location_seed
@@ -409,6 +408,42 @@ func _process_queue_budget() -> void:
 		_queued_set.erase(c)
 		_erase_chunk(c)
 
+	_process_resource_spawn_budget()
+
+
+## Инстанцирует не больше resource_spawn_per_frame ресурсов за кадр — покраска
+## тайлов чанка уже дешёвая (пакетный вызов), а вот создание физических нод
+## (Harvestable: коллизии/шейдеры/частицы) пачкой в один кадр и есть хитч.
+func _process_resource_spawn_budget() -> void:
+	var spawned := 0
+	while spawned < resource_spawn_per_frame and not _pending_resource_spawns.is_empty():
+		var entry: Dictionary = _pending_resource_spawns.pop_front()
+		var c: Vector2i = entry["chunk"]
+		# Чанк мог успеть стереться, пока запись ждала своей очереди — не спавним в никуда.
+		if not _built_chunks.has(c):
+			continue
+		_instantiate_resource(entry)
+		spawned += 1
+
+
+func _instantiate_resource(entry: Dictionary) -> void:
+	var item: Generation = entry["item"]
+	var scenes: Array[PackedScene] = [item.Generation_scene]
+	scenes.append_array(item.Generation_random_versions)
+	var scene: PackedScene = scenes[entry["scene_index"]] if entry["scene_index"] < scenes.size() else scenes[0]
+	if not scene:
+		return
+
+	var obj := scene.instantiate()
+	obj.global_position = entry["pos"]
+	_apply_random_scale_value(obj, entry.get("scale"))
+	add_child(obj)
+
+	var c: Vector2i = entry["chunk"]
+	if not _chunk_resource_nodes.has(c):
+		_chunk_resource_nodes[c] = []
+	_chunk_resource_nodes[c].append(obj)
+
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  ПОСТРОЙКА / СТИРАНИЕ ЧАНКА
@@ -444,6 +479,8 @@ func _build_chunk(c: Vector2i) -> void:
 		for cell in water_cells:
 			w_layer.set_cell(cell, water_atlas_source_id, water_atlas_coords)
 
+	_paint_grass_variations(c, land_cells)
+
 	_built_chunks[c] = true
 	_spawn_chunk_resources(c, land_cells)
 
@@ -455,6 +492,13 @@ func _erase_chunk(c: Vector2i) -> void:
 				node.queue_free()
 		_chunk_resource_nodes.erase(c)
 
+	# Ресурсы этого чанка, которые ещё ждут своей очереди на instantiate,
+	# больше не нужны — иначе они всплывут позже уже для стёртого чанка
+	# (не страшно само по себе, _process_resource_spawn_budget это отфильтрует,
+	# но лучше не копить память на давно неактуальные записи).
+	if not _pending_resource_spawns.is_empty():
+		_pending_resource_spawns = _pending_resource_spawns.filter(func(e): return e["chunk"] != c)
+
 	var w_layer: TileMapLayer = water_layer if water_layer else ground_layer
 	var origin := c * chunk_size
 	for ly in chunk_size.y:
@@ -463,8 +507,8 @@ func _erase_chunk(c: Vector2i) -> void:
 			ground_layer.erase_cell(cell)
 			if w_layer != ground_layer:
 				w_layer.erase_cell(cell)
-			if road_layer:
-				road_layer.erase_cell(cell)
+			if grass_variation_layer and grass_variation_layer != ground_layer:
+				grass_variation_layer.erase_cell(cell)
 	_built_chunks.erase(c)
 
 
@@ -477,97 +521,41 @@ func _is_land(cell: Vector2i) -> bool:
 	return _elevation_at(cell) >= water_level
 
 
+## Раскидывает декоративные вариации травы (тайлы вроде "трава с цветами",
+## которые НЕ являются частью terrain-автотайлинга) по уже готовой земле
+## чанка — псевдослучайно, но детерминированно (свой RNG от сида чанка,
+## как и у ресурсов), так что при пересборке чанка узор не "мигает".
+func _paint_grass_variations(c: Vector2i, land_cells: Array[Vector2i]) -> void:
+	if grass_variation_coords.is_empty() or grass_variation_chance <= 0.0 or land_cells.is_empty():
+		return
+
+	var deco_layer: TileMapLayer = grass_variation_layer if grass_variation_layer else ground_layer
+
+	var deco_rng := RandomNumberGenerator.new()
+	deco_rng.seed = hash("%d_deco_%d_%d" % [_location_seed, c.x, c.y])
+
+	for cell in land_cells:
+		if deco_rng.randf() > grass_variation_chance:
+			continue
+		if grass_variation_avoid_edges and _touches_non_land(cell):
+			continue
+		var coord: Vector2i = grass_variation_coords[deco_rng.randi() % grass_variation_coords.size()]
+		deco_layer.set_cell(cell, grass_variation_atlas_source_id, coord)
+
+
+## true, если у клетки есть сосед-НЕ-суша (вода/т.п.) — используется, чтобы не
+## сажать декорацию на кромку берега, где и так уже автотайл-переход.
+func _touches_non_land(cell: Vector2i) -> bool:
+	for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+		if not _is_land(cell + d):
+			return true
+	return false
+
+
 # ═══════════════════════════════════════════════════════════════════════════════
-#  ДОРОГИ + СПЕЦСТРУКТУРЫ (генерируются один раз при старте, не по чанкам —
+#  СПЕЦСТРУКТУРЫ (генерируются один раз при старте, не по чанкам —
 #  их обычно немного, поэтому линейный проход не является узким местом)
 # ═══════════════════════════════════════════════════════════════════════════════
-
-func _generate_roads_and_structures() -> void:
-	var anchors: Array[Vector2i] = []
-
-	if generate_roads and road_anchor_count > 0:
-		anchors = _pick_land_anchors(road_anchor_count)
-		if anchors.size() >= 2:
-			_carve_roads(anchors)
-
-	if not special_structures.is_empty():
-		_place_special_structures()
-
-
-## Находит N случайных тайлов суши, достаточно разнесённых друг от друга.
-func _pick_land_anchors(count: int) -> Array[Vector2i]:
-	var result: Array[Vector2i] = []
-	var tile_min := _chunk_min * chunk_size
-	var tile_max := _chunk_max * chunk_size   # эксклюзивно
-	var span := tile_max - tile_min
-	var min_gap_sq: float = float(span.x * span.y) / float(max(count, 1))   # грубая эвристика разнесения
-
-	var attempts := 0
-	while result.size() < count and attempts < count * 50:
-		attempts += 1
-		var cell := Vector2i(_rng.randi_range(tile_min.x, tile_max.x - 1), _rng.randi_range(tile_min.y, tile_max.y - 1))
-		if not _is_land(cell):
-			continue
-		var ok := true
-		for r in result:
-			if Vector2(cell - r).length_squared() < min_gap_sq:
-				ok = false
-				break
-		if ok:
-			result.append(cell)
-	return result
-
-
-## Соединяет якоря "цепочкой ближайшего соседа" простыми L-образными дорогами.
-## Для полноценного A* по ландшафту — замени _line_between на поиск пути,
-## сама структура очереди/бюджета от этого не меняется.
-func _carve_roads(anchors: Array[Vector2i]) -> void:
-	var remaining := anchors.duplicate()
-	var chain: Array[Vector2i] = [remaining.pop_front()]
-
-	while not remaining.is_empty():
-		var last: Vector2i = chain[-1]
-		var best_i := 0
-		var best_d := INF
-		for i in remaining.size():
-			var d: float = Vector2(remaining[i] - last).length_squared()
-			if d < best_d:
-				best_d = d
-				best_i = i
-		chain.append(remaining[best_i])
-		remaining.remove_at(best_i)
-
-	for i in chain.size() - 1:
-		_line_between(chain[i], chain[i + 1])
-
-
-## Простая L-образная линия (сначала по X, потом по Y) — быстро и достаточно
-## для дорог между поселениями; для рек/троп можно заменить на кривую Безье.
-func _line_between(a: Vector2i, b: Vector2i) -> void:
-	var cells: Array[Vector2i] = []
-	var x := a.x
-	while x != b.x:
-		cells.append(Vector2i(x, a.y))
-		x += 1 if b.x > x else -1
-	var y := a.y
-	while y != b.y:
-		cells.append(Vector2i(b.x, y))
-		y += 1 if b.y > y else -1
-	cells.append(b)
-
-	# Ширина дороги: расширяем каждую точку на road_width в обе стороны.
-	var widened: Array[Vector2i] = []
-	for cell in cells:
-		for dy in range(-road_width + 1, road_width):
-			for dx in range(-road_width + 1, road_width):
-				widened.append(cell + Vector2i(dx, dy))
-
-	if road_terrain_set >= 0 and road_terrain_id >= 0:
-		road_layer.set_cells_terrain_connect(widened, road_terrain_set, road_terrain_id, true)
-	elif road_layer:
-		for cell in widened:
-			road_layer.set_cell(cell, road_atlas_source_id, road_atlas_coords)
-
 
 ## Расстановка лагерей/данжей — та же логика мин-дистанций, что и в WorldGenerator,
 ## но точки берутся из тайловой сетки суши, а не из Polygon2D формы.
@@ -605,9 +593,11 @@ func _place_special_structures() -> void:
 			placed += 1
 
 
-## Расставляет ресурсы (кусты/руда/деревья и т.п.) на суше чанка. RNG — свой,
-## детерминированный от (сид локации + координаты чанка), не трогает общий
-## _rng (тот расходуется один раз на дороги/структуры при старте) — так при
+## Решает, ЧТО и ГДЕ заспавнить на суше чанка (дёшево — без instantiate/add_child)
+## и складывает решения в очередь _pending_resource_spawns, которая расходуется
+## по resource_spawn_per_frame за кадр в _process_resource_spawn_budget().
+## RNG — свой, детерминированный от (сид локации + координаты чанка), не трогает
+## общий _rng (тот расходуется один раз на дороги/структуры при старте) — так при
 ## повторной постройке того же чанка результат всегда одинаковый.
 func _spawn_chunk_resources(c: Vector2i, land_cells: Array[Vector2i]) -> void:
 	if land_cells.is_empty():
@@ -640,21 +630,17 @@ func _spawn_chunk_resources(c: Vector2i, land_cells: Array[Vector2i]) -> void:
 	if pool.is_empty() or total_weight <= 0.0:
 		return
 
-	var chunk_corruption := _corruption_at(c)
-
 	var chunk_rng := RandomNumberGenerator.new()
 	chunk_rng.seed = hash("%d_res_%d_%d" % [_location_seed, c.x, c.y])
 
 	var placed_here: Array[Vector2] = []
-	var nodes: Array[Node] = []
 	var spacing_sq := resource_min_spacing * resource_min_spacing
+	var queued_any := false
 
 	for _i in resources_per_chunk:
 		var cell: Vector2i = land_cells[chunk_rng.randi() % land_cells.size()]
 		var pos := Vector2(cell) * _tile_size
 
-		if resource_avoid_roads and road_layer and road_layer.get_cell_source_id(cell) != -1:
-			continue
 		if track_harvested and _harvested_set.has(_snap_key(pos)):
 			continue
 
@@ -670,23 +656,24 @@ func _spawn_chunk_resources(c: Vector2i, land_cells: Array[Vector2i]) -> void:
 		if item == null or not item.Generation_scene:
 			continue
 
-		var scenes: Array[PackedScene] = [item.Generation_scene]
-		scenes.append_array(item.Generation_random_versions)
-		var scene: PackedScene = scenes[chunk_rng.randi() % scenes.size()]
-		if not scene:
-			continue
+		var scene_count := 1 + item.Generation_random_versions.size()
+		var scene_index := chunk_rng.randi() % scene_count
 
-		var obj := scene.instantiate()
-		obj.global_position = pos
-		_apply_random_scale(obj, item, chunk_rng)
-		if "forced_corruption_level" in obj:
-			obj.forced_corruption_level = chunk_corruption
-		call_deferred("add_child", obj)
+		_pending_resource_spawns.append({
+			"chunk": c,
+			"pos": pos,
+			"item": item,
+			"scene_index": scene_index,
+			"scale": _pick_random_scale_value(item, chunk_rng),
+		})
 		placed_here.append(pos)
-		nodes.append(obj)
+		queued_any = true
 
-	if not nodes.is_empty():
-		_chunk_resource_nodes[c] = nodes
+	# Регистрируем чанк даже без готовых нод, чтобы _erase_chunk знал, что для
+	# него могут быть записи в очереди (актуальный список нод допишется по мере
+	# фактического спавна в _instantiate_resource()).
+	if queued_any and not _chunk_resource_nodes.has(c):
+		_chunk_resource_nodes[c] = []
 
 
 ## Взвешенный выбор ресурса по весам пула (общие + зональные ресурсы вместе).
@@ -700,16 +687,22 @@ func _pick_weighted_resource(rng: RandomNumberGenerator, pool: Array[Generation]
 	return null
 
 
-## Назначает случайный размер из Generation.random_scales (Standart/Middle/Big
-## и т.п.) — как было в старом WorldGenerator, а не всегда scale=(1,1).
-func _apply_random_scale(obj: Node, item: Generation, rng: RandomNumberGenerator) -> void:
+## Выбирает случайный размер из Generation.random_scales (Standart/Middle/Big
+## и т.п.), либо null, если применять размер не нужно/нечего — как было в
+## старом WorldGenerator, а не всегда scale=(1,1).
+func _pick_random_scale_value(item: Generation, rng: RandomNumberGenerator):
 	if not apply_random_scale or not item.random_scales or item.random_scales.is_empty():
-		return
-	if not (obj is Node2D or obj is CanvasItem):
-		return
+		return null
 	var keys := item.random_scales.keys()
 	var chosen_key = keys[rng.randi() % keys.size()]
-	obj.scale = item.random_scales[chosen_key]
+	return item.random_scales[chosen_key]
+
+
+func _apply_random_scale_value(obj: Node, scale_value) -> void:
+	if scale_value == null:
+		return
+	if obj is Node2D or obj is CanvasItem:
+		obj.scale = scale_value
 
 
 ## Вызови этот метод из скрипта самого ресурса, когда игрок его собрал/уничтожил —
@@ -802,7 +795,7 @@ func _cell_center_px(cell: Vector2i) -> Vector2:
 
 
 # ─────────────────────────────────────────
-#  Зоны и заражение по чанкам
+#  Зоны по чанкам
 # ─────────────────────────────────────────
 
 ## Возвращает зону, "владеющую" данным чанком (или null, если зон нет,
@@ -827,33 +820,6 @@ func _zone_at(c: Vector2i) -> GenerationZone:
 	_chunk_zone[c] = result
 	return result
 
-
-## Уровень заражения (0..max_corruption_level) для чанка. Приоритет — зона
-## (GenerationZone.corruption_level, если у неё это поле есть и > 0), иначе —
-## отдельный шум заражения, дающий плавные "пятна" по карте.
-func _corruption_at(c: Vector2i) -> int:
-	if _chunk_corruption.has(c):
-		return _chunk_corruption[c]
-
-	var level := 0
-	var zone := _zone_at(c)
-	if zone and ("corruption_level" in zone) and int(zone.corruption_level) > 0:
-		level = clampi(int(zone.corruption_level), 0, max_corruption_level)
-	else:
-		var center := Vector2(c * chunk_size) + Vector2(chunk_size) * 0.5
-		var n := (_corruption_noise.get_noise_2d(center.x, center.y) + 1.0) * 0.5
-		if n >= corruption_threshold:
-			var t = (n - corruption_threshold) / max(0.0001, 1.0 - corruption_threshold)
-			level = clampi(int(round(t * max_corruption_level)), 1, max_corruption_level)
-
-	_chunk_corruption[c] = level
-	return level
-
-
-## Публичный API — например, для CreatureSpawnManager, чтобы брать тот же
-## уровень заражения зоны, что и ресурсы/Harvestable в этом месте карты.
-func get_corruption_level_at(world_pos: Vector2) -> int:
-	return _corruption_at(_world_to_chunk(world_pos))
 
 func get_zone_at(world_pos: Vector2) -> GenerationZone:
 	return _zone_at(_world_to_chunk(world_pos))

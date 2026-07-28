@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_gxqxa"]
 [ext_resource type="Texture2D" uid="uid://cj6hw2ur1wfqb" path="res://misc/HarvestItems/Textures/Minerals.png" id="2_bbc7c"]
 [ext_resource type="Script" uid="uid://cemx0w2dlxpco" path="res://misc/HarvestItems/Scripts/shining.gd" id="2_pieet"]
-[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Drop/DropRersource.gd" id="3_axhva"]
+[ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="3_axhva"]
 [ext_resource type="Script" uid="uid://b7lfnqk6b5cdp" path="res://scr/Misc/RandomSprite.gd" id="3_ft5po"]
 [ext_resource type="Resource" uid="uid://bgxln2nrofexr" path="res://misc/Content/Items/CooperOre.tres" id="4_4snad"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_l8brs"]
@@ -24,6 +24,9 @@ min_throws = 4
 max_throws = 8
 metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbc7c"]
+size = Vector2(34, 25)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_mq7lg"]
 atlas = ExtResource("2_bbc7c")
 region = Rect2(0, 32, 96, 32)
@@ -40,9 +43,6 @@ playback_mode = 1
 random_pitch = 1.4142135
 streams_count = 1
 stream_0/stream = ExtResource("13_5k4xd")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbc7c"]
-size = Vector2(34, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mrrw"]
 atlas = ExtResource("16_f215y")
@@ -91,13 +91,17 @@ position = Vector2(0, -6)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_gxqxa")
 
-[node name="optimizer" parent="." index="2" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(-4.76837e-07, -11)
 scale = Vector2(1.7, 1.3)
-hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), NodePath("../Corruption Effect")]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), null]
 
-[node name="droper" parent="." index="3" unique_id=1465568748]
+[node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("3_axhva")]([SubResource("Resource_y8wva")])
+
+[node name="CollisionShape2D" parent="." index="4" unique_id=1716306559]
+position = Vector2(2.38419e-07, -11.5)
+shape = SubResource("RectangleShape2D_bbc7c")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="5" unique_id=226188340]
 position = Vector2(0, -15)
@@ -121,15 +125,11 @@ stream = SubResource("AudioStreamRandomizer_u8h66")
 [node name="SFX" type="AudioStreamPlayer2D" parent="." index="8" unique_id=518358831]
 stream = SubResource("AudioStreamRandomizer_5k4xd")
 
-[node name="CollisionShape2D" parent="." index="9" unique_id=1716306559]
-position = Vector2(2.38419e-07, -11.5)
-shape = SubResource("RectangleShape2D_bbc7c")
+[node name="VFX_damage" parent="." index="9" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
+audio_player = NodePath("../SFX")
+particles = NodePath("../GPUParticles2D")
 
 [node name="GPUParticles2D" parent="." index="10" unique_id=1130400609 instance=ExtResource("15_u8h66")]
 position = Vector2(0, -4)
 texture = SubResource("AtlasTexture_7mrrw")
 process_material = SubResource("ParticleProcessMaterial_5k4xd")
-
-[node name="VFX_damage" parent="." index="11" unique_id=2140509907 node_paths=PackedStringArray("audio_player", "particles")]
-audio_player = NodePath("../SFX")
-particles = NodePath("../GPUParticles2D")
