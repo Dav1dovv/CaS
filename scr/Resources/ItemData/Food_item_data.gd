@@ -9,6 +9,9 @@ class_name FoodData
 ## Восстановление голода (если у вас есть система голода)  
 @export var health_restore: float = 20.0  
 @export var remove_corription : int = 0
+## Свойство "очищение" (GDD 3.3 "Заражение") — снимает столько % заражения игрока.
+## Отдельно от remove_corription (тот снимает проклятие/curse, другая система).
+@export var cure_infection : float = 0.0
 
 # Переопределение для еды: улучшаем hunger_restore и эффекты
 func apply_quality_multiplier(q: int) -> void:

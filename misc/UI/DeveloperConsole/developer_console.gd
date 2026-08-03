@@ -1,5 +1,5 @@
 extends CanvasLayer
-
+class_name devconsole
 # Сигналы
 signal command_entered(command: String, args: Array)
 signal chat_message_sent(message: String)  # Обычное сообщение в чат

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://fgmnq4ft82wh"]
 
+[ext_resource type="Script" uid="uid://bdpkv7mxycsja" path="res://scr/Manager/GameManager.gd" id="1_074my"]
 [ext_resource type="PackedScene" uid="uid://qc6y8v64442s" path="res://misc/Entity/Player/player.tscn" id="6_bd8m6"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="7_1ds54"]
 [ext_resource type="Script" uid="uid://cx0477dq0nkws" path="res://scr/Misc/Blaze_camera.gd" id="7_2ifnd"]
@@ -12,7 +13,7 @@ script = ExtResource("9_1ds54")
 creature_scene = ExtResource("10_n55o3")
 metadata/_custom_type_script = "uid://cspf06hgc8h0w"
 
-[sub_resource type="Resource" id="Resource_bd8m6"]
+[sub_resource type="Resource" id="Resource_8lo6w"]
 resource_local_to_scene = true
 resource_name = "Player Stat"
 script = ExtResource("7_1ds54")
@@ -23,6 +24,7 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [node name="LocationRoot" type="Node2D" unique_id=1133907741 groups=["World"]]
 y_sort_enabled = true
+script = ExtResource("1_074my")
 
 [node name="CreatureSpawner" type="Node2D" parent="." unique_id=2003484596]
 script = ExtResource("8_2ifnd")
@@ -30,7 +32,7 @@ creatures = Array[ExtResource("9_1ds54")]([SubResource("Resource_q0jo5")])
 metadata/_custom_type_script = "uid://bl7jbpdad5e77"
 
 [node name="Player" parent="." unique_id=1150737309 instance=ExtResource("6_bd8m6")]
-Entity_stats = SubResource("Resource_bd8m6")
+Entity_stats = SubResource("Resource_8lo6w")
 
 [node name="Blaze_camera" type="Camera2D" parent="Player" unique_id=294408334]
 position = Vector2(0, -8)

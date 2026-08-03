@@ -89,6 +89,7 @@ blue_berry_drp_rsc = SubResource("Resource_j10sa")
 durability = 2.0
 harvest_tool_lvl = 0
 max_distance = 10.0
+can_infect = false
 
 [node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(-0.500001, -10.5)
@@ -121,10 +122,8 @@ shape = SubResource("CircleShape2D_pewux")
 
 [node name="Particles" parent="." index="6" unique_id=1229593084 instance=ExtResource("8_tgede")]
 position = Vector2(0, -6)
-emitting = false
 amount = 24
 lifetime = 0.5
-one_shot = true
 speed_scale = 1.0
 randomness = 1.0
 fixed_fps = 60

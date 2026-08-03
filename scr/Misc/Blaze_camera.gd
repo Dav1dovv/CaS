@@ -4,7 +4,12 @@ class_name Blaze_camera
 var sscount = 0
 @export var auto_screenshot : bool = true
 
+var timer = Timer.new()
+
 func _ready():
+	timer.wait_time = 5
+	timer.start()
+	timer.timeout.connect(screenshot)
 	var dir = DirAccess.open("user://")
 	dir.make_dir("Screenshots")
 	

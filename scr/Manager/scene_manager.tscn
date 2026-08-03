@@ -214,7 +214,6 @@ vertical_alignment = 1
 
 [node name="LabelAnim" type="AnimationPlayer" parent="CanvasLayer/CanvasLayer2" unique_id=1984405301]
 libraries/ = SubResource("AnimationLibrary_b8hkq")
-autoplay = &"Show"
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=68827252]
 modulate = Color(1, 1, 1, 0)

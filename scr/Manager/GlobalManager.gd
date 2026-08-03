@@ -10,7 +10,7 @@ extends Node
 #     затиранием float 0-100 значением int 0-3).
 # ─────────────────────────────────────────────────────────────────────────────
 
-@onready var developer_console: CanvasLayer = %DeveloperConsole
+@onready var developer_console: devconsole = %DeveloperConsole
 @onready var scene_manager: SceneManager    = $SceneManager
 @onready var day_night: DayNightCycle = $DayNight
 @onready var BGM: AudioStreamPlayer         = $AudioStreamPlayer

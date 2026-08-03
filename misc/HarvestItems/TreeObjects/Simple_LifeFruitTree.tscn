@@ -86,6 +86,7 @@ color_ramp = SubResource("GradientTexture1D_uupl7")
 [node name="LifeFruitTree" unique_id=1900192733 instance=ExtResource("1_f3l70")]
 durability = 10.0
 harvest_tool_lvl = 0
+can_infect = false
 
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 position = Vector2(3, -4)
@@ -109,6 +110,7 @@ position = Vector2(2.27439, -13.6867)
 texture = ExtResource("3_my7y8")
 offset = Vector2(-2.27439, -14.3133)
 hframes = 3
+frame = 2
 script = ExtResource("4_nnn6h")
 frame_weights = Array[float]([1.0, 1.0, 1.0, 1.0])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"

@@ -62,6 +62,7 @@ color_ramp = SubResource("GradientTexture1D_axhva")
 
 [node name="Bone" unique_id=1170788625 instance=ExtResource("1_vlig4")]
 durability = 13.0
+can_infect = false
 
 [node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
 shape = SubResource("CircleShape2D_igy4k")

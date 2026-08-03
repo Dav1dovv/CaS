@@ -1,13 +1,22 @@
 [gd_scene format=3 uid="uid://dreoa0kkr7ov6"]
 
 [ext_resource type="Script" uid="uid://bnbv4h1swhyt8" path="res://misc/UI/gui.gd" id="1_7myg7"]
+[ext_resource type="Shader" uid="uid://cintnagw1njik" path="res://scr/Systems/Infection/infection_vignette.gdshader" id="2_01dxt"]
 [ext_resource type="Texture2D" uid="uid://bes0yp1rfj1q3" path="res://Assets/Textures/UI/Icons.png" id="2_kscpg"]
 [ext_resource type="Script" uid="uid://bol7bb0n3rim5" path="res://scr/Resources/effects/EffectdisplayUI.gd" id="3_0kf04"]
+[ext_resource type="Script" uid="uid://bnl813ev2w7bk" path="res://scr/Systems/Infection/InfectionVignette.gd" id="3_my3yu"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="4_01dxt"]
 [ext_resource type="PackedScene" uid="uid://xi525y36l0mn" path="res://scr/Systems/Inventory/Inventory.tscn" id="5_my3yu"]
 [ext_resource type="Script" uid="uid://brgbxkb6l0dem" path="res://scr/Misc/health_bar.gd" id="5_yfmxh"]
 [ext_resource type="PackedScene" uid="uid://bhugp3d5bopwb" path="res://misc/UI/Death/death_menu.tscn" id="6_yfmxh"]
 [ext_resource type="PackedScene" uid="uid://b0mf3l56dvooj" path="res://misc/UI/Pause/pause_menu.tscn" id="7_2v76w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cdos3"]
+shader = ExtResource("2_01dxt")
+shader_parameter/strength = 0.0
+shader_parameter/vignette_color = Color(0.45, 0.05, 0.65, 1)
+shader_parameter/radius = 0.75
+shader_parameter/softness = 0.6
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ukw7k"]
 atlas = ExtResource("2_kscpg")
@@ -97,6 +106,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="HUD" unique_id=179089321]
+material = SubResource("ShaderMaterial_cdos3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_my3yu")
 
 [node name="Deffense" type="TextureRect" parent="HUD" unique_id=1325443342]
 visible = false

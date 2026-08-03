@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgcaeuihkhjm6"
-path="res://.godot/imported/Ruby.png-1c994db4c88ef0cd47c423eb71ec5b37.ctex"
+uid="uid://dg4qjylvifam"
+path="res://.godot/imported/Skyleria.png-bc5b46effd6e9abae6f3e26fe4c86707.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://misc/HarvestItems/Textures/Ruby.png"
-dest_files=["res://.godot/imported/Ruby.png-1c994db4c88ef0cd47c423eb71ec5b37.ctex"]
+source_file="res://Assets/Textures/UI/Title/Skyleria.png"
+dest_files=["res://.godot/imported/Skyleria.png-bc5b46effd6e9abae6f3e26fe4c86707.ctex"]
 
 [params]
 

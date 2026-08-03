@@ -6,6 +6,7 @@ extends ColorRect
 
 # ── Сплеш ────────────────────────────────────────────────────────────────────
 @onready var splash_label : Label = $CanvasLayer/TextureRect/SplashLabel
+@onready var V_label: Label = $CanvasLayer/V_Label
 
 var splash_json_path = "res://common/SplashTexts.json"
 var splash_texts = []
@@ -30,7 +31,8 @@ func _ready() -> void:
 	load_splash_texts()
 	set_random_splash_text()
 	animate_splash()
-
+	
+	V_label.text = "V:" + str(ProjectSettings.get_setting("application/config/version"))
 	# Скрываем всё кроме главного меню
 	#mode_select_panel.visible = false
 	save_load_ui.visible      = false

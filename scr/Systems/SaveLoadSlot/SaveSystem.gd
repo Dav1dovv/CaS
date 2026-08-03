@@ -131,7 +131,9 @@ func save_player(player: Node) -> bool:
 			"Corruption" : player.corruption,
 			"head_index": player.get_node("Skin").head_inex,
 			"skin_index": player.get_node("Skin").skin_index,
-			"global_corruption" : Global.corruption
+			"global_corruption" : Global.corruption,
+			"hunger_data" : player.hunger,
+			"infection" : player.get_infection()
 		},
 		"equipment": {
 			"equipped_item": player.get_node("GUI/HUD/Inventory/HotBar").selected_index,
@@ -161,6 +163,9 @@ func load_player(player: Node) -> bool:
 		Global.player_skin_head_index      = s.get("head_index",  0)
 		Global.corruption                  = s.get("global_corruption",Global.corruption)
 		player.get_node("Skin").update_skin()
+		player.hunger                      = s.get("hunger_data",100)
+		if player.infection:
+			player.infection.infection     = s.get("infection", 0.0)
 
 	if data.has("equipment"):
 		var e: Dictionary = data["equipment"]

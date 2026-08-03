@@ -19,5 +19,7 @@ func _ready() -> void:
 	
 
 func teleport():
-	Global.scene_manager.change_scene(scenes.pick_random(),Vector2.ZERO)
-	
+	if Global.inventory.has_total_item(CRYSTAL,need_crystal_count):
+		Global.scene_manager.change_scene(scenes.pick_random(),Vector2.ZERO)
+	else:
+		print("Not enough resources")

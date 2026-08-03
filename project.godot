@@ -28,11 +28,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Caves and Sword"
+config/name="Caves & Sword"
 config/name_localized={
 "en_RU": "Пешеры и Мечи"
 }
-config/version="0.1.0"
+config/version="0.0.3"
 config/tags=PackedStringArray("in_dev")
 run/main_scene="uid://bntky2x40cdr3"
 config/use_custom_user_dir=true
@@ -119,7 +119,7 @@ window/vsync/vsync_mode=0
 
 [editor]
 
-movie_writer/movie_file="C:/Users/davit/OneDrive/Документы/TLOE_adventure_under/the-legend-of-elaria/Movies/Clip1.avi"
+movie_writer/movie_file="/home/davit/Документы/CaS/VIDS/Clip1.avi"
 
 [editor_plugins]
 

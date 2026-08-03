@@ -1,5 +1,5 @@
 extends RapierArea2D
-class_name Harvestable
+class_name Harvest_item
 
 signal collected
 signal hit
@@ -58,7 +58,18 @@ var _last_hit_time : float = -999.0
 @export var rich_vein_tint : Color = Color(1.0, 0.85, 0.2, 1.0)
 
 var is_rich_vein : bool = false
+var is_corrupted : bool = false
 
+## Отладка: принудительно сделать ЭТОТ ресурс заражённым, чтобы проверить логику
+## заражения не дожидаясь рандома. Включай точечно на одном инстансе в
+## инспекторе для теста — по умолчанию должно быть false, иначе заражены
+## будут все ресурсы, использующие этот скрипт.
+@export var force_corrupted : bool = false
+
+# ─── Заражение игрока (GDD 3.3 "Заражение") ──────────────────────────────────
+## Сколько заражения получает игрок за один удар по заражённому (is_corrupted)
+## ресурсу — "осколки летят в игрока", п. 3.3 GDD.
+@export_range(0.0, 20.0, 0.5) var infection_per_hit : float = 2.0
 # ── ОПТИМИЗАЦИЯ: throttle вне экрана ─────────────────────────────
 # В сцене уже есть VisibleOnScreenEnabler2D ("optimizer"), но раньше он не
 # использовался в скрипте — update_transparency() дистанции до игрока
@@ -66,6 +77,7 @@ var is_rich_vein : bool = false
 # тех, что далеко за пределами экрана (а таких на большой карте может быть
 # сотни одновременно). Теперь вне экрана эта проверка просто пропускается —
 # как и у Creature.gd, где этот же паттерн уже применён.
+@export var can_infect : bool = true
 @onready var _screen_notifier: VisibleOnScreenEnabler2D = get_node_or_null("optimizer")
 var _is_active: bool = true
 
@@ -80,7 +92,26 @@ func _ready() -> void:
 	add_to_group("Harvestable")
 	if not is_inside_tree():
 		await tree_entered
-	
+	# ── Шанс стать заражённым ресурсом ───────────────────────────────────────
+	# БЫЛО: randi() / Global.corruption — целочисленное деление огромного randi()
+	# на int почти никогда не давало < 0.3, is_corrupted не срабатывал вообще
+	# (шанс ~1 к 64 млн). Теперь шанс честно масштабируется от уровня заражения
+	# мира (Global.corruption, 0-100): при 100% заражении мира — до 30% шанс
+	# на ресурс, при 0% — 0%.
+	# ── Шанс стать заражённым ресурсом ───────────────────────────────────────
+	# force_corrupted — точечный оверрайд для теста ОДНОГО ресурса в инспекторе.
+	# can_infect — может ли этот тип ресурса вообще заражаться (выключи у тех
+	# ресурсов, которые по дизайну не должны быть заражёнными).
+	if force_corrupted:
+		$Corruption.emitting = true
+		is_corrupted = true
+	elif can_infect:
+		var max_corrupt_chance := 0.3
+		var corrupt_chance := (float(Global.corruption) / 100.0) * max_corrupt_chance
+		if randf() < corrupt_chance:
+			$Corruption.emitting = true
+			is_corrupted = true
+
 	Dropper_component = $droper
 	player = get_tree().get_first_node_in_group("Player")
 	gm = get_tree().get_first_node_in_group("World")
@@ -117,6 +148,11 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 	# Запоминаем тир для spawn CurseObject при разрушении
 	_last_tool_lvl = tool_lvl
 
+	# ── Заражение игрока: осколки заражённого ресурса летят при каждом ударе ─
+	if is_corrupted:
+		_infect_player()
+	# ─────────────────────────────────────────────────────────────────────────
+
 	# ── Комбо-тайминг: бей ритмично — множитель растёт ───────────────────────
 	#_update_combo()
 	# ─────────────────────────────────────────────────────────────────────────
@@ -133,6 +169,14 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 
 	if durability <= 0:
 		_on_destroyed(tool_lvl)
+
+
+## Заражает игрока осколками при ударе по заражённому ресурсу.
+func _infect_player() -> void:
+	if player == null:
+		return
+	if player.has_method("add_infection"):
+		player.add_infection(infection_per_hit)
 
 
 func _on_destroyed(tool_lvl: int) -> void:

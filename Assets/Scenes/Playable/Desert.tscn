@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Structures/Ruins/syncer.tscn" id="9_0l3dh"]
 [ext_resource type="PackedScene" uid="uid://hmy1xjfrwqwq" path="res://misc/Structures/honey_comb.tscn" id="10_ovmnn"]
 [ext_resource type="PackedScene" uid="uid://b8ekv73e134mt" path="res://misc/Structures/smith.tscn" id="11_ei4kb"]
+[ext_resource type="PackedScene" uid="uid://cqpn8wkvr12am" path="res://misc/HarvestItems/Cactus.tscn" id="12_4sboa"]
 [ext_resource type="PackedScene" uid="uid://dj1b8v3ljmaec" path="res://misc/HarvestItems/TreeObjects/Palm.tscn" id="12_j2cba"]
 [ext_resource type="PackedScene" uid="uid://d1gv8gc1ygm17" path="res://misc/HarvestItems/Emerald.tscn" id="13_4sboa"]
 [ext_resource type="PackedScene" uid="uid://ct7urhwcdy7rg" path="res://misc/HarvestItems/SandStone.tscn" id="14_johiw"]
@@ -117,6 +118,7 @@ metadata/_custom_type_script = "uid://cxixcs17bxicy"
 resource_name = "palm"
 script = ExtResource("8_tbngs")
 Generation_scene = ExtResource("12_j2cba")
+Generation_random_versions = Array[PackedScene]([ExtResource("12_4sboa")])
 random_scales = {
 "Big": Vector2(2, 2),
 "Middle": Vector2(1.7, 1.7),
@@ -186,7 +188,7 @@ spawn_phase = "Night"
 variations = Array[PackedScene]([ExtResource("25_saxml")])
 metadata/_custom_type_script = "uid://cspf06hgc8h0w"
 
-[sub_resource type="Resource" id="Resource_0l3dh"]
+[sub_resource type="Resource" id="Resource_johiw"]
 resource_local_to_scene = true
 resource_name = "Player Stat"
 script = ExtResource("26_5itkd")
@@ -241,7 +243,7 @@ creatures = Array[ExtResource("18_866cm")]([SubResource("Resource_vdqi3"), SubRe
 
 [node name="Player" parent="." index="3" unique_id=1150737309]
 position = Vector2(9, -7)
-Entity_stats = SubResource("Resource_0l3dh")
+Entity_stats = SubResource("Resource_johiw")
 
 [node name="crystal" parent="." index="4" unique_id=1200449064 instance=ExtResource("27_07csx")]
 position = Vector2(30, -34)

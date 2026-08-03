@@ -121,8 +121,13 @@ func add_item(item_data: ItemData, amount: int = 1) -> bool:
 		if remaining <= 0:
 			break
 		if data.item == null:
-			# Дублируем только стакаемые предметы; нестакаемые — напрямую
-			data.item   = item_data if item_data.stackable else item_data
+			# Дублируем только стакаемые предметы; нестакаемые — напрямую.
+			# ПРИМЕЧАНИЕ: раньше здесь был мёртвый тернарник (оба варианта
+			# возвращали item_data), из-за чего несколько стаков одного и
+			# того же предмета в разных слотах фактически были ОДНОЙ и той
+			# же Resource-нодой. Теперь дублируем по-настоящему, как и
+			# задумано (см. аналогичную логику в hot_bar.gd add_item).
+			data.item   = item_data.duplicate() if item_data.stackable else item_data
 			var add: int = mini(remaining, item_data.max_count)
 			data.amount  = add
 			data.slot_node.item    = data.item
@@ -146,12 +151,20 @@ func _is_same_item(a: ItemData, b: ItemData) -> bool:
 	if a.item_name == b.item_name and a.get_class() == b.get_class(): return true
 	return false
 
-## Ключ для кэша количества — стараемся использовать resource_path (стабилен
-## для всех дубликатов одного и того же ресурса), иначе падаем на item_name.
+## Ключ для кэша количества.
+## ВАЖНО: resource_path НЕЛЬЗЯ использовать как основной ключ — при
+## item_data.duplicate() (см. hot_bar.gd add_item, где стакаемые предметы
+## дублируются) resource_path у копии обнуляется, а у оригинала (например,
+## main_resource в CraftRecipe, загруженного напрямую с диска) остаётся
+## заполненным. Из-за этого один и тот же предмет в хотбаре и в обычном
+## инвентаре попадал в РАЗНЫЕ ключи кэша, и get_total_item_count()
+## занижал/обнулял количество — крафт "не видел" ресурсы, лежащие в хотбаре.
+## item_name стабилен всегда (не зависит от duplicate()), поэтому используем
+## его как основной ключ.
 func _count_key(item: ItemData) -> String:
-	if item.resource_path != "":
-		return item.resource_path
-	return item.item_name
+	if item.item_name != "":
+		return item.item_name
+	return item.resource_path
 
 func _mark_count_cache_dirty() -> void:
 	_count_cache_dirty = true

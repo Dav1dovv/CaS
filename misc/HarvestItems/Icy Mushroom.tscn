@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://mmus8dcde365"]
+[gd_scene format=3 uid="uid://bcv4kvt21mprp"]
 
 [ext_resource type="PackedScene" uid="uid://dx7g6doff7gue" path="res://misc/HarvestItems/mushroom.tscn" id="1_xkn0m"]
 [ext_resource type="Texture2D" uid="uid://x5m4oh8mgik4" path="res://misc/HarvestItems/Textures/Icy Mushroom.png" id="2_231yx"]

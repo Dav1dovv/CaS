@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://qc6y8v64442s"]
 
 [ext_resource type="PackedScene" uid="uid://ddok5ai5dtxca" path="res://misc/Entity/MISC/entity.tscn" id="1_m1ixc"]
-[ext_resource type="Script" uid="uid://dng31xrvwg8o6" path="res://misc/Entity/Player/player.gd" id="2_ipy58"]
+[ext_resource type="Script" uid="uid://b7bauwa8jiqx3" path="res://misc/Entity/Player/player.gd" id="2_ipy58"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_ipy58"]
-[ext_resource type="Script" uid="uid://dyh83ojl28cng" path="res://misc/Utils/Boxes/PlayerHitBox.gd" id="5_kgjb5"]
+[ext_resource type="Script" uid="uid://d3omth50sungw" path="res://misc/Utils/Boxes/PlayerHitBox.gd" id="5_kgjb5"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="6_xdby1"]
 [ext_resource type="Script" uid="uid://8un4fxvacetp" path="res://misc/Entity/Player/skin.gd" id="8_na5cn"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="10_x7qg1"]
@@ -27,7 +27,11 @@
 [ext_resource type="Script" uid="uid://n6l13isgrtjd" path="res://scr/Resources/ItemData/WeaponPassiveHandler.gd" id="22_o7e8x"]
 [ext_resource type="Texture2D" uid="uid://cqcradnom2smb" path="res://misc/Entity/Player/Textures/Skin7.png" id="23_ipy58"]
 [ext_resource type="PackedScene" uid="uid://dreoa0kkr7ov6" path="res://misc/UI/GUI.tscn" id="25_5fsrh"]
+[ext_resource type="Script" uid="uid://b1ymp54xapuhh" path="res://misc/Entity/Player/scripts/player_dev_commands.gd" id="29_pg7r4"]
+[ext_resource type="Script" uid="uid://dovru4rdjmqw6" path="res://misc/Entity/Player/scripts/player_combat.gd" id="30_k2mf7"]
 [ext_resource type="PackedScene" uid="uid://digbxx3ko1dgy" path="res://misc/Particles/BloodSplash.tscn" id="30_pg7r4"]
+[ext_resource type="Script" uid="uid://vc8g8gj2i44s" path="res://misc/Entity/Player/scripts/player_movement.gd" id="31_k2mf7"]
+[ext_resource type="Script" uid="uid://cg850kwnky754" path="res://misc/Entity/Player/scripts/player_infection.gd" id="32_8c2yh"]
 
 [sub_resource type="Resource" id="Resource_k2mf7"]
 script = ExtResource("3_ipy58")
@@ -1909,8 +1913,6 @@ alpha_curve = SubResource("CurveTexture_4qrji")
 collision_layer = 4
 collision_mask = 5121
 script = ExtResource("2_ipy58")
-acceleration = 0.23
-friction = 0.25
 BodyAnimator = NodePath("Skin/Body/BodyAnim")
 HandAanimator = NodePath("Skin/Body/Hand/AnimationPlayer")
 Entity_stats = SubResource("Resource_k2mf7")
@@ -2057,5 +2059,25 @@ metadata/_custom_type_script = "uid://n6l13isgrtjd"
 position = Vector2(0, -10.982764)
 process_material = SubResource("ParticleProcessMaterial_pg7r4")
 
+[node name="PlayerDevCommands" type="Node" parent="." index="12" unique_id=709647753]
+unique_name_in_owner = true
+script = ExtResource("29_pg7r4")
+metadata/_custom_type_script = "uid://b1ymp54xapuhh"
+
+[node name="PlayerCombat" type="Node" parent="." index="13" unique_id=1301284589]
+unique_name_in_owner = true
+script = ExtResource("30_k2mf7")
+metadata/_custom_type_script = "uid://dovru4rdjmqw6"
+
+[node name="PlayerMovement" type="Node" parent="." index="14" unique_id=1363744354]
+unique_name_in_owner = true
+script = ExtResource("31_k2mf7")
+metadata/_custom_type_script = "uid://vc8g8gj2i44s"
+
+[node name="PlayerInfection" type="Node" parent="." index="15" unique_id=433010082]
+script = ExtResource("32_8c2yh")
+metadata/_custom_type_script = "uid://cg850kwnky754"
+
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
+[connection signal="infection_changed" from="PlayerInfection" to="." method="_on_player_infection_infection_changed"]

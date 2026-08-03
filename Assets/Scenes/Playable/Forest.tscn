@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://b8g6o4tj34wvb" path="res://misc/Structures/Ruins/syncer.tscn" id="9_blod5"]
 [ext_resource type="PackedScene" uid="uid://hmy1xjfrwqwq" path="res://misc/Structures/honey_comb.tscn" id="10_0east"]
 [ext_resource type="PackedScene" uid="uid://b8ekv73e134mt" path="res://misc/Structures/smith.tscn" id="11_78rb8"]
+[ext_resource type="PackedScene" uid="uid://daaj332bbjj6m" path="res://misc/Entity/NPC/NPC_anelim.tscn" id="11_blod5"]
 [ext_resource type="PackedScene" uid="uid://d0qb8iwxdcwpn" path="res://misc/HarvestItems/TreeObjects/Tree.tscn" id="12_2gjbw"]
+[ext_resource type="PackedScene" uid="uid://c35burxanwn45" path="res://misc/Structures/Portals/portal.tscn" id="12_tpqk0"]
 [ext_resource type="PackedScene" uid="uid://ci8lyapkm0sfc" path="res://misc/HarvestItems/Stone.tscn" id="13_r5k1r"]
 [ext_resource type="PackedScene" uid="uid://cct8to734kk6v" path="res://misc/HarvestItems/Bush.tscn" id="14_id8lk"]
 [ext_resource type="PackedScene" uid="uid://dteiq6ibs70h7" path="res://misc/HarvestItems/TreeObjects/Simple_LifeFruitTree.tscn" id="15_6xstv"]
@@ -25,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://byhpun3f4s0co" path="res://misc/Entity/Animals/cow.tscn" id="19_7y561"]
 [ext_resource type="PackedScene" uid="uid://daj1k2ggd61wi" path="res://misc/HarvestItems/bomb_berry.tscn" id="19_tpqk0"]
 [ext_resource type="PackedScene" uid="uid://bgohoombtdw0k" path="res://misc/Entity/Animals/Sheep.tscn" id="20_0hl2s"]
+[ext_resource type="PackedScene" uid="uid://bodm1xuyyxtpt" path="res://misc/HarvestItems/Crystal.tscn" id="21_1i8fe"]
 [ext_resource type="PackedScene" uid="uid://bwsbomlixn63q" path="res://misc/Entity/Enemies/Pig.tscn" id="21_xtq26"]
 [ext_resource type="PackedScene" uid="uid://bhbw8mun1rxtv" path="res://misc/Entity/Enemies/Rat.tscn" id="22_n2tim"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="23_o6qms"]
@@ -119,6 +122,51 @@ exclusion_radius = 300.0
 spawn_priority = 80
 metadata/_custom_type_script = "uid://cxixcs17bxicy"
 
+[sub_resource type="Resource" id="Resource_nwpw5"]
+script = ExtResource("8_1i8fe")
+Generation_scene = ExtResource("12_tpqk0")
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_tuxal"]
+script = ExtResource("4_6xstv")
+structure_name = "Portal"
+structure_type = 2
+custom_type_name = "Portal"
+generation_item = SubResource("Resource_nwpw5")
+min_distance_from_player = 120.0
+min_distance_between_same_type = 200.0
+min_distance_between_any = 150.0
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
+[sub_resource type="Resource" id="Resource_78rb8"]
+script = ExtResource("8_1i8fe")
+Generation_scene = ExtResource("11_blod5")
+random_scales = {
+"Big": Vector2(1, 1),
+"Middle": Vector2(1, 1),
+"Standart": Vector2(1, 1)
+}
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
+[sub_resource type="Resource" id="Resource_blod5"]
+script = ExtResource("4_6xstv")
+structure_name = "Anelim"
+structure_type = 2
+custom_type_name = "Anelim"
+generation_item = SubResource("Resource_78rb8")
+min_distance_from_player = 150.0
+min_distance_between_same_type = 200.0
+min_distance_between_any = 150.0
+exclusion_radius = 100.0
+spawn_priority = 100
+spawn_chance = 0.908
+metadata/_custom_type_script = "uid://cxixcs17bxicy"
+
 [sub_resource type="Resource" id="Resource_so4x0"]
 script = ExtResource("8_1i8fe")
 Generation_scene = ExtResource("12_2gjbw")
@@ -174,6 +222,12 @@ Generation_scene = ExtResource("19_tpqk0")
 spawn_weight = 0.428
 metadata/_custom_type_script = "uid://bwabf86cec2s5"
 
+[sub_resource type="Resource" id="Resource_tpqk0"]
+script = ExtResource("8_1i8fe")
+Generation_scene = ExtResource("21_1i8fe")
+spawn_weight = 0.314
+metadata/_custom_type_script = "uid://bwabf86cec2s5"
+
 [sub_resource type="Resource" id="Resource_vdqi3"]
 script = ExtResource("15_ewuuv")
 creature_scene = ExtResource("16_yhxvc")
@@ -194,7 +248,7 @@ spawn_phase = "Night"
 variations = Array[PackedScene]([ExtResource("22_n2tim")])
 metadata/_custom_type_script = "uid://cspf06hgc8h0w"
 
-[sub_resource type="Resource" id="Resource_1i8fe"]
+[sub_resource type="Resource" id="Resource_0east"]
 resource_local_to_scene = true
 resource_name = "Player Stat"
 script = ExtResource("23_o6qms")
@@ -233,21 +287,23 @@ grass_variation_coords = Array[Vector2i]([Vector2i(4, 0), Vector2i(5, 0), Vector
 grass_variation_chance = 0.66
 noise_octaves = 2
 water_level = 0.27
-special_structures = Array[ExtResource("4_6xstv")]([SubResource("Resource_y14l7"), SubResource("Resource_7pk4t"), SubResource("Resource_hwayi"), SubResource("Resource_5bbjv")])
+island_radius = 0.833
+island_edge_noise_strength = 0.523
+special_structures = Array[ExtResource("4_6xstv")]([SubResource("Resource_y14l7"), SubResource("Resource_7pk4t"), SubResource("Resource_hwayi"), SubResource("Resource_5bbjv"), SubResource("Resource_tuxal"), SubResource("Resource_blod5")])
 max_structure_attempts = 10
-resource_items = Array[ExtResource("8_1i8fe")]([SubResource("Resource_so4x0"), SubResource("Resource_en3oc"), SubResource("Resource_a76op"), SubResource("Resource_uysg6"), SubResource("Resource_1t0vu"), ExtResource("18_6pj4d"), SubResource("Resource_deyxd")])
+resource_items = Array[ExtResource("8_1i8fe")]([SubResource("Resource_so4x0"), SubResource("Resource_en3oc"), SubResource("Resource_a76op"), SubResource("Resource_uysg6"), SubResource("Resource_1t0vu"), ExtResource("18_6pj4d"), SubResource("Resource_deyxd"), SubResource("Resource_tpqk0")])
 target_path = NodePath("../Player")
 chunk_time_budget_ms = 1.0
 
 [node name="CreatureSpawner" parent="." index="2" unique_id=2003484596 node_paths=PackedStringArray("player")]
 player = NodePath("../Player")
 spawn_distance_max = 350.0
-max_creatures = 15
+max_creatures = 10
 creatures = Array[ExtResource("15_ewuuv")]([SubResource("Resource_vdqi3"), SubResource("Resource_eu50n"), SubResource("Resource_3gx4s")])
 
 [node name="Player" parent="." index="3" unique_id=1150737309]
 position = Vector2(9, -7)
-Entity_stats = SubResource("Resource_1i8fe")
+Entity_stats = SubResource("Resource_0east")
 
 [node name="crystal" parent="." index="4" unique_id=1200449064 instance=ExtResource("24_3aaov")]
 position = Vector2(30, -34)

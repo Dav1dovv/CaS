@@ -11,7 +11,15 @@ display_name = "Forest"
 music_key = "Forest"
 metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
 
+[sub_resource type="Resource" id="Resource_bv3vm"]
+script = ExtResource("1_d63od")
+key = "Desert"
+scene_path = "uid://duw2mnik7rufx"
+display_name = "Desert"
+music_key = "Desert"
+metadata/_custom_type_script = "uid://dahsqqqv7jj4q"
+
 [resource]
 script = ExtResource("2_bcnq4")
-scenes = Array[ExtResource("1_d63od")]([SubResource("Resource_xu2h1")])
+scenes = Array[ExtResource("1_d63od")]([SubResource("Resource_xu2h1"), SubResource("Resource_bv3vm")])
 metadata/_custom_type_script = "uid://b7mb22r6p1vpu"

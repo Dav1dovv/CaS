@@ -1,4 +1,4 @@
-extends Harvestable
+extends Harvest_item
 
 const SHININ_1 = preload("uid://dt3kmwwp04orp")
 const SHININ_2 = preload("uid://bgul038d2vviw")

@@ -100,7 +100,12 @@ func hit(area: Area2D) -> void:
 
 
 func apply_damage(area: Area2D, damage: float) -> void:
-
+	# ── Заражение: -50% урона от атак игрока при 50-79% (GDD 3.3) ────────────
+	# Штраф уже накладывается компонентом PlayerInfection на Entity_stats.damage_modifier
+	# (через EffectManager, тем же путём, что и оружейные баффы урона) — здесь
+	# он просто применяется к фактическому исходящему урону.
+	damage *= _get_outgoing_damage_multiplier()
+	# ─────────────────────────────────────────────────────────────────────────
 
 	# ── Harvestable ──────────────────────────────────────────────────────────
 	if area.is_in_group("Harvestable"):
@@ -142,6 +147,15 @@ func apply_damage(area: Area2D, damage: float) -> void:
 			equip.reduce_durability(1)
 		return
 	# ────────────────────────────────────────────────────────────────────────
+
+
+## Множитель к исходящему урону игрока — читает Entity_stats.damage_modifier
+## (куда PlayerInfection пишет -0.5 при заражении 50-79%). Минимум 0.1x —
+## чтобы урон не мог уйти в ноль/отрицательное значение при стакании дебаффов.
+func _get_outgoing_damage_multiplier() -> float:
+	if owner and "Entity_stats" in owner and owner.Entity_stats:
+		return maxf(1.0 + owner.Entity_stats.damage_modifier, 0.1)
+	return 1.0
 
 
 func _refresh_hotbar_slot_ui() -> void:
@@ -196,6 +210,8 @@ func _apply_food_effects(food: FoodData) -> void:
 		p.heal(food.health_restore)
 	if p.has_method("remove_curse"):
 		p.remove_curse(food.remove_corription)
+	if p.has_method("cure_infection"):
+		p.cure_infection(food.cure_infection)
 
 
 func eat_food() -> void:

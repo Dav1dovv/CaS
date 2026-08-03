@@ -1,7 +1,6 @@
-[gd_scene format=3 uid="uid://cnuqe5sfj1cck"]
+[gd_scene format=3 uid="uid://baarcqj4qxobm"]
 
 [ext_resource type="PackedScene" uid="uid://diwv2u61puib1" path="res://misc/HarvestItems/Gold.tscn" id="1_aitey"]
-[ext_resource type="Texture2D" uid="uid://dseunb8715ht7" path="res://misc/HarvestItems/Textures/IceOre.png" id="2_kqbd5"]
 [ext_resource type="Script" uid="uid://d0ssuokxx56v7" path="res://misc/Utils/Drop/DropRersource.gd" id="2_ovk5m"]
 [ext_resource type="Resource" uid="uid://bp7w2ejdhuqx4" path="res://misc/Content/Items/Ice.tres" id="3_wv0ki"]
 
@@ -12,6 +11,9 @@ min_throws = 2
 max_throws = 6
 max_count = 2
 metadata/_custom_type_script = "uid://d0ssuokxx56v7"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kqbd5"]
+load_path = "res://.godot/imported/IceOre.png-c97cab9f69e0e32c3957bb261660aff4.ctex"
 
 [sub_resource type="Gradient" id="Gradient_wwo1s"]
 offsets = PackedFloat32Array(0.6460177, 1)
@@ -59,7 +61,7 @@ drop_resources = Array[ExtResource("2_ovk5m")]([SubResource("Resource_vcyrr")])
 
 [node name="Sprite2D" parent="." index="5" unique_id=556241060]
 position = Vector2(0, -4)
-texture = ExtResource("2_kqbd5")
+texture = SubResource("CompressedTexture2D_kqbd5")
 offset = Vector2(0, -7)
 hframes = 1
 frame = 0

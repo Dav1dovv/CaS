@@ -28,28 +28,53 @@ class_name WorldMapGenerator
 #  Размер карты и чанков
 # ─────────────────────────────────────────
 @export_group("Map")
+## Размер карты в ЧАНКАХ (не в тайлах!). Например (20, 20) — карта из 20×20
+## чанков. Итоговый размер карты в тайлах = это число × chunk_size.
+## Карта строится вокруг точки (0,0) — то есть (0,0) всегда её центр.
 @export var map_size_chunks: Vector2i = Vector2i(20, 20)
+## Размер ОДНОГО чанка в тайлах. Чанк — это "блок" карты, который
+## отрисовывается/стирается целиком за раз. Трогать обычно не нужно —
+## 16×16 хорошо сбалансирован по производительности.
 @export var chunk_size: Vector2i = Vector2i(16, 16)   # тайлов в чанке
+## Уникальное имя этой локации/карты. Используется, чтобы сохранить сид
+## генерации и собранные ресурсы отдельно для каждой локации — если у тебя
+## несколько карт (например деревня и подземелье), у них должны быть
+## РАЗНЫЕ location_id, иначе они перепутают сохранения друг друга.
 @export var location_id: String = "world_map"
+## Если включено — генератор будет печатать в консоль подробности о том,
+## что он делает (сид карты, сколько чанков строится и т.п.). Полезно для
+## отладки, в релизной сборке лучше выключить.
 @export var debug_logging: bool = false
 
 # ─────────────────────────────────────────
 #  Слои TileMapLayer (перетащи ноды в инспекторе)
 # ─────────────────────────────────────────
 @export_group("Layers")
+## TileMapLayer-нода, на которой рисуется СУША (трава). Обязательно перетащи
+## сюда нужную ноду из сцены — без неё генератор не запустится.
 @export var ground_layer: TileMapLayer      # трава/суша
+## TileMapLayer-нода, на которой рисуется ВОДА. Можно оставить пустым —
+## тогда вода будет рисоваться прямо на ground_layer тем же TileSet'ом.
 @export var water_layer: TileMapLayer       # вода. Если не задан — вода красится в ground_layer тем же TileSet'ом
 
-## Terrain Set / Terrain ID для земли и воды — смотри во вкладке TileSet → Terrains.
-## Подтверждено скриншотом: Terrain Set 0, grass_terrain = id 0, water_terrain = id 1.
+## Номер Terrain Set в твоём TileSet (вкладка TileSet → Terrains в Godot).
+## Обычно 0, если у тебя один набор террейнов.
 @export var ground_terrain_set: int = 0
+## ID террейна "трава/суша" внутри выбранного Terrain Set.
 @export var grass_terrain_id: int = 0
+## ID террейна "вода" внутри выбранного Terrain Set.
 @export var water_terrain_id: int = 1
 
 @export_subgroup("Fallback (без Terrain)")
+## Резервный режим — если Terrain Set не настроен или не найден, генератор
+## рисует обычными тайлами по этим atlas-координатам (без авто-связывания
+## краёв берега). Source id атласа с тайлом травы.
 @export var grass_atlas_source_id: int = 0
+## Координаты тайла травы внутри атласа (resource fallback-режима).
 @export var grass_atlas_coords: Vector2i = Vector2i(0, 0)
+## Source id атласа с тайлом воды (resource fallback-режима).
 @export var water_atlas_source_id: int = 0
+## Координаты тайла воды внутри атласа (resource fallback-режима).
 @export var water_atlas_coords: Vector2i = Vector2i(0, 0)
 
 # ─────────────────────────────────────────
@@ -80,16 +105,68 @@ class_name WorldMapGenerator
 #  Шум ландшафта
 # ─────────────────────────────────────────
 @export_group("Noise")
+## Масштаб шума высоты — это "зум" узора суши/воды. МЕНЬШЕ значение = более
+## КРУПНЫЕ материки/озёра (шум растянут). БОЛЬШЕ значение = более мелкая,
+## рваная, "шумная" картинка суши/воды. Начни с 0.02 и подкручивай.
 @export var noise_scale: float = 0.02
+## Количество слоёв шума, наложенных друг на друга (fractal octaves).
+## Больше слоёв = больше мелких деталей и неровностей на берегу,
+## но чуть дороже по производительности. 3-4 обычно достаточно.
 @export var noise_octaves: int = 3
+## Порог высоты (0..1): всё что НИЖЕ этого значения — вода, всё что ВЫШЕ
+## или равно — суша. Подними, чтобы было больше воды (остров меньше),
+## опусти — чтобы было больше суши (остров больше).
 @export_range(0.0, 1.0) var water_level: float = 0.35   # ниже этого — вода
+
+# ─────────────────────────────────────────
+#  Форма острова — это НЕ "вода по краям карты", а маска "здесь вообще
+#  что-то есть / здесь пустота". За пределами формы тайлы не рисуются
+#  вообще (ни суша, ни вода) — как будто карта обрывается в пустоту,
+#  остров парит в воздухе. А суша/вода ВНУТРИ формы по-прежнему решается
+#  обычным шумом высоты (Noise → water_level) — так что озеро или клякса
+#  воды может оказаться где угодно, хоть у самого края острова.
+# ─────────────────────────────────────────
+@export_group("Island Shape")
+## Если выключено — форма отключена, остров/суша заполняет всю карту
+## как раньше, до самых границ.
+@export var island_shape_enabled: bool = true
+## Средний "радиус" острова относительно половины карты (0..1). 1.0 —
+## остров почти касается краёв карты. 0.5 — остров занимает примерно
+## половину карты от центра, а дальше — пустота. Это ИМЕННО форма
+## (внутри/снаружи), не имеет отношения к тому, вода там или суша.
+@export_range(0.1, 1.0) var island_radius: float = 0.6
+## Насколько неровный, "рваный" край у формы острова (0 = идеальный
+## овал, ближе к 1 = сильно изрезанный контур с заливами и мысами,
+## похоже на настоящий кусок оторвавшейся суши). Рекомендуется 0.2-0.4.
+@export_range(0.0, 1.0) var island_edge_noise_strength: float = 0.3
+## Масштаб шума, который "рвёт" край острова — управляет РАЗМЕРОМ
+## неровностей контура. Меньше значение = крупные плавные заливы/мысы,
+## больше значение = мелкая рябь по контуру. Не путать с noise_scale —
+## этот шум влияет только на форму, а не на суша/воду внутри неё.
+@export var island_edge_noise_scale: float = 0.01
+## Количество слоёв шума неровности края (fractal octaves). Больше —
+## более детализированный, "естественный" контур, но чуть дороже.
+@export var island_edge_noise_octaves: int = 2
 
 # ─────────────────────────────────────────
 #  Специальные структуры (переиспользуем существующий ресурс)
 # ─────────────────────────────────────────
 @export_group("Special Structures")
+## Список особых построек (лагеря, данжи и т.п.), которые генератор
+## попробует расставить по карте. Каждый элемент — ресурс SpecialStructure
+## с собственными настройками (тип, минимальные дистанции между постройками).
 @export var special_structures: Array[SpecialStructure] = []
+## Сколько раз генератор попытается найти место под структуру, прежде чем
+## сдаться и пропустить её. Больше значение = выше шанс, что все структуры
+## из списка всё-таки поместятся на карту, но дольше генерация на старте.
 @export var max_structure_attempts: int = 200
+## Отступ (в тайлах) от края формы острова, который структуры обязаны
+## соблюдать. Клетка годится под структуру, только если ВСЕ клетки в
+## квадрате этого радиуса вокруг неё тоже внутри острова (не пустота).
+## Так структуры не оказываются на самом обрыве/берегу — некрасиво,
+## когда, например, домик наполовину висит над пустотой. Структуры обычно
+## крупнее ресурсов, поэтому отступ для них больше, чем resource_edge_margin.
+@export_range(0, 15) var structure_edge_margin: int = 4
 
 # ─────────────────────────────────────────
 #  Ресурсы локации (кусты, руда, деревья и т.п. — переиспользуем Generation.gd)
@@ -102,6 +179,18 @@ class_name WorldMapGenerator
 @export var resources_per_chunk: int = 4
 ## Минимальное расстояние между двумя заспавненными ресурсами (px).
 @export var resource_min_spacing: float = 20.0
+## Отступ (в тайлах) от края формы острова, который должны соблюдать
+## ресурсы (кусты/руда/деревья). Клетка годится под ресурс, только если
+## ВСЕ клетки в квадрате этого радиуса вокруг неё тоже внутри острова —
+## иначе куст мог бы оказаться прямо на самом краю обрыва. 0 — отключить
+## проверку (ресурсы могут появляться вплотную к краю, как раньше).
+@export_range(0, 10) var resource_edge_margin: int = 1
+## Минимальное расстояние (px) от ЛЮБОЙ уже размещённой структуры, на
+## котором разрешено ставить ресурс. Нужно, чтобы кусты/деревья не
+## прорастали посередине домика или лагеря — структуры размещаются
+## раньше ресурсов, и это расстояние проверяется дополнительно к обычному
+## resource_min_spacing (который работает только между самими ресурсами).
+@export var resource_structure_clearance: float = 64.0
 ## Если true — уже собранные (harvested) позиции не заспавнятся повторно
 ## после перезахода в локацию (используется SaveSystem.save_harvested/load_harvested).
 @export var track_harvested: bool = true
@@ -118,6 +207,9 @@ class_name WorldMapGenerator
 ## Если зон несколько — побеждает та, у которой порог выше (более
 ## "требовательные"/редкие зоны приоритетнее общих).
 @export var zones: Array[GenerationZone] = []
+## Масштаб отдельного шума, который определяет ГРАНИЦЫ биомов/зон (не путать
+## с noise_scale — тем шумом определяется суша/вода). Меньше значение = более
+## крупные, растянутые зоны биомов, больше = зоны мельче и чаще чередуются.
 @export var zone_noise_scale: float = 0.008
 
 # ─────────────────────────────────────────
@@ -127,6 +219,10 @@ class_name WorldMapGenerator
 ## Нода, вокруг которой строится/стирается мир (обычно игрок).
 ## Пусто = вся карта строится один раз при старте (подходит для небольших карт).
 @export var target_path: NodePath
+## Радиус (в чанках) вокруг игрока, который держится построенным. Чанки
+## за пределами этого радиуса стираются, чтобы не тратить память/CPU на
+## невидимые игроку части карты. Больше значение = дальше видно карту
+## заранее, но больше нагрузка.
 @export var stream_radius_chunks: int = 3
 ## Бюджет ВРЕМЕНИ на постройку/стирание чанков за кадр (мс) — надёжнее, чем
 ## фиксированное число чанков, т.к. стоимость чанка "плавает" (вода/берег
@@ -146,6 +242,7 @@ class_name WorldMapGenerator
 # ─────────────────────────────────────────
 var _noise: FastNoiseLite
 var _zone_noise: FastNoiseLite
+var _island_edge_noise: FastNoiseLite
 var _rng: RandomNumberGenerator
 var _location_seed: int
 var _target: Node2D
@@ -213,13 +310,15 @@ func _ready() -> void:
 		_place_special_structures()
 
 	if _target:
-		# Игрок мог заспавниться на позиции, которая по шуму оказывается водой
-		# (например, всегда на (0,0), а (0,0) теперь центр карты, но не гарантия суши).
-		# Подстраховываемся и переносим его на ближайшую сушу ДО первой отрисовки чанков.
-		if is_water_at(_target.global_position):
+		# Игрок мог заспавниться на позиции, которая оказывается водой ИЛИ
+		# пустотой за пределами формы острова (например, всегда на (0,0),
+		# а (0,0) теперь центр карты, но не гарантия суши при экстремальных
+		# настройках Island Shape). Подстраховываемся и переносим его на
+		# ближайшую сушу ДО первой отрисовки чанков.
+		if not is_land_at(_target.global_position):
 			var land_pos := find_nearest_land(_target.global_position)
 			_target.global_position = land_pos
-			_log("[WorldMapGenerator] Точка спавна была в воде — игрок перенесён на ближайшую сушу: %s" % land_pos)
+			_log("[WorldMapGenerator] Точка спавна была не на суше — игрок перенесён на ближайшую сушу: %s" % land_pos)
 		_refresh_stream_queues()
 	else:
 		# Небольшая/фиксированная карта без стриминга — строим всё сразу,
@@ -270,6 +369,14 @@ func _setup_seed() -> void:
 	_zone_noise.fractal_octaves = 2
 	_zone_noise.frequency = zone_noise_scale
 	_zone_noise.seed = _location_seed + 1
+
+	# Шум, который "рвёт" контур формы острова (не влияет на суша/вода
+	# внутри неё — только на то, где вообще проходит граница острова).
+	_island_edge_noise = FastNoiseLite.new()
+	_island_edge_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	_island_edge_noise.fractal_octaves = island_edge_noise_octaves
+	_island_edge_noise.frequency = island_edge_noise_scale
+	_island_edge_noise.seed = _location_seed + 2
 
 	_rng = RandomNumberGenerator.new()
 	_rng.seed = _location_seed
@@ -452,16 +559,22 @@ func _instantiate_resource(entry: Dictionary) -> void:
 func _build_chunk(c: Vector2i) -> void:
 	var land_cells: Array[Vector2i] = []
 	var water_cells: Array[Vector2i] = []
+	# void_cells — клетки вне формы острова. Туда ничего не рисуем, но если
+	# чанк перестраивается повторно (например после смены сида в редакторе),
+	# нужно СТЕРЕТЬ то, что там могло быть нарисовано раньше.
+	var void_cells: Array[Vector2i] = []
 
 	var origin := c * chunk_size
 	for ly in chunk_size.y:
 		for lx in chunk_size.x:
 			var cell := origin + Vector2i(lx, ly)
-			var h := _elevation_at(cell)
-			if h < water_level:
-				water_cells.append(cell)
-			else:
-				land_cells.append(cell)
+			match _cell_kind(cell):
+				CellKind.WATER:
+					water_cells.append(cell)
+				CellKind.LAND:
+					land_cells.append(cell)
+				CellKind.VOID:
+					void_cells.append(cell)
 
 	var w_layer: TileMapLayer = water_layer if water_layer else ground_layer
 
@@ -479,10 +592,18 @@ func _build_chunk(c: Vector2i) -> void:
 		for cell in water_cells:
 			w_layer.set_cell(cell, water_atlas_source_id, water_atlas_coords)
 
+	# Пустота вне формы острова — стираем клетку на обоих слоях, чтобы там
+	# точно не осталось никакого тайла (это и есть "обрыв в небо").
+	for cell in void_cells:
+		ground_layer.erase_cell(cell)
+		if water_layer:
+			water_layer.erase_cell(cell)
+
 	_paint_grass_variations(c, land_cells)
 
 	_built_chunks[c] = true
 	_spawn_chunk_resources(c, land_cells)
+
 
 
 func _erase_chunk(c: Vector2i) -> void:
@@ -513,12 +634,72 @@ func _erase_chunk(c: Vector2i) -> void:
 
 
 ## Возвращает высоту рельефа 0..1 в точке (мировые координаты тайла).
+## ВАЖНО: эта функция больше НЕ учитывает форму острова — она только про
+## суша/вода (озёра/пруды), которые могут появиться где угодно, в том числе
+## у самого края острова. За форму (внутри/снаружи) отвечает отдельно
+## _is_within_island_shape().
 func _elevation_at(cell: Vector2i) -> float:
 	return (_noise.get_noise_2d(cell.x, cell.y) + 1.0) * 0.5
 
 
+## Три возможных состояния тайла карты.
+enum CellKind { VOID, WATER, LAND }
+
+## Определяет, что должно быть нарисовано в этой клетке:
+## VOID  — вне формы острова, тайл вообще не рисуется (пустота/обрыв в небо).
+## WATER — внутри формы острова, но высота ниже water_level (озеро/пруд/океан у края).
+## LAND  — внутри формы острова и высота выше water_level (обычная суша).
+func _cell_kind(cell: Vector2i) -> int:
+	if island_shape_enabled and not _is_within_island_shape(cell):
+		return CellKind.VOID
+	if _elevation_at(cell) < water_level:
+		return CellKind.WATER
+	return CellKind.LAND
+
+
+## true, если клетка вообще ВХОДИТ в силуэт острова (не важно, суша там
+## или вода внутри него) — считается по неровному (не идеально овальному)
+## контуру: базовый радиус (island_radius) + "рваность" от отдельного шума
+## (island_edge_noise_*), которая выгибает границу то дальше, то ближе,
+## создавая заливы и мысы вместо идеального овала.
+func _is_within_island_shape(cell: Vector2i) -> bool:
+	var half_w := float(map_size_chunks.x * chunk_size.x) * 0.5
+	var half_h := float(map_size_chunks.y * chunk_size.y) * 0.5
+	if half_w <= 0.0 or half_h <= 0.0:
+		return true
+
+	var nx := float(cell.x) / half_w
+	var ny := float(cell.y) / half_h
+	var dist := sqrt(nx * nx + ny * ny)   # 0 в центре карты, ~1 у её края (эллиптически)
+
+	# 0..1 — сдвигаем эффективный радиус острова в эту сторону чуть дальше
+	# или чуть ближе, в зависимости от шума в данной точке контура.
+	var wobble := (_island_edge_noise.get_noise_2d(cell.x, cell.y) + 1.0) * 0.5
+	var wobbled_radius := island_radius + (wobble - 0.5) * island_edge_noise_strength
+
+	return dist <= wobbled_radius
+
+
+## true, если клетка находится достаточно далеко от края формы острова —
+## а именно: ВСЕ клетки в квадрате радиуса margin вокруг неё тоже внутри
+## острова (не VOID). Используется, чтобы структуры/ресурсы не появлялись
+## прямо на обрыве/берегу. margin=0 — проверка отключена (всегда true).
+## Это НЕ про воду — озеро посреди острова сюда не попадает, только про
+## настоящий край формы (пустоту).
+func _is_away_from_edge(cell: Vector2i, margin: int) -> bool:
+	if margin <= 0 or not island_shape_enabled:
+		return true
+	for dy in range(-margin, margin + 1):
+		for dx in range(-margin, margin + 1):
+			if dx == 0 and dy == 0:
+				continue
+			if not _is_within_island_shape(cell + Vector2i(dx, dy)):
+				return false
+	return true
+
+
 func _is_land(cell: Vector2i) -> bool:
-	return _elevation_at(cell) >= water_level
+	return _cell_kind(cell) == CellKind.LAND
 
 
 ## Раскидывает декоративные вариации травы (тайлы вроде "трава с цветами",
@@ -576,6 +757,8 @@ func _place_special_structures() -> void:
 				break
 			var cell := Vector2i(_rng.randi_range(tile_min.x, tile_max.x - 1), _rng.randi_range(tile_min.y, tile_max.y - 1))
 			if not _is_land(cell):
+				continue
+			if not _is_away_from_edge(cell, structure_edge_margin):
 				continue
 			var pos := Vector2(cell) * _tile_size
 			if not _can_place_structure(structure, pos):
@@ -635,6 +818,7 @@ func _spawn_chunk_resources(c: Vector2i, land_cells: Array[Vector2i]) -> void:
 
 	var placed_here: Array[Vector2] = []
 	var spacing_sq := resource_min_spacing * resource_min_spacing
+	var structure_clearance_sq := resource_structure_clearance * resource_structure_clearance
 	var queued_any := false
 
 	for _i in resources_per_chunk:
@@ -644,12 +828,25 @@ func _spawn_chunk_resources(c: Vector2i, land_cells: Array[Vector2i]) -> void:
 		if track_harvested and _harvested_set.has(_snap_key(pos)):
 			continue
 
+		if not _is_away_from_edge(cell, resource_edge_margin):
+			continue
+
 		var too_close := false
 		for p in placed_here:
 			if p.distance_squared_to(pos) < spacing_sq:
 				too_close = true
 				break
 		if too_close:
+			continue
+
+		# Не сажаем ресурс поверх/впритык к уже размещённой структуре
+		# (структуры расставляются раньше ресурсов, так что список уже полон).
+		var too_close_to_structure := false
+		for placed in _placed_structures:
+			if pos.distance_squared_to(placed["position"]) < structure_clearance_sq:
+				too_close_to_structure = true
+				break
+		if too_close_to_structure:
 			continue
 
 		var item := _pick_weighted_resource(chunk_rng, pool, weights, total_weight)
@@ -757,12 +954,25 @@ func _chunk_in_bounds(c: Vector2i) -> bool:
 
 ## Публичные хелперы — например, чтобы WorldGenerator (спавнер объектов) не
 ## сажал кусты в воду: WorldMapGenerator.is_water_at(pos).
+## ВНИМАНИЕ: "вода" здесь — это именно озеро/пруд ВНУТРИ формы острова.
+## Пустота за пределами острова (обрыв в небо) — это отдельное состояние,
+## смотри is_void_at(). Если тебе просто нужно "можно тут стоять/ходить",
+## используй is_land_at() — он и про воду, и про пустоту скажет false.
 func is_water_at(world_pos: Vector2) -> bool:
 	var cell := Vector2i(world_pos / _tile_size)
-	return not _is_land(cell)
+	return _cell_kind(cell) == CellKind.WATER
 
+## true, если позиция вне формы острова — то есть тайла там нет вообще
+## (пустота/обрыв в небо). Полезно, например, чтобы не спавнить врагов или
+## не пускать камеру за реальный край парящего острова.
+func is_void_at(world_pos: Vector2) -> bool:
+	var cell := Vector2i(world_pos / _tile_size)
+	return _cell_kind(cell) == CellKind.VOID
+
+## true только если это обычная твёрдая суша (не вода и не пустота за краем острова).
 func is_land_at(world_pos: Vector2) -> bool:
-	return not is_water_at(world_pos)
+	var cell := Vector2i(world_pos / _tile_size)
+	return _cell_kind(cell) == CellKind.LAND
 
 
 ## Ищет ближайший тайл суши к заданной мировой позиции — расширяющимися

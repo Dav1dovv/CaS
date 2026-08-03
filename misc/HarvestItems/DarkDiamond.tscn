@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b3ov2iliya355"]
+[gd_scene format=3 uid="uid://f3l5kl0qp51l"]
 
 [ext_resource type="PackedScene" uid="uid://bny4sqh4i8i5v" path="res://misc/HarvestItems/Harvestable.tscn" id="1_b3xcd"]
 [ext_resource type="Texture2D" uid="uid://ldbuhshorw27" path="res://misc/HarvestItems/Textures/DarkDiamond.png" id="2_s0xnl"]

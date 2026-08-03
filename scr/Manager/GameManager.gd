@@ -46,10 +46,14 @@ func _ready() -> void:
 # ─────────────────────────────────────────────────────────────────────────────
 #region Spawn
 func respawn() -> void:
+	
+	Global.scene_manager.fade()
 	player = get_tree().get_first_node_in_group("Player")
+	player.respawn()
 	Global.save()
 	if last_saved_position.is_empty():
-		Global.scene_manager.change_scene("Village", Vector2.ZERO)
+		get_tree().reload_current_scene()
+		
 	else:
 		get_tree().call_group("Ennemy", "queue_free")
 		Global.scene_manager.fade()

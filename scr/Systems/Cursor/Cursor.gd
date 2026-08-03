@@ -27,7 +27,7 @@ var _hotbar: Node = null
 var _current_state: String = "simple"
 
 # Отслеживаем что сейчас под курсором
-var _overlapping_harvestable: Harvestable = null
+var _overlapping_harvestable: Harvest_item = null
 var _overlapping_enemy: bool = false
 var _overlapping_interaction: Area2D = null
 var _overlapping_curse: bool = false
@@ -144,7 +144,7 @@ func _clear_label() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Harvestable"):
-		_overlapping_harvestable = area as Harvestable
+		_overlapping_harvestable = area as Harvest_item
 
 	elif area.is_in_group("Ennemy"):
 		_overlapping_enemy = true

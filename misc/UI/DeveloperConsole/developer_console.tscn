@@ -90,7 +90,7 @@ metadata/_custom_type_script = "uid://co0lo02vnu10n"
 
 [node name="HintTimer" type="Timer" parent="." unique_id=57748515]
 
-[node name="ChatOverlay" type="RichTextLabel" parent="." unique_id=3812004521]
+[node name="ChatOverlay" type="RichTextLabel" parent="." unique_id=-482962775]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -99,14 +99,13 @@ offset_left = 8.0
 offset_top = -170.0
 offset_right = 420.0
 offset_bottom = -30.0
-grow_horizontal = 1
 grow_vertical = 0
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 8
 theme_override_font_sizes/bold_font_size = 8
 bbcode_enabled = true
-scroll_following = true
-scroll_active = false
 fit_content = true
+scroll_active = false
+scroll_following = true
 
 [node name="OverlayFadeTimer" type="Timer" parent="." unique_id=1720044392]
