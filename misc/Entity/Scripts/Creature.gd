@@ -97,6 +97,13 @@ var move_speed: float = 60.0
 @export var turn_speed: float = 12.0
 ## Точки патруля (Node2D / Marker2D)
 @export var patrol_points: Array[NodePath] = []
+## Лёгкое виляние из стороны в сторону при погоне за игроком — без этого
+## существо идёт к цели идеальной прямой линией, что выглядит неестественно.
+@export var chase_weave_enabled: bool = true
+## Амплитуда виляния (пиксели смещения перпендикулярно направлению на цель)
+@export var chase_weave_amplitude: float = 14.0
+## Частота виляния (полных колебаний в секунду)
+@export var chase_weave_frequency: float = 0.8
 
 @export_category("Obstacle Avoidance")
 ## Дальность лучей для обхода стен
@@ -131,6 +138,7 @@ var move_speed: float = 60.0
 
 @onready var drop: Dropper        = $Drop
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var explosion: GPUParticles2D = $Explosion
 
 # RayCast2D создаются в коде — добавлять в сцену не нужно
 var _rays: Array[RayCast2D] = []
@@ -175,6 +183,10 @@ const DETECT_INTERVAL := 0.12   # проверка каждые ~120 мс
 var _patrol_nodes: Array[Node2D] = []
 var _patrol_index: int = 0
 
+# ── Виляние при погоне ──────────────────────────────────────────
+var _weave_time: float = 0.0
+var _weave_seed: float = 0.0  # случайная фаза, чтобы все существа не виляли синхронно
+
 # ── Память о цели ──────────────────────────────────────────────
 # Раньше потеря прямого контакта (LOS/слух/зрение) означала мгновенный
 # сброс цели — из-за угла или на полсекунды из радиуса. Теперь существо
@@ -208,6 +220,7 @@ func _ready() -> void:
 	health_bar.visible = false
 	health_bar.max_value = Entity_stats.max_health
 	health_bar.value     = Entity_stats.max_health
+	_weave_seed = randf_range(0.0, TAU)
 	_resolve_behavior_type()
 	_resolve_patrol_nodes()
 	_build_rays()
@@ -411,7 +424,7 @@ func _tick_chase(delta: float) -> void:
 			_lose_target(); return
 		if dist_sq <= _attack_radius_sq:
 			_enter_state(State.ATTACK); return
-		_move_toward(target.global_position, delta)
+		_move_toward(_get_chase_aim_point(target.global_position, delta), delta)
 	else:
 		var arrived := _move_toward(_last_known_pos, delta)
 		if arrived:
@@ -419,6 +432,33 @@ func _tick_chase(delta: float) -> void:
 			# просто ждём (memory_timer тикает), может, снова заметим.
 			velocity = Vector2.ZERO
 			move_and_slide()
+
+## Точка прицеливания при погоне — смещаем target_pos перпендикулярно
+## направлению на цель по синусоиде, чтобы существо не шло идеально прямой
+## линией (выглядит роботизированно), а слегка "рыскало" из стороны в
+## сторону, как живое. На подходе к цели виляние затухает, чтобы не мешать
+## точному сближению перед атакой.
+func _get_chase_aim_point(target_pos: Vector2, delta: float) -> Vector2:
+	if not chase_weave_enabled:
+		return target_pos
+
+	_weave_time += delta
+
+	var to_target := target_pos - global_position
+	var dist := to_target.length()
+	if dist < 1.0:
+		return target_pos
+
+	var dir  := to_target / dist
+	var perp := Vector2(-dir.y, dir.x)
+
+	# Затухание виляния вблизи цели — на расстоянии ~2.5 attack_radius
+	# оно уже сходит на нет, иначе существо будет промахиваться мимо удара.
+	var fade_dist := attack_radius * 2.5
+	var fade := clampf(dist / fade_dist, 0.0, 1.0)
+
+	var wobble := sin(_weave_time * chase_weave_frequency * TAU + _weave_seed) * chase_weave_amplitude * fade
+	return target_pos + perp * wobble
 
 # ── FLEE ──────────────────────────────────────────────────────
 func _tick_flee(delta: float) -> void:
@@ -811,6 +851,9 @@ func _on_health_changed(new_health: float) -> void:
 func _on_died() -> void:
 	_enter_state(State.DEAD)
 	if $HitBox:
+		explosion.restart()
+		explosion.emitting = true
+		$Skin.visible = false
 		$HitBox.queue_free()
 	if drop:
 		drop._drop_items()

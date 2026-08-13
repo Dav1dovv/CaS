@@ -28,11 +28,18 @@ signal inventory_changed
 
 # ── Слот золота ──────────────────────────────────────────────────
 # Добавь ноду: HBoxContainer/Inventory/VBoxContainer/GoldSlot
-@onready var gold_slot: GoldSlot = $HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/GoldSlot
+@onready var gold_slot: GoldSlot #= $HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer/GoldSlot
 
 
 var items: Array[InventorySlotData] = []
 var items_storage: Array[ItemData]
+
+# ── Баланс предметов-счётчиков ─────────────────────────────────────
+# Предметы с ItemData.is_counter_item == true (золото, опыт, очки и т.п.)
+# НЕ занимают слоты инвентаря/хотбара — их количество хранится здесь,
+# ключ — item_name (см. _count_key). Отображаются в отдельных слотах
+# вроде GoldSlot.
+var counter_balances: Dictionary = {}  # String(item_name) -> int
 
 # Кэш списка предметов на уровне класса — грузится с диска один раз за сессию,
 # а не при каждом создании ноды Inventory.
@@ -99,6 +106,10 @@ func _initialize_gold_slot() -> void:
 func add_item(item_data: ItemData, amount: int = 1) -> bool:
 	if not item_data or amount <= 0:
 		return false
+
+	# Счётчики (золото/опыт/очки) не занимают слоты — уходят в баланс.
+	if item_data.is_counter_item:
+		return _add_counter(item_data, amount)
 
 	var remaining := amount
 
@@ -169,11 +180,42 @@ func _count_key(item: ItemData) -> String:
 func _mark_count_cache_dirty() -> void:
 	_count_cache_dirty = true
 
+## Добавить количество предмету-счётчику напрямую в баланс, минуя слоты.
+func _add_counter(item_data: ItemData, amount: int) -> bool:
+	var key := _count_key(item_data)
+	counter_balances[key] = counter_balances.get(key, 0) + amount
+	_mark_count_cache_dirty()
+	emit_signal("inventory_changed")
+	return true
+
+## Текущий баланс конкретного предмета-счётчика (не сканирует слоты).
+func get_counter_balance(item: ItemData) -> int:
+	if not item:
+		return 0
+	return counter_balances.get(_count_key(item), 0)
+
+## Сериализация баланса счётчиков для сохранения (InventorySaver.gd).
+func pack_counters() -> Array:
+	var arr: Array = []
+	for key in counter_balances.keys():
+		arr.append({"item_name": key, "amount": counter_balances[key]})
+	return arr
+
+## Десериализация баланса счётчиков при загрузке.
+func unpack_counters(packed: Array) -> void:
+	counter_balances.clear()
+	for entry in packed:
+		if entry is Dictionary and entry.has("item_name"):
+			counter_balances[entry["item_name"]] = int(entry.get("amount", 0))
+	_mark_count_cache_dirty()
+
 ## Пересчитывает _count_cache целиком за один проход по items+hotbar.slots.
 ## Вызывается лениво — только когда данные реально устарели, а не на каждый
 ## get_total_item_count().
 func _rebuild_count_cache() -> void:
 	_count_cache.clear()
+	for key in counter_balances.keys():
+		_count_cache[key] = counter_balances[key]
 	if hotbar and hotbar.slots:
 		for slot_data in hotbar.slots:
 			if slot_data.item:
@@ -199,6 +241,17 @@ func has_total_item(search_item: ItemData, required_amount: int) -> bool:
 
 func remove_from_total(search_item: ItemData, amount: int) -> bool:
 	if amount <= 0 or not search_item: return true
+
+	if search_item.is_counter_item:
+		var key := _count_key(search_item)
+		var have: int = counter_balances.get(key, 0)
+		if have < amount:
+			return false
+		counter_balances[key] = have - amount
+		_mark_count_cache_dirty()
+		emit_signal("inventory_changed")
+		return true
+
 	var remaining: int = amount
 	var changed: bool = false
 
@@ -246,6 +299,8 @@ func get_slot_data_by_node(slot_node: InventorySlot) -> InventorySlotData:
 func can_add_item(item_data: ItemData, amount: int = 1) -> bool:
 	if amount <= 0:
 		return true
+	if item_data and item_data.is_counter_item:
+		return true  # счётчики не занимают слоты — места всегда достаточно
 	var remaining: int = amount
 	var all_slots: Array[InventorySlotData] = items.duplicate()
 	if hotbar and hotbar.slots:

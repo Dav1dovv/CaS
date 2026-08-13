@@ -1,4 +1,4 @@
-extends Harvestable
+extends Harvest_item
 class_name  Stone_block
 
 var max_durability : int

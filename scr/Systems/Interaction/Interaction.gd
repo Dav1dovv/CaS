@@ -24,19 +24,20 @@ func _ready() -> void:
 	connect("area_entered", _on_area_entered)
 	connect("area_exited", _on_area_exited)
 
-func _input(event: InputEvent) -> void:
-	if is_in_zone:
-		if Input.is_action_just_released("RMB"):
-			# Исправлено: получаем player только когда нужно + проверка на null
-			player = get_tree().get_first_node_in_group("Player")
-			if player == null:
-				return
-			# Исправлено: сообщение "your so far" → "you're too far"
-			if global_position.distance_to(player.global_position) >= 60:
-				Global.hint(get_parent(), "you're too far")
-				emit_signal("far")
-			else:
-				interact.call()
+## Вызывается ТОЛЬКО курсором (Cursor.gd), когда именно этот объект
+## реально находится под курсором в момент отпускания ПКМ.
+## Больше не полагаемся на локальный is_in_zone + глобальный _input —
+## это и вызывало срабатывание у всех объектов сразу, если area_exited
+## терялся из-за быстрого перемещения курсора (телепорт мыши каждый кадр).
+func try_interact() -> void:
+	player = get_tree().get_first_node_in_group("Player")
+	if player == null:
+		return
+	if global_position.distance_to(player.global_position) >= 60:
+		Global.hint(get_parent(), "you're too far")
+		emit_signal("far")
+	else:
+		interact.call()
 
 
 func _on_area_entered(area: Area2D) -> void:

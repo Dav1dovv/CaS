@@ -70,7 +70,7 @@ func take_damage(damage: float, damage_source: Node2D = null, is_critical: bool 
 
 	# ── VFX ─────────────────────────────────────────
 	if Vfx != null:
-		Vfx._damage_vfx(self)
+		Vfx._damage_vfx()
 
 	_trigger_screen_shake(is_critical)
 	_do_hitstop(is_critical)

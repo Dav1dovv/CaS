@@ -6,10 +6,6 @@ signal paricles_finished
 
 @export var audio_player : AudioStreamPlayer2D
 @export var particles : GPUParticles2D
-var character
-
-func _ready() -> void:
-	character = get_parent()
 
 func _play_particles():
 	if particles == null:

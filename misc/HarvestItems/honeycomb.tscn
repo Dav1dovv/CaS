@@ -30,8 +30,9 @@ position = Vector2(0, -5)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_cdos3")
 
-[node name="optimizer" parent="." index="1" unique_id=2100972979]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 rect = Rect2(-18, -28, 34, 29)
+hide_objects = [NodePath("../Corruption"), NodePath("../Sprite2D")]
 
 [node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("2_igalg")]([SubResource("Resource_4snad")])

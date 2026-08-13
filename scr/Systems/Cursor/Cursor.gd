@@ -55,6 +55,16 @@ func _process(_delta: float) -> void:
 	_update_cursor_state()
 
 
+## Единая точка входа для ПКМ-взаимодействия.
+## Только курсор знает, какой именно объект сейчас под ним
+## (_overlapping_interaction) — поэтому вызов идёт отсюда,
+## а не из _input() каждого отдельного interaction_area.
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_released("RMB"):
+		if _overlapping_interaction != null and _overlapping_interaction.has_method("try_interact"):
+			_overlapping_interaction.try_interact()
+
+
 # ─── Обновление состояния ──────────────────────────────────────────────────────
 
 func _update_cursor_state() -> void:

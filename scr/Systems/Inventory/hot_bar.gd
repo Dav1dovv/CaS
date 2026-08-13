@@ -78,6 +78,14 @@ func _is_same_item(a: ItemData, b: ItemData) -> bool:
 func add_item(item_data: ItemData, amount: int = 1) -> bool:
 	if amount <= 0: return false
 
+	# Счётчики (золото/опыт/очки) никогда не занимают слот хотбара —
+	# уходят напрямую в баланс через Inventory.
+	if item_data.is_counter_item:
+		var inv: Inventory = get_tree().get_first_node_in_group("Inventory")
+		if inv:
+			return inv.add_item(item_data, amount)
+		return false
+
 	var added_any := false
 	var remaining := amount
 

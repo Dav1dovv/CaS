@@ -59,7 +59,7 @@ harvest_tool_lvl = 3
 position = Vector2(0, -4)
 
 [node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
-hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), null]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), NodePath("../Corruption")]
 
 [node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("2_5wpkx")]([SubResource("Resource_xjhf5")])

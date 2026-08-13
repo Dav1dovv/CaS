@@ -1,5 +1,5 @@
 extends Node
-class_name SaveSystem
+class_name SaveLoadSystem
 
 #   user://Saves/{slot}/save_data.json      — мета-данные слота (имя, скин)
 #   user://Saves/{slot}/player_data.char    — здоровье, экипировка

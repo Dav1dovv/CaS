@@ -89,7 +89,7 @@ shape = SubResource("CapsuleShape2D_bhrl0")
 [node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(0, -13)
 rect = Rect2(-18, -14, 36, 28)
-hide_objects = [NodePath("../Sprite2D"), null]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Corruption")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="2" unique_id=1581771079]
 position = Vector2(0, -16)

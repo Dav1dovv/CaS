@@ -40,7 +40,7 @@ func _refresh() -> void:
 	if not gold_item or not inventory:
 		_set_label(0)
 		return
-	_balance = inventory.get_total_item_count(gold_item)
+	_balance = inventory.get_counter_balance(gold_item)
 	_set_label(_balance)
 
 func _set_label(amount: int) -> void:

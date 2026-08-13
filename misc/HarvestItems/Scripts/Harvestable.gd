@@ -8,8 +8,11 @@ signal combo_hit(multiplier: float, combo_count: int)
 
 var gm
 
+const CORRUPTION = preload("uid://cfxxahs7peuhm")
+
 @onready var Dropper_component : Dropper = $droper
 @onready var animation: AnimationPlayer = $AnimationPlayer
+@onready var _screen_notifier: VisibleOnScreenEnabler2D = get_node_or_null("optimizer")
 
 @export_range(2,999,1) var durability : float = 6
 @export_range(0,10) var harvest_tool_lvl : int = 1
@@ -60,16 +63,13 @@ var _last_hit_time : float = -999.0
 var is_rich_vein : bool = false
 var is_corrupted : bool = false
 
+@export_group("Corruption")
 ## Отладка: принудительно сделать ЭТОТ ресурс заражённым, чтобы проверить логику
 ## заражения не дожидаясь рандома. Включай точечно на одном инстансе в
 ## инспекторе для теста — по умолчанию должно быть false, иначе заражены
 ## будут все ресурсы, использующие этот скрипт.
 @export var force_corrupted : bool = false
 
-# ─── Заражение игрока (GDD 3.3 "Заражение") ──────────────────────────────────
-## Сколько заражения получает игрок за один удар по заражённому (is_corrupted)
-## ресурсу — "осколки летят в игрока", п. 3.3 GDD.
-@export_range(0.0, 20.0, 0.5) var infection_per_hit : float = 2.0
 # ── ОПТИМИЗАЦИЯ: throttle вне экрана ─────────────────────────────
 # В сцене уже есть VisibleOnScreenEnabler2D ("optimizer"), но раньше он не
 # использовался в скрипте — update_transparency() дистанции до игрока
@@ -78,7 +78,6 @@ var is_corrupted : bool = false
 # сотни одновременно). Теперь вне экрана эта проверка просто пропускается —
 # как и у Creature.gd, где этот же паттерн уже применён.
 @export var can_infect : bool = true
-@onready var _screen_notifier: VisibleOnScreenEnabler2D = get_node_or_null("optimizer")
 var _is_active: bool = true
 
 func _init() -> void:
@@ -150,7 +149,8 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 
 	# ── Заражение игрока: осколки заражённого ресурса летят при каждом ударе ─
 	if is_corrupted:
-		_infect_player()
+		var cor = CORRUPTION.instantiate()
+		add_child(cor)
 	# ─────────────────────────────────────────────────────────────────────────
 
 	# ── Комбо-тайминг: бей ритмично — множитель растёт ───────────────────────
@@ -175,8 +175,7 @@ func Harvest(hit_strenght : float, tool_lvl : int, is_weapon : bool) -> void:
 func _infect_player() -> void:
 	if player == null:
 		return
-	if player.has_method("add_infection"):
-		player.add_infection(infection_per_hit)
+
 
 
 func _on_destroyed(tool_lvl: int) -> void:

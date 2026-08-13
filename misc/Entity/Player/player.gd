@@ -29,7 +29,6 @@ const HAND_ANIM_SPEED_SCALE := 1.0
 @onready var _hurt_col:         CollisionShape2D     = $HurtBox/CollisionShape2D
 @onready var curse_label:       Label                = $HUD/HealthBar/HBoxContainer/CurseIcon/CurseLabel
 @onready var weapon_passive:    WeaponPassiveHandler = $WeaponPassiveHandler
-@onready var infection:         PlayerInfection      = $PlayerInfection
 
 @export var BodyAnimator:  AnimationPlayer
 @export var HandAanimator: AnimationPlayer
@@ -162,8 +161,7 @@ func respawn() -> void:
 	movement.current_velocity = Vector2.ZERO
 	combat.is_lunging          = false
 	is_alive                   = true
-	if infection:
-		infection.full_cure()
+
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -172,32 +170,31 @@ func respawn() -> void:
 #  не зная о внутренней структуре компонентов (как с combat/movement).
 # ─────────────────────────────────────────────────────────────────────────────
 
+#region infection
 func add_infection(amount: float) -> void:
-	if infection:
-		infection.add_infection(amount)
+	corruption += amount
+	coruption_change()
 
 func cure_infection(amount: float) -> void:
-	if infection:
-		infection.cure_infection(amount)
+		corruption -= amount
+		coruption_change()
 
 func full_cure_infection() -> void:
-	if infection:
-		infection.full_cure()
-
-func get_infection() -> float:
-	return infection.infection if infection else 0.0
+		corruption = 0
+		coruption_change()
 
 
+func coruption_change() -> void:
+	health_bar.update_value(Entity_stats.current_health, Entity_stats.max_health, corruption)
+	if corruption >= Entity_stats.current_health:
+		die()
+	elif corruption >= Entity_stats.max_health:
+		die()
+
+#endregion
 # ─────────────────────────────────────────────────────────────────────────────
 #  Сохранение (вызывается через group "Save")
 # ─────────────────────────────────────────────────────────────────────────────
 
 func save_game() -> void:
 	SaveLoad.save_player(self)
-
-
-func _on_player_infection_infection_changed(new_value: float) -> void:
-	corruption += new_value
-	health_bar.update_value(Entity_stats.current_health, Entity_stats.max_health, corruption)
-	if corruption >= Entity_stats.max_health:
-		die()

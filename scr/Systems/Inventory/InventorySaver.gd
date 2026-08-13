@@ -22,9 +22,10 @@ func _ready() -> void:
 
 func save_game() -> void:
 	var data := {
-		"version"   : 8,
+		"version"   : 9,
 		"inventory" : _pack_container(inventory.items),
-		"hotbar"    : _pack_container(hotbar.slots)
+		"hotbar"    : _pack_container(hotbar.slots),
+		"counters"  : inventory.pack_counters()
 	}
 
 	SaveLoad.save_inventory(data)
@@ -47,6 +48,7 @@ func load_game() -> void:
 	_clear_all()
 	_unpack_container(inventory.items, data.get("inventory", []))
 	_unpack_container(hotbar.slots,    data.get("hotbar", []))
+	inventory.unpack_counters(data.get("counters", []))
 
 	hotbar._recalculate_accessories()
 	hotbar.select_slot(hotbar.selected_index)

@@ -17,9 +17,9 @@ metadata/_edit_vertical_guides_ = [0.0]
 [node name="CreatureSpawner" type="Node2D" parent="." unique_id=126558258 node_paths=PackedStringArray("player")]
 script = ExtResource("4_j0the")
 player = NodePath("../Comb")
-spawn_distance_min = 100.0
-spawn_distance_max = 170.0
-max_creatures = 5
+spawn_distance_min = 80.0
+spawn_distance_max = 120.0
+max_creatures = 2
 creatures = Array[ExtResource("5_aqrkf")]([SubResource("Resource_cdos3")])
 metadata/_custom_type_script = "uid://bl7jbpdad5e77"
 

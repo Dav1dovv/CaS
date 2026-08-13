@@ -3,8 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_2y5go"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="2_6ylgx"]
 [ext_resource type="Script" uid="uid://qtih2rxiyeec" path="res://misc/Entity/Animals/BaseAnimal.gd" id="2_xjoh7"]
-[ext_resource type="AudioStream" uid="uid://b1pe4ord4bxue" path="res://Assets/Audio/SFX/Coin.wav" id="3_jksjw"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_kcttj"]
+[ext_resource type="AudioStream" uid="uid://bjl0r6d74vyjl" path="res://misc/Entity/SFX/Cow1.wav" id="4_jksjw"]
+[ext_resource type="AudioStream" uid="uid://duti5qhcmytmd" path="res://misc/Entity/SFX/Cow2.wav" id="5_myxuw"]
 
 [sub_resource type="Resource" id="Resource_jksjw"]
 script = ExtResource("3_kcttj")
@@ -14,6 +15,12 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2y5go"]
 radius = 5.2931175
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ppuy5"]
+random_pitch = 1.0905077
+streams_count = 2
+stream_0/stream = ExtResource("4_jksjw")
+stream_1/stream = ExtResource("5_myxuw")
 
 [sub_resource type="Animation" id="Animation_jksjw"]
 resource_name = "Death"
@@ -973,8 +980,7 @@ flee_on_hit = true
 fear_per_damage = 100.0
 fear_flee_threshold = 1.0
 fear_calm_threshold = 0.565
-fear_sound = ExtResource("3_jksjw")
-flee_speed_multiplier = 2.42
+flee_speed_multiplier = 10.0
 body_anim = NodePath("Skin/AnimationPlayer")
 Entity_stats = SubResource("Resource_jksjw")
 
@@ -986,12 +992,17 @@ position = Vector2(0.34671402, -9.708061)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_2y5go")
 
+[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+stream = SubResource("AudioStreamRandomizer_ppuy5")
+pitch_scale = 1.0
+
 [node name="CollisionShape2D" parent="." index="8" unique_id=713772618]
 position = Vector2(0.34671402, -9.708061)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_2y5go")
 
 [node name="Skin" type="Node2D" parent="." index="9" unique_id=345415011]
+scale = Vector2(1.2308128, 1.2308128)
 
 [node name="Body" type="Sprite2D" parent="Skin" index="0" unique_id=1444845992]
 position = Vector2(2, -14)

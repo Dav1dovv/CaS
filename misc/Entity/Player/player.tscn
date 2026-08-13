@@ -31,7 +31,6 @@
 [ext_resource type="Script" uid="uid://dovru4rdjmqw6" path="res://misc/Entity/Player/scripts/player_combat.gd" id="30_k2mf7"]
 [ext_resource type="PackedScene" uid="uid://digbxx3ko1dgy" path="res://misc/Particles/BloodSplash.tscn" id="30_pg7r4"]
 [ext_resource type="Script" uid="uid://vc8g8gj2i44s" path="res://misc/Entity/Player/scripts/player_movement.gd" id="31_k2mf7"]
-[ext_resource type="Script" uid="uid://cg850kwnky754" path="res://misc/Entity/Player/scripts/player_infection.gd" id="32_8c2yh"]
 
 [sub_resource type="Resource" id="Resource_k2mf7"]
 script = ExtResource("3_ipy58")
@@ -1939,7 +1938,6 @@ script = ExtResource("5_kgjb5")
 equip_sprite = NodePath("../Skin/Body/Hand/LeftHand/Equip")
 hand = SubResource("Resource_qik2o")
 equip = SubResource("Resource_16dpn")
-metadata/_custom_type_script = "uid://dyh83ojl28cng"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_HitBox" index="0" unique_id=274973118]
 position = Vector2(20, 0)
@@ -2074,10 +2072,5 @@ unique_name_in_owner = true
 script = ExtResource("31_k2mf7")
 metadata/_custom_type_script = "uid://vc8g8gj2i44s"
 
-[node name="PlayerInfection" type="Node" parent="." index="15" unique_id=433010082]
-script = ExtResource("32_8c2yh")
-metadata/_custom_type_script = "uid://cg850kwnky754"
-
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]
-[connection signal="infection_changed" from="PlayerInfection" to="." method="_on_player_infection_infection_changed"]

@@ -10,5 +10,5 @@ recipe_name = "Cooper Sword"
 result_item = ExtResource("2_6q8j5")
 main_resource = ExtResource("1_ddqhq")
 main_amount = 15
-gold_cost = 120
+gold_cost = 40
 metadata/_custom_type_script = "uid://b47c08bhjaot6"

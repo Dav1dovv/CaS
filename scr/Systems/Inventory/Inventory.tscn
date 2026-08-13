@@ -5,10 +5,8 @@
 [ext_resource type="Script" uid="uid://bxguvf402r2aw" path="res://scr/Systems/Inventory/TrashSlot.gd" id="3_08cpt"]
 [ext_resource type="PackedScene" uid="uid://bwaixuiwrerk5" path="res://scr/Systems/Inventory/InventorySlot.tscn" id="6_81ckb"]
 [ext_resource type="Shader" uid="uid://cpqgkpo83gda7" path="res://Assets/Shader/Blur.gdshader" id="6_1502c"]
-[ext_resource type="Script" uid="uid://4symdckgf27t" path="res://scr/Resources/ItemData/GoldSlot.gd" id="7_ngij8"]
 [ext_resource type="Script" uid="uid://bggk28l7figbt" path="res://scr/Systems/Inventory/InventorySaver.gd" id="7_viqwy"]
 [ext_resource type="PackedScene" uid="uid://5nk644nw1v5k" path="res://scr/Systems/Craft/SimpleCraft/CraftStation.tscn" id="8_d17u8"]
-[ext_resource type="Resource" uid="uid://bn6updwt4oale" path="res://misc/Content/Items/Coin.tres" id="8_f4jol"]
 [ext_resource type="PackedScene" uid="uid://dts1ot2trd002" path="res://scr/Systems/TradingSystem/TradeWindow.tscn" id="9_f8cid"]
 [ext_resource type="Script" uid="uid://c785sodtl7e0" path="res://scr/Systems/Inventory/hot_bar.gd" id="9_tp014"]
 [ext_resource type="AudioStream" uid="uid://dcj5noosq88tu" path="res://Assets/Audio/SFX/UI/Trash/Trash-02.mp3" id="11_0bh7v"]
@@ -44,6 +42,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_w5r8t")
+metadata/_edit_vertical_guides_ = [327.15897]
 
 [node name="Panel" type="Panel" parent="." unique_id=1613174770]
 visible = false
@@ -66,9 +65,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -88.0
-offset_top = -26.0
+offset_top = -26.228577
 offset_right = 88.0
-offset_bottom = -10.0
+offset_bottom = -10.228577
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
@@ -199,22 +198,22 @@ hotbar_node = NodePath("../HotBar")
 metadata/_custom_type_script = "uid://bggk28l7figbt"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=295397158]
-visible = false
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -136.0
-offset_bottom = 102.338104
+offset_top = -135.45358
+offset_bottom = 124.05795
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 24
 alignment = 1
 
 [node name="Inventory" type="Panel" parent="HBoxContainer" unique_id=1430589918]
 visible = false
-custom_minimum_size = Vector2(180, 106.58)
+custom_minimum_size = Vector2(190, 113)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -224,6 +223,10 @@ layout_mode = 0
 offset_right = 180.0
 offset_bottom = 100.0
 
+[node name="Control" type="Control" parent="HBoxContainer/Inventory/VBoxContainer" unique_id=556581012]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
 [node name="Label" type="Label" parent="HBoxContainer/Inventory/VBoxContainer" unique_id=1491028735]
 layout_mode = 2
 text = "INVENTORY"
@@ -231,9 +234,12 @@ label_settings = SubResource("LabelSettings_jhamk")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Inventory/VBoxContainer" unique_id=353422279]
+custom_minimum_size = Vector2(160, 75)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(5, 0)
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer" unique_id=155033620]
 custom_minimum_size = Vector2(115.705, 0)
@@ -324,13 +330,6 @@ layout_mode = 2
 [node name="InventorySlot27" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer" unique_id=737651556 instance=ExtResource("6_81ckb")]
 layout_mode = 2
 
-[node name="GoldSlot" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer" unique_id=1448857901 groups=["CoinSlot"] instance=ExtResource("6_81ckb")]
-layout_mode = 2
-mouse_filter = 2
-script = ExtResource("7_ngij8")
-gold_item = ExtResource("8_f4jol")
-max_stack = 9999
-
 [node name="TrashSlot" type="TextureRect" parent="HBoxContainer/Inventory/VBoxContainer/HBoxContainer/GridContainer" unique_id=824992838]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
@@ -340,22 +339,34 @@ expand_mode = 1
 script = ExtResource("3_08cpt")
 
 [node name="Smith" parent="HBoxContainer" unique_id=657580427 instance=ExtResource("8_d17u8")]
-visible = false
+custom_minimum_size = Vector2(285, 180)
+propagate_maximum_size = true
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 station_type = 0
 
 [node name="Workbench" parent="HBoxContainer" unique_id=657580428 instance=ExtResource("8_d17u8")]
 visible = false
+custom_minimum_size = Vector2(200, 160)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Barmen" parent="HBoxContainer" unique_id=104361974 instance=ExtResource("8_d17u8")]
 visible = false
+custom_minimum_size = Vector2(200, 160)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 station_type = 2
 
 [node name="TradeWindow" parent="HBoxContainer" unique_id=1491107427 instance=ExtResource("9_f8cid")]
 visible = false
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="UI_TrashSlot_SFX" type="AudioStreamPlayer" parent="." unique_id=1684868196]
 unique_name_in_owner = true

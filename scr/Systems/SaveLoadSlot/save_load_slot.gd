@@ -10,7 +10,7 @@ extends CanvasLayer
 
 var current_slots: Array = []
 var sort_by_date_desc: bool = true
-var MarkovNameGen: MarkovNameGenerator = MarkovNameGenerator.new()
+var NameGen := SimpleNameGenerator.new()
 
 
 func _ready() -> void:
@@ -25,7 +25,7 @@ func update_save_slots() -> void:
 	current_slots.clear()
 
 	for slot_name in SaveLoad.get_save_slots():
-		var data := SaveLoad.load_slot_meta(slot_name)
+		var data = SaveLoad.load_slot_meta(slot_name)
 		if data.is_empty():
 			push_warning("[SaveLoadSlot] Cannot read meta for slot: %s" % slot_name)
 			continue
@@ -33,7 +33,7 @@ func update_save_slots() -> void:
 		data["slot_name"]      = slot_name
 		data["last_save_time"] = data.get(
 			"last_save_time",
-			FileAccess.get_modified_time(SaveSystem.SAVE_DIR + slot_name + "/" + SaveSystem.SLOT_META_FILE)
+			FileAccess.get_modified_time(SaveLoadSystem.SAVE_DIR + slot_name + "/" + SaveLoadSystem.SLOT_META_FILE)
 		)
 		current_slots.append(data)
 
@@ -81,7 +81,7 @@ func _on_create_pressed() -> void:
 	if player_name.is_empty():
 		return
 
-	var slot := SaveLoad.create_new_save(
+	var slot = SaveLoad.create_new_save(
 		player_name,
 		skin_selector.skin_index,
 		skin_selector.head_inex,
@@ -99,7 +99,7 @@ func _on_create_pressed() -> void:
 
 
 func _on_random_name_pressed() -> void:
-	player_name_input.text = MarkovNameGen.generate_name(0)
+	player_name_input.text = NameGen.generate_name()
 	var player_name := player_name_input.text.strip_edges()
 	if player_name.is_empty():
 		create_button.disabled = true
@@ -107,6 +107,7 @@ func _on_random_name_pressed() -> void:
 		create_button.disabled = false
 
 func _on_Craft_back_pressed() -> void:
+	$"../CanvasLayer".visible = true
 	new_save_panel.visible = false
 	%Blur.visible = false
 	save_slots_container.visible = true

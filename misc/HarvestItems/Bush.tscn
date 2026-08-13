@@ -94,7 +94,7 @@ can_infect = false
 [node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(-0.500001, -10.5)
 scale = Vector2(1.65, 1.05)
-hide_objects = [NodePath("../Sprite2D")]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Particles"), NodePath("../Corruption")]
 
 [node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("3_ekenn")]([null])
@@ -105,7 +105,6 @@ position = Vector2(0, -8)
 texture = ExtResource("4_tgede")
 offset = Vector2(0, -8)
 hframes = 3
-frame = 1
 script = ExtResource("3_7v7f5")
 frame_weights = Array[float]([1.0, 0.2, 0.2])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"

@@ -91,7 +91,7 @@ shape = SubResource("CapsuleShape2D_gxqxa")
 [node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(-4.76837e-07, -11)
 scale = Vector2(1.7, 1.3)
-hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow")]
+hide_objects = [NodePath("../Sprite2D"), NodePath("../Shadow"), NodePath("../Corruption"), NodePath("../GPUParticles2D")]
 
 [node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("2_bv3vm")]([SubResource("Resource_axhva")])
@@ -105,6 +105,7 @@ position = Vector2(0, -9)
 texture = ExtResource("6_c86ts")
 offset = Vector2(0, -6)
 hframes = 3
+frame = 2
 script = ExtResource("7_gq8jo")
 frame_weights = Array[float]([0.5, 0.5, 0.5])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://b7e11d7dloks2"
-path="res://.godot/imported/Hurt.wav-2f660da9d8f837368f8a03c65e6fd0fd.sample"
+uid="uid://bjyi78t6rwtt1"
+path="res://.godot/imported/Sheep1.wav-957b35e83b465ad2b9cc46f53771e100.sample"
 
 [deps]
 
-source_file="res://Assets/Audio/SFX/Creatures/Hurt.wav"
-dest_files=["res://.godot/imported/Hurt.wav-2f660da9d8f837368f8a03c65e6fd0fd.sample"]
+source_file="res://misc/Entity/SFX/Sheep1.wav"
+dest_files=["res://.godot/imported/Sheep1.wav-957b35e83b465ad2b9cc46f53771e100.sample"]
 
 [params]
 

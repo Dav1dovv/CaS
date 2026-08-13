@@ -30,17 +30,6 @@ func _ready() -> void:
 	var player := get_tree().get_first_node_in_group("Player")
 	if player == null:
 		return
-	var infection = player.get_node_or_null("PlayerInfection")
-	if infection == null:
-		return
-
-	infection.tier_changed.connect(_on_tier_changed)
-	_apply_strength_for_tier(infection.get_tier(), true)
-
-
-func _on_tier_changed(new_tier: int) -> void:
-	_apply_strength_for_tier(new_tier)
-
 
 func _apply_strength_for_tier(tier: int, instant: bool = false) -> void:
 	if not _material:

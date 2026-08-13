@@ -87,7 +87,10 @@ script = ExtResource("2_e6m8d")
 durability = 14.0
 harvest_tool_lvl = 2
 
-[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(273132599) index="0" unique_id=605264910]
+[node name="StaticBody2D" parent="." index="0" unique_id=273132599]
+position = Vector2(0, 2)
+
+[node name="CollisionShape2D" parent="StaticBody2D" index="0" unique_id=605264910]
 position = Vector2(0, -7)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_3dfft")
@@ -115,7 +118,7 @@ position = Vector2(0, -9)
 texture = SubResource("AtlasTexture_homfl")
 offset = Vector2(0, -6)
 hframes = 3
-frame = 2
+frame = 1
 script = ExtResource("4_q1xnp")
 frame_weights = Array[float]([1.0, 1.0, 1.0])
 metadata/_custom_type_script = "uid://b7lfnqk6b5cdp"

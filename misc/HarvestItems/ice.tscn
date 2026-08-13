@@ -13,7 +13,6 @@ max_count = 2
 metadata/_custom_type_script = "uid://d0ssuokxx56v7"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kqbd5"]
-load_path = "res://.godot/imported/IceOre.png-c97cab9f69e0e32c3957bb261660aff4.ctex"
 
 [sub_resource type="Gradient" id="Gradient_wwo1s"]
 offsets = PackedFloat32Array(0.6460177, 1)

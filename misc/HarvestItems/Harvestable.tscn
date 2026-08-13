@@ -28,7 +28,6 @@ collision_mask = 136
 script = ExtResource("1_wrbgf")
 durability = 15.0
 VFX_component = NodePath("VFX_damage")
-metadata/_custom_type_script = "uid://ckghcn3me8e7p"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=273132599]
 show_behind_parent = true
@@ -43,7 +42,7 @@ debug_color = Color(0.99072, 0.0103639, 0.261337, 0.42)
 
 [node name="optimizer" type="VisibleOnScreenEnabler2D" parent="." unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 script = ExtResource("3_8a784")
-hide_objects = [null]
+hide_objects = [NodePath("../Corruption")]
 metadata/_custom_type_script = "uid://dbxsovdq7bbia"
 
 [node name="droper" type="Node" parent="." unique_id=1465568748]

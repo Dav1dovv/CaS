@@ -3,10 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://o4a6276bgxhx" path="res://misc/Entity/MISC/creature.tscn" id="1_u5kcg"]
 [ext_resource type="Script" uid="uid://bk36fux275vc" path="res://misc/Entity/Animals/nox.gd" id="2_cah1w"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_hg2v1"]
+[ext_resource type="AudioStream" uid="uid://bxdw6i7mbojjs" path="res://misc/Entity/SFX/ChickenHurt.wav" id="4_cah1w"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="4_xvynw"]
 [ext_resource type="Texture2D" uid="uid://c604sxdmtnh3w" path="res://misc/Entity/Textures/Creatures.png" id="5_fsq11"]
 
-[sub_resource type="Resource" id="Resource_u5kcg"]
+[sub_resource type="Resource" id="Resource_cah1w"]
 resource_local_to_scene = true
 script = ExtResource("3_hg2v1")
 max_health = 25
@@ -17,6 +18,11 @@ metadata/_custom_type_script = "uid://cpp05fs341abo"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nfayc"]
 size = Vector2(22, 26)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xvynw"]
+random_pitch = 1.0905077
+streams_count = 1
+stream_0/stream = ExtResource("4_cah1w")
 
 [sub_resource type="Animation" id="Animation_pfeu0"]
 resource_name = "Death"
@@ -595,10 +601,11 @@ fear_proximity_radius = 200.0
 fear_proximity_rate = 1.0
 fear_flee_threshold = 0.034
 fear_calm_threshold = 0.015
+flee_speed_multiplier = 2.0
 hear_radius = 200.0
 sight_radius = 200.0
 body_anim = NodePath("Skin/AnimationPlayer")
-Entity_stats = SubResource("Resource_u5kcg")
+Entity_stats = SubResource("Resource_cah1w")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 rect = Rect2(-10, -15, 21, 25)
@@ -607,6 +614,11 @@ hide_objects = [NodePath("../Skin")]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" parent_id_path=PackedInt32Array(411889454) index="0" unique_id=2044203562]
 position = Vector2(1, -12)
 shape = SubResource("RectangleShape2D_nfayc")
+
+[node name="DamageSFX" parent="." index="6" unique_id=2033228583]
+stream = SubResource("AudioStreamRandomizer_xvynw")
+pitch_scale = 1.0
+bus = &"SFX"
 
 [node name="Skin" type="Node2D" parent="." index="7" unique_id=1802627106]
 

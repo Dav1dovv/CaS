@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c6tw2fkklnri5" path="res://misc/Utils/Drop/Dropper.gd" id="6_ghm6a"]
 [ext_resource type="Script" uid="uid://b286rq0s2stos" path="res://scr/Misc/VFX/DamageVFX.gd" id="10_l73nt"]
 [ext_resource type="PackedScene" uid="uid://digbxx3ko1dgy" path="res://misc/Particles/BloodSplash.tscn" id="11_2upue"]
+[ext_resource type="PackedScene" uid="uid://g80sp0xblswl" path="res://misc/Particles/Death.tscn" id="11_jed1r"]
 [ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="12_n87c8"]
 [ext_resource type="Texture2D" uid="uid://b62hrm50ou235" path="res://Assets/Textures/UI/UI.png" id="13_5aled"]
 
@@ -80,6 +81,8 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_x812b")
 show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=713772618]
+
+[node name="Explosion" parent="." unique_id=440659189 instance=ExtResource("11_jed1r")]
 
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="health_changed" from="." to="." method="_on_health_changed"]

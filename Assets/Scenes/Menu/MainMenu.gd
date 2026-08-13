@@ -58,11 +58,13 @@ func _on_exit_pressed() -> void:
 
 func _on_solo_pressed() -> void:
 	#mode_select_panel.visible = false
+	$CanvasLayer.visible = false
 	save_load_ui.visible      = true   # открываем как раньше — список сейвов
 
 
 func _on_multi_pressed() -> void:
 	#mode_select_panel.visible = false
+	$CanvasLayer.visible = false
 	lobby_ui.visible          = true   # открываем лобби с выбором сейва
 
 # ═════════════════════════════════════════════════════════════════════════════

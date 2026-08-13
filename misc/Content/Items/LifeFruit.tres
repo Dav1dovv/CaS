@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://c2shi73coycxl" path="res://Assets/Audio/SFX/Player/Eating.wav" id="1_0ya5u"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_3kco4"]
-[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_urbld"]
+[ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_urbld"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="3_412gs"]
 [ext_resource type="Resource" uid="uid://ca7iuwj5lfqa5" path="res://misc/Content/Effects/Regeneration.tres" id="3_kr1wq"]
 

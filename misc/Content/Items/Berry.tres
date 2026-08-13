@@ -3,7 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://c2shi73coycxl" path="res://Assets/Audio/SFX/Player/Eating.wav" id="1_kiiny"]
 [ext_resource type="Script" uid="uid://dj4umu6271nxr" path="res://scr/Resources/effects/EffectResource.gd" id="1_vxtgx"]
 [ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="2_8mtp6"]
-[ext_resource type="Script" uid="uid://ds5d4cljtsmfp" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_cdw06"]
+[ext_resource type="Script" uid="uid://bw7mfbq68vy23" path="res://scr/Resources/ItemData/Food_item_data.gd" id="2_cdw06"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xo0m3"]
 atlas = ExtResource("2_8mtp6")

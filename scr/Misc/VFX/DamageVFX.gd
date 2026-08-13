@@ -1,6 +1,8 @@
 extends VFX
 class_name VFX_damage
 
+@export var character : Node2D
+
 func _hit_vfx(new_character : Node2D) -> void:
 	_play_audio()
 	_play_particles()
@@ -16,7 +18,7 @@ func _hit_vfx(new_character : Node2D) -> void:
 	tween.tween_callback(vfx_finished.emit)
 
 
-func _damage_vfx(new_character : Node2D):
+func _damage_vfx():
 	_play_audio()
 	_play_particles()
 	var tween = create_tween()

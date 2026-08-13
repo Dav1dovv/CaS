@@ -75,9 +75,10 @@ can_infect = false
 position = Vector2(-1, -3.3699498)
 shape = SubResource("RectangleShape2D_lh7ix")
 
-[node name="optimizer" parent="." index="1" unique_id=2100972979]
+[node name="optimizer" parent="." index="1" unique_id=2100972979 node_paths=PackedStringArray("hide_objects")]
 position = Vector2(-10, -14)
 rect = Rect2(-10, -10, 39, 35)
+hide_objects = [NodePath("../Sprite2D"), NodePath("../GPUParticles2D"), NodePath("../Corruption")]
 
 [node name="droper" parent="." index="2" unique_id=1465568748]
 drop_resources = Array[ExtResource("5_lh7ix")]([SubResource("Resource_72dcn"), SubResource("Resource_j3r48")])

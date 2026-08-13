@@ -4,14 +4,12 @@
 [ext_resource type="Script" uid="uid://ln3py6cejre4" path="res://misc/Entity/Enemies/bee.gd" id="2_w4mgs"]
 [ext_resource type="Script" uid="uid://cpp05fs341abo" path="res://misc/Entity/Scripts/Stats.gd" id="3_2a35p"]
 [ext_resource type="Texture2D" uid="uid://b13hbc37dqdjf" path="res://misc/Entity/Textures/Bee/Bee.png" id="4_4jsne"]
-[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="5_5anuo"]
-[ext_resource type="Resource" uid="uid://b4cp51e8wdccx" path="res://misc/Content/Items/Sting.tres" id="6_5anuo"]
+[ext_resource type="AudioStream" uid="uid://blnryjrjf4l5n" path="res://Assets/Audio/SFX/Creatures/Ghost/Ghost.mp3" id="5_8c1h1"]
 [ext_resource type="Texture2D" uid="uid://bvn1k3yr05y11" path="res://Assets/Textures/Shadows/Shadow.png" id="6_07dc1"]
-[ext_resource type="AudioStream" uid="uid://bik8exq16ii1d" path="res://Assets/Audio/SFX/Player/Hurt.mp3" id="7_2a35p"]
 [ext_resource type="Texture2D" uid="uid://ddxw1yloyxtpn" path="res://misc/Entity/Textures/Bee/Sting.png" id="8_5anuo"]
 [ext_resource type="Script" uid="uid://b2ovoyoflp1gw" path="res://scr/Resources/ItemData/Equip_item_data.gd" id="8_q1tpa"]
 
-[sub_resource type="Resource" id="Resource_3sirv"]
+[sub_resource type="Resource" id="Resource_8c1h1"]
 resource_local_to_scene = true
 resource_name = "Bee Stat"
 script = ExtResource("3_2a35p")
@@ -288,7 +286,7 @@ ray_length = 70.0
 attack_radius = 0.0
 body_anim = NodePath("Skin/AnimationPlayer")
 hand_anim = NodePath("HitBox/AnimationPlayer")
-Entity_stats = SubResource("Resource_3sirv")
+Entity_stats = SubResource("Resource_8c1h1")
 
 [node name="optimizer" parent="." index="0" unique_id=1815416353 node_paths=PackedStringArray("hide_objects")]
 hide_objects = [NodePath("../Skin")]
@@ -314,17 +312,10 @@ shape = SubResource("RectangleShape2D_5anuo")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HitBox" index="1" unique_id=1992095533]
 libraries/ = SubResource("AnimationLibrary_5anuo")
 
-[node name="Drop" parent="." index="3" unique_id=1587885386]
-drop_item = Array[ExtResource("5_5anuo")]([ExtResource("6_5anuo")])
-max_drop = 3
-
-[node name="VFX" parent="." index="4" unique_id=304494227 node_paths=PackedStringArray("audio_player", "particles")]
-audio_player = NodePath("../DamageSFX")
-particles = NodePath("../DamageVFX")
-
 [node name="DamageSFX" parent="." index="6" unique_id=2033228583]
-stream = ExtResource("7_2a35p")
+stream = ExtResource("5_8c1h1")
 pitch_scale = 2.03
+bus = &"SFX"
 
 [node name="Skin" type="Node2D" parent="." index="7" unique_id=425173707]
 

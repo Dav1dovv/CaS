@@ -11,4 +11,5 @@ region = Rect2(0, 48, 16, 16)
 script = ExtResource("1_rct8x")
 icon = SubResource("AtlasTexture_vu1v2")
 item_name = "Coin"
+is_counter_item = true
 metadata/_custom_type_script = "uid://wm1t8anytdyq"

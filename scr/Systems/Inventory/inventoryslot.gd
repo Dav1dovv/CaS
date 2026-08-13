@@ -72,7 +72,11 @@ func update_ui() -> void:
 		_icon_node.texture = item.icon if item else null
 
 	if _count_node:
-		_count_node.text = str(ammount) if (item and ammount > 1) else ""
+		# Предметы-счётчики (золото, опыт и т.п. — ItemData.is_counter_item = true)
+		# не показывают цифру в обычном слоте инвентаря: их суммарное количество
+		# и так видно в отдельном слоте-счётчике (GoldSlot / будущий XPSlot и т.д.)
+		var is_counter := item != null and ("is_counter_item" in item) and item.is_counter_item
+		_count_node.text = str(ammount) if (item and ammount > 1 and not is_counter) else ""
 
 	if _index_label:
 		_index_label.visible = (item == null)

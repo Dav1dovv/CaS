@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bwohgeqxdb2of"]
+
+[ext_resource type="Script" uid="uid://wm1t8anytdyq" path="res://scr/Resources/ItemData/ItemData.gd" id="1_iaqgb"]
+[ext_resource type="Texture2D" uid="uid://cf3avrbvs0ues" path="res://Assets/Textures/SpriteSheets/Items-Sheet.png" id="1_w6ylg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6ylg"]
+atlas = ExtResource("1_w6ylg")
+region = Rect2(144, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_iaqgb")
+icon = SubResource("AtlasTexture_w6ylg")
+item_name = "Soul"
+is_counter_item = true
+metadata/_custom_type_script = "uid://wm1t8anytdyq"
